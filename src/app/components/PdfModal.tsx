@@ -1,5 +1,6 @@
 import { X, Download, ExternalLink } from "lucide-react";
 import { useEffect } from "react";
+import { PdfPreview } from "./PdfPreview";
 
 interface PdfModalProps {
   isOpen: boolean;
@@ -94,24 +95,8 @@ export function PdfModal({ isOpen, onClose, title, date, source, pdfUrl }: PdfMo
         {/* PDF Preview */}
         <div className="flex-1 p-4 overflow-auto bg-neutral-50">
           {viewerUrl ? (
-            <div className="h-full bg-white border border-neutral-200">
-              <object
-                data={viewerUrl}
-                type="application/pdf"
-                className="w-full h-full min-h-[70vh]"
-              >
-                <div className="h-full flex flex-col items-center justify-center px-8 text-center">
-                  <p className="text-neutral-700 mb-4">
-                    Seu navegador não conseguiu renderizar o PDF nesta visualização.
-                  </p>
-                  <button
-                    onClick={openInNewTab}
-                    className="px-5 py-2 bg-black text-white text-sm font-mono hover:bg-neutral-800 transition-colors"
-                  >
-                    ABRIR PDF NA FONTE OFICIAL
-                  </button>
-                </div>
-              </object>
+            <div className="h-full bg-white border border-neutral-200 min-h-[70vh]">
+              <PdfPreview pdfUrl={viewerUrl} />
             </div>
           ) : (
             <div className="max-w-3xl mx-auto bg-white border border-neutral-200 p-8">
