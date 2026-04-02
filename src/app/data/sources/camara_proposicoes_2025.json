@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-04-02T20:53:00",
+  "source": "camara_municipal_pedreira",
+  "scraper_version": "2.0",
+  "url_pattern": "https://www.camarapedreira.sp.gov.br/proposicoeslegislativas/{offset}?ano={ano}",
+  "total": 820,
+  "stats": {
+    "by_subtype": {"PLO": 108, "REQ": 201, "ATA": 40, "MOC": 153, "IND": 306, "EMA": 2, "VET": 2, "PLC": 8},
+    "by_month": {"1": 76, "2": 96, "3": 64, "4": 79, "5": 94, "6": 76, "7": 73, "8": 71, "9": 52, "10": 73, "11": 48, "12": 18},
+    "by_risk": {"high": 74, "low": 710, "medium": 32, "critical": 4},
+    "by_status": {"published": 422, "pending": 398}
+  }
+}
