@@ -140,14 +140,14 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
 
   return (
     <div ref={containerRef} className="h-full flex flex-col">
-      <div className="flex items-center justify-between px-3 py-2 border-b border-neutral-200 bg-white">
-        <p className="text-xs font-mono text-neutral-600">{statusText}</p>
-        <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b border-neutral-200 bg-white">
+        <p className="text-xs font-mono text-neutral-600 break-words">{statusText}</p>
+        <div className="flex items-center gap-2 ml-auto">
           <button
             type="button"
             onClick={() => setPageNumber((prev) => Math.max(1, prev - 1))}
             disabled={disablePrevious}
-            className="px-3 py-1 border border-neutral-300 text-xs font-mono disabled:text-neutral-400 disabled:border-neutral-200"
+            className="px-2.5 py-1 border border-neutral-300 text-[11px] sm:text-xs font-mono disabled:text-neutral-400 disabled:border-neutral-200"
           >
             ANTERIOR
           </button>
@@ -155,7 +155,7 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
             type="button"
             onClick={() => setPageNumber((prev) => Math.min(numPages, prev + 1))}
             disabled={disableNext}
-            className="px-3 py-1 border border-neutral-300 text-xs font-mono disabled:text-neutral-400 disabled:border-neutral-200"
+            className="px-2.5 py-1 border border-neutral-300 text-[11px] sm:text-xs font-mono disabled:text-neutral-400 disabled:border-neutral-200"
           >
             PROXIMA
           </button>

@@ -44,10 +44,23 @@ export function PdfModal({ isOpen, onClose, title, date, source, pdfUrl }: PdfMo
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-3">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/50"
@@ -55,47 +68,51 @@ export function PdfModal({ isOpen, onClose, title, date, source, pdfUrl }: PdfMo
       />
 
       {/* Modal */}
-      <div className="relative bg-white w-full h-full md:w-[90vw] md:h-[90vh] md:max-w-6xl flex flex-col">
+      <div className="relative bg-white w-full h-[100dvh] sm:h-[min(90dvh,900px)] sm:w-[90vw] sm:max-w-6xl flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-neutral-200">
-          <div className="flex-1 pr-4">
-            <h2 className="font-mono text-lg mb-1">{title}</h2>
-            <div className="flex items-center space-x-4 text-xs text-neutral-600">
+        <div className="flex flex-col gap-3 p-3 sm:p-4 border-b border-neutral-200">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex-1 min-w-0">
+              <h2 className="font-mono text-sm sm:text-lg mb-1 break-words">{title}</h2>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] sm:text-xs text-neutral-600">
               {date && <span>{new Date(date).toLocaleDateString('pt-BR')}</span>}
               {source && <span>{source}</span>}
+              </div>
             </div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={openInNewTab}
-              disabled={!canOpenUrl}
-              className="p-2 hover:bg-neutral-100 transition-colors"
-              aria-label="Abrir em nova aba"
-            >
-              <ExternalLink className="w-5 h-5" />
-            </button>
-            <button
-              onClick={downloadDocument}
-              disabled={!canOpenUrl}
-              className="p-2 hover:bg-neutral-100 transition-colors"
-              aria-label="Download"
-            >
-              <Download className="w-5 h-5" />
-            </button>
             <button
               onClick={onClose}
               className="p-2 hover:bg-neutral-100 transition-colors"
               aria-label="Fechar"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={openInNewTab}
+              disabled={!canOpenUrl}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 border border-neutral-300 hover:bg-neutral-100 transition-colors text-[11px] sm:text-xs font-mono"
+              aria-label="Abrir em nova aba"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span>Nova aba</span>
+            </button>
+            <button
+              onClick={downloadDocument}
+              disabled={!canOpenUrl}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 border border-neutral-300 hover:bg-neutral-100 transition-colors text-[11px] sm:text-xs font-mono"
+              aria-label="Download"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download</span>
             </button>
           </div>
         </div>
 
         {/* PDF Preview */}
-        <div className="flex-1 p-4 overflow-auto bg-neutral-50">
+        <div className="flex-1 p-2 sm:p-4 overflow-auto bg-neutral-50 min-h-0">
           {viewerUrl ? (
-            <div className="h-full bg-white border border-neutral-200 min-h-[70vh]">
+            <div className="h-full bg-white border border-neutral-200 min-h-[40dvh] sm:min-h-[70vh]">
               <PdfPreview pdfUrl={viewerUrl} />
             </div>
           ) : (

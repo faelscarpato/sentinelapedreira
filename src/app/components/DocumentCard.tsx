@@ -59,7 +59,7 @@ export function DocumentCard({ document, onViewOriginal, onViewAnalysis }: Docum
                 </span>
               )}
             </div>
-            <h3 className="font-mono text-base group-hover:underline">
+            <h3 className="font-mono text-base group-hover:underline break-words">
               {document.title}
             </h3>
           </div>
@@ -88,7 +88,7 @@ export function DocumentCard({ document, onViewOriginal, onViewAnalysis }: Docum
             {document.tags.slice(0, 3).map((tag, idx) => (
               <span
                 key={idx}
-                className="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs font-mono"
+                className="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs font-mono break-all"
               >
                 {tag}
               </span>
