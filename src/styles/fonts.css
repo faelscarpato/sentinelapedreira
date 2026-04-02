@@ -1,0 +1,7 @@
+/* Import Google Fonts for monospace design */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* Apply fonts globally */
+.font-mono {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
