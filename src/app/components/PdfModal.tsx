@@ -91,43 +91,38 @@ export function PdfModal({ isOpen, onClose, title, date, source, pdfUrl }: PdfMo
           </div>
         </div>
 
-        {/* PDF Actions */}
+        {/* PDF Preview */}
         <div className="flex-1 p-4 overflow-auto bg-neutral-50">
-          <div className="max-w-3xl mx-auto bg-white border border-neutral-200 p-8">
-            <div className="flex flex-col items-center justify-center py-12 text-center">
-              <div className="w-16 h-16 bg-neutral-100 flex items-center justify-center mb-4">
-                <ExternalLink className="w-8 h-8 text-neutral-400" />
-              </div>
-              <p className="text-neutral-800 mb-2 font-mono">VISUALIZAÇÃO SEGURA</p>
-              <p className="text-neutral-600 mb-6">
-                Este sistema não incorpora sites externos em iframe.
-                Abra o documento na fonte oficial.
-              </p>
-
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <button
-                  onClick={openInNewTab}
-                  disabled={!canOpenUrl}
-                  className="px-5 py-2 bg-black text-white text-sm font-mono hover:bg-neutral-800 disabled:bg-neutral-300 disabled:text-neutral-600 transition-colors"
-                >
-                  ABRIR FONTE OFICIAL
-                </button>
-                <button
-                  onClick={downloadDocument}
-                  disabled={!canOpenUrl}
-                  className="px-5 py-2 border border-black text-black text-sm font-mono hover:bg-black hover:text-white disabled:border-neutral-300 disabled:text-neutral-400 transition-colors"
-                >
-                  BAIXAR PDF
-                </button>
-              </div>
-
-              {!viewerUrl && (
-                <p className="text-sm text-neutral-500 mt-4">
-                  Link original indisponível para este documento.
-                </p>
-              )}
+          {viewerUrl ? (
+            <div className="h-full bg-white border border-neutral-200">
+              <object
+                data={viewerUrl}
+                type="application/pdf"
+                className="w-full h-full min-h-[70vh]"
+              >
+                <div className="h-full flex flex-col items-center justify-center px-8 text-center">
+                  <p className="text-neutral-700 mb-4">
+                    Seu navegador não conseguiu renderizar o PDF nesta visualização.
+                  </p>
+                  <button
+                    onClick={openInNewTab}
+                    className="px-5 py-2 bg-black text-white text-sm font-mono hover:bg-neutral-800 transition-colors"
+                  >
+                    ABRIR PDF NA FONTE OFICIAL
+                  </button>
+                </div>
+              </object>
             </div>
-          </div>
+          ) : (
+            <div className="max-w-3xl mx-auto bg-white border border-neutral-200 p-8">
+              <div className="flex flex-col items-center justify-center py-12 text-center">
+                <div className="w-16 h-16 bg-neutral-100 flex items-center justify-center mb-4">
+                  <ExternalLink className="w-8 h-8 text-neutral-400" />
+                </div>
+                <p className="text-neutral-700">Link do PDF indisponível para este documento.</p>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
