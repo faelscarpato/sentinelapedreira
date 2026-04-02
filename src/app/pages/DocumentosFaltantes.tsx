@@ -4,8 +4,8 @@ import { useNavigate } from "react-router";
 import { DocumentCard } from "../components/DocumentCard";
 import { PaginationControls } from "../components/PaginationControls";
 import { PdfModal } from "../components/PdfModal";
-import { documentosFaltantes } from "../data/mockData";
-import type { Document } from "../data/mockData";
+import { documentosFaltantes } from "../data/realData";
+import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
 
 const PAGE_SIZE = 12;
@@ -173,3 +173,4 @@ export function DocumentosFaltantes() {
     </div>
   );
 }
+

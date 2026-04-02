@@ -3,7 +3,7 @@ import { ArrowLeft, Download, Share2, FileText, Calendar, ShieldCheck } from "lu
 import { useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { reports } from "../data/mockData";
+import { reports } from "../data/realData";
 
 export function RelatorioDetalhes() {
   const { id } = useParams();
@@ -220,3 +220,4 @@ export function RelatorioDetalhes() {
     </div>
   );
 }
+

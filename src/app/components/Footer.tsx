@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { Shield } from "lucide-react";
-import { lastUpdatedAt } from "../data/mockData";
+import { lastUpdatedAt } from "../data/realData";
 
 function formatDate(date: string) {
   return new Date(`${date}T12:00:00`).toLocaleDateString("pt-BR");
@@ -111,3 +111,4 @@ export function Footer() {
     </footer>
   );
 }
+

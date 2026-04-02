@@ -1,3 +1,6 @@
+// ===================================================================
+// routes.tsx — Rotas atualizadas com Rastreabilidade
+// ===================================================================
 import { createBrowserRouter } from "react-router";
 import { Home } from "./pages/Home";
 import { DiarioOficial } from "./pages/DiarioOficial";

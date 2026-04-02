@@ -3,9 +3,10 @@ import { Link, useNavigate } from "react-router";
 import { ChevronLeft, ChevronRight, AlertTriangle, FileText, Scale, Building, Shield, TrendingUp, ArrowRight } from "lucide-react";
 import { DocumentCard } from "../components/DocumentCard";
 import { PdfModal } from "../components/PdfModal";
-import { featuredDocuments, diarioOficialDocuments, camaraDocuments, contasPublicasDocuments, controleExternoDocuments, documentosFaltantes } from "../data/mockData";
-import type { Document } from "../data/mockData";
+import { featuredDocuments, diarioOficialDocuments, camaraDocuments, contasPublicasDocuments, controleExternoDocuments, documentosFaltantes } from "../data/realData";
+import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
+import { openAssistantChat } from "../lib/assistantEvents";
 
 export function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -289,12 +290,13 @@ export function Home() {
             Tire dúvidas sobre leis municipais, projetos em andamento e documentos públicos.
             Respostas baseadas em informações oficiais e legislação vigente.
           </p>
-          <Link
-            to="/assistente"
+          <button
+            type="button"
+            onClick={openAssistantChat}
             className="inline-block px-8 py-3 bg-white text-black font-mono hover:bg-neutral-200 transition-colors"
           >
             ACESSAR ASSISTENTE
-          </Link>
+          </button>
         </div>
       </section>
 
@@ -310,3 +312,4 @@ export function Home() {
     </div>
   );
 }
+

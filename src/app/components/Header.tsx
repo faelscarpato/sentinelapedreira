@@ -1,13 +1,14 @@
 import { Link, useLocation, useNavigate } from "react-router";
 import { Search, Menu, X, AlertCircle, FileText, ChevronDown } from "lucide-react";
-import { useMemo, useState } from "react";
-import type { FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { FormEvent, MouseEvent } from "react";
 import {
   allDocuments,
   reports,
   documentosFaltantes,
   categoryRouteByLabel,
-} from "../data/mockData";
+} from "../data/realData";
+import { openAssistantChat } from "../lib/assistantEvents";
 
 interface SearchResult {
   id: string;
@@ -35,6 +36,7 @@ export function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [openGroupId, setOpenGroupId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const closeDropdownTimeoutRef = useRef<number | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -71,13 +73,31 @@ export function Header() {
       id: "inteligencia",
       name: "Inteligência",
       items: [
-        { name: "Assistente Jurídico", href: "/assistente", description: "Consulta guiada" },
+        { name: "Assistente Jurídico", href: "/assistente", description: "IA com Groq" },
         { name: "Radar de Transparência", href: "/documentos-faltantes", description: "Monitoramento de lacunas" },
       ],
     },
   ];
 
   const normalizedSearch = searchTerm.trim().toLowerCase();
+
+  const clearCloseDropdownTimer = () => {
+    if (closeDropdownTimeoutRef.current !== null) {
+      window.clearTimeout(closeDropdownTimeoutRef.current);
+      closeDropdownTimeoutRef.current = null;
+    }
+  };
+
+  const scheduleDropdownClose = () => {
+    clearCloseDropdownTimer();
+    closeDropdownTimeoutRef.current = window.setTimeout(() => {
+      setOpenGroupId(null);
+    }, 180);
+  };
+
+  useEffect(() => {
+    return () => clearCloseDropdownTimer();
+  }, []);
 
   const searchResults = useMemo<SearchResult[]>(() => {
     if (normalizedSearch.length < 2) return [];
@@ -152,6 +172,18 @@ export function Header() {
     setMobileMenuOpen(false);
   };
 
+  const handleAssistantShortcut = () => {
+    openAssistantChat();
+    setOpenGroupId(null);
+    setMobileMenuOpen(false);
+  };
+
+  const handleGroupedItemClick = (event: MouseEvent, item: NavigationItem) => {
+    if (item.href !== "/assistente") return;
+    event.preventDefault();
+    handleAssistantShortcut();
+  };
+
   const handleSearchSubmit = (event: FormEvent) => {
     event.preventDefault();
     const firstResult = searchResults[0];
@@ -194,8 +226,11 @@ export function Header() {
               <div
                 key={group.id}
                 className="relative"
-                onMouseEnter={() => setOpenGroupId(group.id)}
-                onMouseLeave={() => setOpenGroupId(null)}
+                onMouseEnter={() => {
+                  clearCloseDropdownTimer();
+                  setOpenGroupId(group.id);
+                }}
+                onMouseLeave={scheduleDropdownClose}
               >
                 <button
                   type="button"
@@ -210,20 +245,29 @@ export function Header() {
                 </button>
 
                 {openGroupId === group.id && (
-                  <div className="absolute left-0 top-full mt-2 w-[320px] border border-neutral-200 bg-white shadow-sm z-50">
-                    {group.items.map((item) => (
-                      <Link
-                        key={item.href}
-                        to={item.href}
-                        onClick={() => setOpenGroupId(null)}
-                        className="block px-4 py-3 border-b border-neutral-100 last:border-b-0 hover:bg-neutral-50 transition-colors"
-                      >
-                        <p className="font-mono text-sm text-neutral-900">{item.name}</p>
-                        {item.description && (
-                          <p className="text-xs text-neutral-600 mt-1">{item.description}</p>
-                        )}
-                      </Link>
-                    ))}
+                  <div
+                    className="absolute left-0 top-full pt-1 w-[320px] z-50"
+                    onMouseEnter={clearCloseDropdownTimer}
+                    onMouseLeave={scheduleDropdownClose}
+                  >
+                    <div className="border border-neutral-200 bg-white shadow-sm">
+                      {group.items.map((item) => (
+                        <Link
+                          key={item.href}
+                          to={item.href}
+                          onClick={(event) => {
+                            handleGroupedItemClick(event, item);
+                            setOpenGroupId(null);
+                          }}
+                          className="block px-4 py-3 border-b border-neutral-100 last:border-b-0 hover:bg-neutral-50 transition-colors"
+                        >
+                          <p className="font-mono text-sm text-neutral-900">{item.name}</p>
+                          {item.description && (
+                            <p className="text-xs text-neutral-600 mt-1">{item.description}</p>
+                          )}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -248,12 +292,13 @@ export function Header() {
             >
               DENÚNCIA
             </Link>
-            <Link
-              to="/assistente"
+            <button
+              type="button"
+              onClick={handleAssistantShortcut}
               className="hidden md:block px-4 py-2 border border-black text-black text-sm font-mono hover:bg-black hover:text-white transition-colors"
             >
               AI ASSIST
-            </Link>
+            </button>
 
             {/* Mobile Menu Button */}
             <button
@@ -347,7 +392,10 @@ export function Header() {
                   <Link
                     key={item.href}
                     to={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(event) => {
+                      handleGroupedItemClick(event, item);
+                      setMobileMenuOpen(false);
+                    }}
                     className={`block px-3 py-2 text-sm font-mono transition-colors ${
                       isActive(item.href)
                         ? "bg-black text-white"
@@ -367,16 +415,17 @@ export function Header() {
             >
               FAZER DENÚNCIA
             </Link>
-            <Link
-              to="/assistente"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 border border-black text-black text-sm font-mono"
+            <button
+              type="button"
+              onClick={handleAssistantShortcut}
+              className="block w-full text-left px-3 py-2 border border-black text-black text-sm font-mono"
             >
               ASSISTENTE JURÍDICO
-            </Link>
+            </button>
           </nav>
         </div>
       )}
     </header>
   );
 }
+

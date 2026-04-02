@@ -1,4 +1,4 @@
-import type { Document } from "../data/mockData";
+import type { Document } from "../data/realData";
 
 export function isPdfDocument(document: Pick<Document, "originalUrl" | "previewMode">) {
   if (!document.originalUrl) return false;
@@ -10,3 +10,4 @@ export function openExternalSource(url?: string) {
   if (!url) return;
   window.open(url, "_blank", "noopener,noreferrer");
 }
+

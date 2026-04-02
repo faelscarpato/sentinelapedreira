@@ -4,8 +4,8 @@ import { useNavigate } from "react-router";
 import { DocumentCard } from "../components/DocumentCard";
 import { PdfModal } from "../components/PdfModal";
 import { PaginationControls } from "../components/PaginationControls";
-import { diarioOficialDocuments } from "../data/mockData";
-import type { Document } from "../data/mockData";
+import { diarioOficialDocuments } from "../data/realData";
+import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
 
 const PAGE_SIZE = 24;
@@ -182,3 +182,4 @@ export function DiarioOficial() {
     </div>
   );
 }
+

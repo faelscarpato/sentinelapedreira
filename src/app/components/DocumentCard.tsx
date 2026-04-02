@@ -1,5 +1,5 @@
 import { FileText, AlertTriangle, Clock, ExternalLink } from "lucide-react";
-import type { Document } from "../data/mockData";
+import type { Document } from "../data/realData";
 
 interface DocumentCardProps {
   document: Document;
@@ -120,3 +120,4 @@ export function DocumentCard({ document, onViewOriginal, onViewAnalysis }: Docum
     </div>
   );
 }
+

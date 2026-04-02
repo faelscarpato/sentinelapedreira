@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
 import { FileText, TrendingUp, AlertCircle, Clock } from "lucide-react";
-import { reports } from "../data/mockData";
+import { reports } from "../data/realData";
 
 export function Relatorios() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -161,3 +161,4 @@ export function Relatorios() {
     </div>
   );
 }
+
