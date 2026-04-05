@@ -65,6 +65,11 @@ const baseDocuments: CamaraPublicDocument[] = camaraPublicFiles
     const analysisUrl = file.hasReport ? buildCamaraAnalysisRouteFromRef(ref) : undefined;
     const tipoNome = CAMARA_TYPE_LABELS[camaraType];
     const remote = remoteByKey.get(`${camaraType}:${file.number}:${file.year}`);
+    const remoteOriginalUrl = remote?.originalUrl;
+    const resolvedOriginalUrl =
+      remoteOriginalUrl && /\.pdf(\?|#|$)/i.test(remoteOriginalUrl)
+        ? remoteOriginalUrl
+        : file.pdfPath;
     const date = remote?.date ?? parseDateFromFileName(file.fileName, file.year);
 
     return {
@@ -83,7 +88,7 @@ const baseDocuments: CamaraPublicDocument[] = camaraPublicFiles
       month: Number(date.slice(5, 7)),
       tags: [camaraType, tipoNome, file.hasReport ? "Relatorio publicado" : "Analise em andamento"],
       sourceEntity: remote?.sourceEntity ?? "Câmara Municipal de Pedreira",
-      originalUrl: remote?.originalUrl,
+      originalUrl: resolvedOriginalUrl,
       previewMode: "pdf",
       analysisUrl,
       hasAnalysis: file.hasReport,
