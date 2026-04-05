@@ -13,14 +13,13 @@ interface PdfPreviewProps {
 export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const isDirectPdf = useMemo(() => /\.pdf(\?|#|$)/i.test(pdfUrl), [pdfUrl]);
 
   const [pdfDocument, setPdfDocument] = useState<any | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [numPages, setNumPages] = useState(0);
+  const [viewerMode, setViewerMode] = useState<"pdf" | "web">("pdf");
   const [isLoading, setIsLoading] = useState(true);
   const [isRendering, setIsRendering] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [containerWidth, setContainerWidth] = useState(0);
 
   useEffect(() => {
@@ -41,21 +40,17 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
   useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
-    setError(null);
     setPageNumber(1);
     setPdfDocument(null);
     setNumPages(0);
-
-    if (!isDirectPdf) {
-      setIsLoading(false);
-      return () => {
-        isMounted = false;
-      };
-    }
+    setViewerMode("pdf");
 
     const loadingTask = pdfjsLib.getDocument({
       url: pdfUrl,
       withCredentials: false,
+      disableRange: true,
+      disableStream: true,
+      disableAutoFetch: true,
     });
 
     loadingTask.promise
@@ -63,10 +58,11 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
         if (!isMounted) return;
         setPdfDocument(document);
         setNumPages(document.numPages || 0);
+        setViewerMode("pdf");
       })
       .catch(() => {
         if (!isMounted) return;
-        setError("Nao foi possivel carregar este PDF no visualizador interno.");
+        setViewerMode("web");
       })
       .finally(() => {
         if (isMounted) {
@@ -78,11 +74,11 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
       isMounted = false;
       loadingTask.destroy();
     };
-  }, [isDirectPdf, pdfUrl]);
+  }, [pdfUrl]);
 
   useEffect(() => {
     let isMounted = true;
-    if (!pdfDocument || !canvasRef.current || containerWidth <= 0) return;
+    if (viewerMode !== "pdf" || !pdfDocument || !canvasRef.current || containerWidth <= 0) return;
 
     const renderPage = async () => {
       setIsRendering(true);
@@ -112,9 +108,7 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
 
         await page.render(renderContext).promise;
       } catch {
-        if (isMounted) {
-          setError("Falha ao renderizar a pagina do PDF neste dispositivo.");
-        }
+        if (isMounted) setViewerMode("web");
       } finally {
         if (isMounted) {
           setIsRendering(false);
@@ -127,32 +121,23 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
     return () => {
       isMounted = false;
     };
-  }, [containerWidth, pageNumber, pdfDocument]);
+  }, [containerWidth, pageNumber, pdfDocument, viewerMode]);
 
   const disablePrevious = pageNumber <= 1 || isLoading || isRendering;
   const disableNext = pageNumber >= numPages || isLoading || isRendering;
 
   const statusText = useMemo(() => {
-    if (!isDirectPdf) return "Visualizacao web do documento.";
+    if (viewerMode === "web") return "Visualizacao web do documento.";
     if (isLoading) return "Carregando PDF...";
-    if (error) return error;
     if (!numPages) return "PDF sem paginas para visualizacao.";
     return `Pagina ${pageNumber} de ${numPages}`;
-  }, [error, isDirectPdf, isLoading, numPages, pageNumber]);
-
-  if (error) {
-    return (
-      <div className="h-full flex flex-col items-center justify-center text-center px-6">
-        <p className="text-sm text-neutral-700">{statusText}</p>
-      </div>
-    );
-  }
+  }, [isLoading, numPages, pageNumber, viewerMode]);
 
   return (
     <div ref={containerRef} className="h-full flex flex-col">
       <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b border-neutral-200 bg-white">
         <p className="text-xs font-mono text-neutral-600 break-words">{statusText}</p>
-        {isDirectPdf && (
+        {viewerMode === "pdf" && (
         <div className="flex items-center gap-2 ml-auto">
           <button
             type="button"
@@ -176,7 +161,7 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
 
       <div className="flex-1 overflow-auto bg-neutral-100 p-3">
         <div className="min-h-full flex items-center justify-center">
-          {!isDirectPdf ? (
+          {viewerMode === "web" ? (
             <iframe
               title="Visualizacao do documento"
               src={pdfUrl}

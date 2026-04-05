@@ -65,11 +65,7 @@ const baseDocuments: CamaraPublicDocument[] = camaraPublicFiles
     const analysisUrl = file.hasReport ? buildCamaraAnalysisRouteFromRef(ref) : undefined;
     const tipoNome = CAMARA_TYPE_LABELS[camaraType];
     const remote = remoteByKey.get(`${camaraType}:${file.number}:${file.year}`);
-    const remoteOriginalUrl = remote?.originalUrl;
-    const resolvedOriginalUrl =
-      remoteOriginalUrl && /\.pdf(\?|#|$)/i.test(remoteOriginalUrl)
-        ? remoteOriginalUrl
-        : file.pdfPath;
+    const resolvedOriginalUrl = remote?.originalUrl;
     const date = remote?.date ?? parseDateFromFileName(file.fileName, file.year);
 
     return {
