@@ -5,6 +5,19 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getCamaraPublicFileBySlug, parseCamaraAnalysisSlug } from "../lib/camaraAnalysis";
 
+function hasTechnicalMetadataBlock(markdown: string) {
+  const normalized = markdown.toLowerCase();
+  return (
+    /(^|\n)\s*##\s*metadados\b/i.test(markdown) ||
+    /(^|\n)\s*-?\s*source_id\s*:/i.test(markdown) ||
+    /(^|\n)\s*-?\s*extraction_file\s*:/i.test(markdown) ||
+    /(^|\n)\s*-?\s*report_file\s*:/i.test(markdown) ||
+    /(^|\n)\s*-?\s*url_origem\s*:/i.test(markdown) ||
+    normalized.includes("modo_extracao:") ||
+    normalized.includes("tamanho_chars:")
+  );
+}
+
 export function CamaraAnaliseDetalhes() {
   const { slug } = useParams();
   const analysisRef = useMemo(() => parseCamaraAnalysisSlug(slug), [slug]);
@@ -48,6 +61,11 @@ export function CamaraAnaliseDetalhes() {
       })
       .then((content) => {
         if (!active) return;
+        if (hasTechnicalMetadataBlock(content)) {
+          setMarkdownContent("");
+          setErrorMessage("Analise em andamento");
+          return;
+        }
         setMarkdownContent(content);
       })
       .catch(() => {

@@ -13,7 +13,7 @@ export function RelatorioDetalhes() {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <FileText className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
-          <h2 className="text-2xl font-mono mb-2">Relatorio nao encontrado</h2>
+          <h2 className="text-2xl font-mono mb-2">Analise em andamento</h2>
           <Link to="/relatorios" className="text-sm hover:underline">
             Voltar para relatorios
           </Link>

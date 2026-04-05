@@ -74,7 +74,6 @@ export function Header() {
       name: "Inteligência",
       items: [
         { name: "Assistente Jurídico", href: "/assistente", description: "IA com Groq" },
-        { name: "Rastreabilidade Financeira", href: "/rastreabilidade", description: "Fluxo de recursos e riscos" },
         { name: "Radar de Transparência", href: "/documentos-faltantes", description: "Monitoramento de lacunas" },
       ],
     },

@@ -805,9 +805,17 @@ const supplementalDocuments = [
 const allDocumentsBase = sortDocuments(
   dedupeByUrl(dedupeDocuments([...normalizedBaseDocuments, ...supplementalDocuments])),
 );
-export const allDocuments: Document[] = allDocumentsBase;
-export const reports: Report[] = reportsBase.map(toFrontendReport);
-export const documentosFaltantes: Document[] = missingDocumentsBase.map(toMissingDocument);
+function applyTemporaryAnalysisRules(document: Document): Document {
+  return {
+    ...document,
+    analysisUrl: undefined,
+    hasAnalysis: false,
+  };
+}
+
+export const allDocuments: Document[] = allDocumentsBase.map(applyTemporaryAnalysisRules);
+export const reports: Report[] = [];
+export const documentosFaltantes: Document[] = [];
 
 function byCategory(category: BaseDocument["category"]) {
   return allDocuments.filter((document) => document.categoryKey === category);
@@ -816,7 +824,7 @@ function byCategory(category: BaseDocument["category"]) {
 export const diarioOficialDocuments = byCategory("diario-oficial");
 export const camaraDocuments = byCategory("camara-legislativa");
 export const contasPublicasDocuments = byCategory("contas-publicas");
-export const controleExternoDocuments = byCategory("controle-externo");
+export const controleExternoDocuments: Document[] = [];
 export const repassesDocuments = byCategory("repasses");
 export const terceiroSetorDocuments = byCategory("terceiro-setor");
 
