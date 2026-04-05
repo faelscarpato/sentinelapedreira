@@ -1,0 +1,1 @@
+agora vc deve abrir p arquivo diario_oficial_pedreira.json e baixar os PDF e depois realisar uma analise e identificar se todos os arquivos analisados anteriormente sao citados nos diarios analisados. identifique quais nao foram e depois crie um relatorio se baseando nas leis da nao divukgacao .
