@@ -1,4 +1,5 @@
 import { fiscalizaData } from "./generated/fiscalizaData";
+import { pipelineReports, pipelineUpdatedAt } from "./generated/pipelineReports";
 import prestacaoSource0 from "./sources/prestacao-2026-04-02-0.json";
 import prestacaoSource1 from "./sources/prestacao-2026-04-02-1.json";
 import prestacaoSource2 from "./sources/prestacao-2026-04-02-2.json";
@@ -8,7 +9,7 @@ import portaisSource from "./sources/pedreira_portais_coleta.json";
 
 type BaseDocument = (typeof fiscalizaData.documents)[number];
 type BaseMissingDocument = (typeof fiscalizaData.missingDocuments)[number];
-type BaseReport = (typeof fiscalizaData.reports)[number];
+type PipelineReportRow = (typeof pipelineReports)[number];
 type PrestacaoSourceRow = Record<string, unknown>;
 type PortalSourceRow = {
   fonte?: string;
@@ -58,7 +59,22 @@ export interface Report {
 
 const documents = fiscalizaData.documents as BaseDocument[];
 const missingDocumentsBase = fiscalizaData.missingDocuments as BaseMissingDocument[];
-const reportsBase = fiscalizaData.reports as BaseReport[];
+const reportsBase = [
+  ...(pipelineReports as unknown as Array<{
+    id: string;
+    title: string;
+    category: string;
+    date: string;
+    summary: string;
+    tags: string[];
+    markdown: string;
+    sources: string[];
+    confidence: string;
+    relatedDocumentIds: string[];
+  }>),
+];
+const effectiveUpdatedAt =
+  fiscalizaData.updatedAt > pipelineUpdatedAt ? fiscalizaData.updatedAt : pipelineUpdatedAt;
 
 const categoryLabel: Record<BaseDocument["category"], string> = {
   "diario-oficial": "Diário Oficial",
@@ -86,20 +102,15 @@ export const categoryRouteByLabel: Record<string, string> = Object.entries(categ
   {} as Record<string, string>,
 );
 
-const categoryReportFallback: Partial<Record<BaseDocument["category"], string>> = {
-  "diario-oficial": "relatorio-radar-diario-oficial",
-  "camara-legislativa": "relatorio-radar-legislativo",
-  "contas-publicas": "relatorio-painel-orcamentario-2025",
-  "controle-externo": "relatorio-radar-controle-externo",
-  repasses: "relatorio-radar-repasses",
-  "terceiro-setor": "relatorio-radar-terceiro-setor",
-};
-
 const reportByRelatedDocumentId = new Map<string, string>();
 for (const report of reportsBase) {
   for (const documentId of report.relatedDocumentIds) {
     if (!reportByRelatedDocumentId.has(documentId)) {
       reportByRelatedDocumentId.set(documentId, report.id);
+    }
+    const normalized = normalizeDocumentIdKey(documentId);
+    if (!reportByRelatedDocumentId.has(normalized)) {
+      reportByRelatedDocumentId.set(normalized, report.id);
     }
   }
 }
@@ -144,6 +155,19 @@ function slugify(value: string) {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
+}
+
+function normalizeDocumentIdKey(value: string) {
+  return value.replace(/-\d{4}-\d{2}-\d{2}$/, "");
+}
+
+function resolveReportPathByDocumentId(documentId: string) {
+  const normalizedDocumentId = normalizeDocumentIdKey(documentId);
+  const relatedReportId =
+    reportByRelatedDocumentId.get(documentId) ??
+    reportByRelatedDocumentId.get(normalizedDocumentId);
+  if (relatedReportId) return `/relatorios/${relatedReportId}`;
+  return undefined;
 }
 
 function asNonEmptyString(value: unknown) {
@@ -415,10 +439,6 @@ function buildSupplementalPrestacaoDocuments() {
     },
   ];
 
-  const analysisUrl = categoryReportFallback["contas-publicas"]
-    ? `/relatorios/${categoryReportFallback["contas-publicas"]}`
-    : undefined;
-
   const indexed = new Map<string, Document>();
   const baseDate = "2026-04-02";
 
@@ -436,6 +456,7 @@ function buildSupplementalPrestacaoDocuments() {
         itemIndex + 1,
         slugify(item.title).slice(0, 48) || `item-${itemIndex + 1}`,
       ].join("-");
+      const analysisUrl = resolveReportPathByDocumentId(generatedId);
 
       const document: Document = {
         id: generatedId,
@@ -471,11 +492,8 @@ function buildSupplementalPrestacaoDocuments() {
 
 function buildPortalContasDocuments() {
   const rows = portaisSource as PortalSourceRow[];
-  const analysisUrl = categoryReportFallback["contas-publicas"]
-    ? `/relatorios/${categoryReportFallback["contas-publicas"]}`
-    : undefined;
 
-  const baseYear = Number(fiscalizaData.updatedAt.slice(0, 4));
+  const baseYear = Number(effectiveUpdatedAt.slice(0, 4));
   const indexed = new Map<string, Document>();
 
   rows.forEach((row, rowIndex) => {
@@ -503,6 +521,7 @@ function buildPortalContasDocuments() {
       rowIndex + 1,
       slugify(title).slice(0, 40) || `item-${rowIndex + 1}`,
     ].join("-");
+    const analysisUrl = resolveReportPathByDocumentId(generatedId);
 
     const previewMode = inferPreviewMode(normalizedUrl, "external");
     const document: Document = {
@@ -514,7 +533,7 @@ function buildPortalContasDocuments() {
       subtype: inferPortalSubtype(title, normalizedUrl),
       title,
       summary,
-      date: fiscalizaData.updatedAt,
+      date: effectiveUpdatedAt,
       year,
       month: 1,
       tags: [
@@ -543,10 +562,6 @@ function buildPortalContasDocuments() {
 }
 
 function buildSupplementalLeiOrganicaDocuments() {
-  const analysisUrl = categoryReportFallback["camara-legislativa"]
-    ? `/relatorios/${categoryReportFallback["camara-legislativa"]}`
-    : undefined;
-
   const files = [
     {
       id: "lei-organica-lc-2260-2001",
@@ -574,39 +589,100 @@ function buildSupplementalLeiOrganicaDocuments() {
     },
   ];
 
-  return files.map((file) => ({
-    id: file.id,
-    source: "lei-organica-local",
-    domain: "pedreira.sp.gov.br",
-    categoryKey: "camara-legislativa",
-    category: "Câmara Legislativa",
-    subtype: "Lei Orgânica",
-    title: file.title,
-    summary: "Documento normativo municipal disponibilizado em PDF para leitura direta no portal.",
-    date: "2026-04-02",
-    year: 2026,
-    month: 4,
-    tags: [...file.tags, "PDF oficial"],
-    sourceEntity: "Legislação Municipal de Pedreira",
-    originalUrl: file.file,
-    previewMode: "pdf" as const,
-    analysisUrl,
-    hasAnalysis: Boolean(analysisUrl),
-    riskLevel: "low" as const,
-    isFeatured: false,
-    status: "published" as const,
-  }));
+  return files.map((file) => {
+    const analysisUrl = resolveReportPathByDocumentId(file.id);
+    return {
+      id: file.id,
+      source: "lei-organica-local",
+      domain: "pedreira.sp.gov.br",
+      categoryKey: "camara-legislativa",
+      category: "Câmara Legislativa",
+      subtype: "Lei Orgânica",
+      title: file.title,
+      summary: "Documento normativo municipal disponibilizado em PDF para leitura direta no portal.",
+      date: "2026-04-02",
+      year: 2026,
+      month: 4,
+      tags: [...file.tags, "PDF oficial"],
+      sourceEntity: "Legislação Municipal de Pedreira",
+      originalUrl: file.file,
+      previewMode: "pdf" as const,
+      analysisUrl,
+      hasAnalysis: Boolean(analysisUrl),
+      riskLevel: "low" as const,
+      isFeatured: false,
+      status: "published" as const,
+    };
+  });
 }
 
 function resolveReportPath(document: BaseDocument) {
-  const relatedReportId = reportByRelatedDocumentId.get(document.id);
-  if (relatedReportId) return `/relatorios/${relatedReportId}`;
+  return resolveReportPathByDocumentId(document.id);
+}
 
-  const fallbackReport = categoryReportFallback[document.category];
-  if (fallbackReport) return `/relatorios/${fallbackReport}`;
+function inferPipelineSubtype(report: PipelineReportRow) {
+  const text = `${report.id} ${report.title} ${report.tags.join(" ")}`.toLowerCase();
+  if (/\bplc\b/.test(text)) return "PLC";
+  if (/\bplo\b/.test(text) || /projeto de lei/.test(text)) return "PLO";
+  if (/\breq\b/.test(text) || /requerimento/.test(text)) return "REQ";
+  if (/\bind\b/.test(text) || /indica/.test(text)) return "IND";
+  if (/\bmoc\b/.test(text) || /mo[cç][aã]o/.test(text)) return "MOC";
+  if (/\bata\b/.test(text)) return "ATA";
+  if (/\bpdl\b/.test(text)) return "PDL";
+  if (/\bpr\b/.test(text) || /projeto de resolu/.test(text)) return "PR";
+  return "Documento Legislativo";
+}
 
-  const firstReport = reportsBase[0];
-  return firstReport ? `/relatorios/${firstReport.id}` : undefined;
+function inferPipelineRisk(tags: string[]): Document["riskLevel"] {
+  const normalized = tags.map((tag) => tag.toLowerCase());
+  if (normalized.includes("risco:critical")) return "critical";
+  if (normalized.includes("risco:high")) return "high";
+  if (normalized.includes("risco:medium")) return "medium";
+  return "low";
+}
+
+function pickPipelineSourceUrl(sources: string[]) {
+  const direct = sources.find((source) => /^https?:\/\//i.test(source));
+  return normalizeSourceUrl(direct);
+}
+
+function buildPipelineCamaraDocuments() {
+  const items: Document[] = [];
+  const baseDate = effectiveUpdatedAt;
+
+  for (const report of pipelineReports) {
+    if (report.category !== "Câmara Legislativa") continue;
+    if (!report.id.startsWith("analise-")) continue;
+
+    const reportDate = /^\d{4}-\d{2}-\d{2}$/.test(report.date) ? report.date : baseDate;
+    const sourceUrl = pickPipelineSourceUrl(report.sources);
+    const previewMode = inferPreviewMode(sourceUrl, "external");
+
+    items.push({
+      id: `pipeline-${report.id}`,
+      source: "pipeline-reports",
+      domain: sourceUrl ? new URL(sourceUrl).hostname : "sentinela.pedreira.sp",
+      categoryKey: "camara-legislativa",
+      category: "Câmara Legislativa",
+      subtype: inferPipelineSubtype(report),
+      title: report.title,
+      summary: report.summary,
+      date: reportDate,
+      year: Number(reportDate.slice(0, 4)),
+      month: Number(reportDate.slice(5, 7)),
+      tags: report.tags.slice(0, 6),
+      sourceEntity: "Sentinela Pedreira",
+      originalUrl: sourceUrl,
+      previewMode,
+      analysisUrl: `/relatorios/${report.id}`,
+      hasAnalysis: true,
+      riskLevel: inferPipelineRisk(report.tags),
+      isFeatured: false,
+      status: "published",
+    });
+  }
+
+  return items;
 }
 
 function toFrontendDocument(document: BaseDocument): Document {
@@ -639,7 +715,7 @@ function toFrontendDocument(document: BaseDocument): Document {
 function inferMissingYear(period: string) {
   const match = period.match(/\b(20\d{2})\b/);
   if (match) return Number(match[1]);
-  return Number(fiscalizaData.updatedAt.slice(0, 4));
+  return Number(effectiveUpdatedAt.slice(0, 4));
 }
 
 function toMissingRisk(status: BaseMissingDocument["status"]): Document["riskLevel"] {
@@ -650,7 +726,6 @@ function toMissingRisk(status: BaseMissingDocument["status"]): Document["riskLev
 
 function toMissingDocument(item: BaseMissingDocument, index: number): Document {
   const year = inferMissingYear(item.expectedPeriod);
-  const reportId = reportsBase.find((report) => report.id === "relatorio-radar-transparencia-ativa")?.id;
   const subtype = cleanPlaceholders(item.category) || "documento-faltante";
   const title = cleanPlaceholders(item.documentName) || `Documento faltante ${index + 1}`;
   const expectedPeriod = cleanPlaceholders(item.expectedPeriod);
@@ -670,28 +745,38 @@ function toMissingDocument(item: BaseMissingDocument, index: number): Document {
     subtype,
     title,
     summary,
-    date: fiscalizaData.updatedAt,
+    date: effectiveUpdatedAt,
     year,
     month: 1,
     tags: [normalizedStatus, subtype, expectedPeriod].filter(Boolean),
     sourceEntity: "Radar de Transparência",
     originalUrl: item.relatedUrl,
     previewMode: "external",
-    analysisUrl: reportId ? `/relatorios/${reportId}` : undefined,
-    hasAnalysis: Boolean(reportId),
+    analysisUrl: undefined,
+    hasAnalysis: false,
     riskLevel: toMissingRisk(item.status),
     isFeatured: true,
     status: "missing",
   };
 }
 
-function toReportConfidence(level: BaseReport["confidence"]): Report["confidenceLevel"] {
+function toReportConfidence(level: string): Report["confidenceLevel"] {
   if (level === "alta") return "high";
   if (level === "media") return "medium";
   return "preliminary";
 }
 
-function toFrontendReport(report: BaseReport): Report {
+function toFrontendReport(report: {
+  id: string;
+  title: string;
+  category: string;
+  date: string;
+  summary: string;
+  tags: string[];
+  markdown: string;
+  sources: string[];
+  confidence: string;
+}): Report {
   return {
     id: report.id,
     title: report.title,
@@ -714,11 +799,13 @@ const supplementalDocuments = [
   ...buildPortalContasDocuments(),
   ...buildSupplementalPrestacaoDocuments(),
   ...buildSupplementalLeiOrganicaDocuments(),
+  ...buildPipelineCamaraDocuments(),
 ];
 
-export const allDocuments: Document[] = sortDocuments(
+const allDocumentsBase = sortDocuments(
   dedupeByUrl(dedupeDocuments([...normalizedBaseDocuments, ...supplementalDocuments])),
 );
+export const allDocuments: Document[] = allDocumentsBase;
 export const reports: Report[] = reportsBase.map(toFrontendReport);
 export const documentosFaltantes: Document[] = missingDocumentsBase.map(toMissingDocument);
 
@@ -736,4 +823,4 @@ export const terceiroSetorDocuments = byCategory("terceiro-setor");
 export const featuredDocuments =
   allDocuments.filter((document) => document.isFeatured).slice(0, 8);
 
-export const lastUpdatedAt = fiscalizaData.updatedAt;
+export const lastUpdatedAt = effectiveUpdatedAt;

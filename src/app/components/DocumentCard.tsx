@@ -10,7 +10,7 @@ interface DocumentCardProps {
 export function DocumentCard({ document, onViewOriginal, onViewAnalysis }: DocumentCardProps) {
   const canViewOriginal = typeof onViewOriginal === "function";
   const canViewAnalysis = document.hasAnalysis && typeof onViewAnalysis === "function";
-  const originalActionLabel = document.previewMode === "pdf" ? "VER PDF" : "ABRIR FONTE";
+  const originalActionLabel = "VER PDF";
 
   const getRiskColor = (risk?: string) => {
     switch (risk) {

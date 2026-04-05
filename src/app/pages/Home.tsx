@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router";
 import { ChevronLeft, ChevronRight, AlertTriangle, FileText, Scale, Building, Shield, TrendingUp, ArrowRight } from "lucide-react";
 import { DocumentCard } from "../components/DocumentCard";
 import { PdfModal } from "../components/PdfModal";
-import { featuredDocuments, diarioOficialDocuments, camaraDocuments, contasPublicasDocuments, controleExternoDocuments, documentosFaltantes } from "../data/realData";
+import { featuredDocuments, diarioOficialDocuments, contasPublicasDocuments, controleExternoDocuments, documentosFaltantes } from "../data/realData";
+import { camaraPublicDocuments } from "../data/camaraPublicData";
 import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
 import { openAssistantChat } from "../lib/assistantEvents";
@@ -13,17 +14,18 @@ export function Home() {
   const [pdfModalOpen, setPdfModalOpen] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
   const navigate = useNavigate();
+  const featuredPdfDocuments = featuredDocuments.filter((document) => isPdfDocument(document));
 
-  const currentFeatured = featuredDocuments[currentSlide];
+  const currentFeatured = featuredPdfDocuments[currentSlide];
 
   const nextSlide = () => {
-    if (!featuredDocuments.length) return;
-    setCurrentSlide((prev) => (prev + 1) % featuredDocuments.length);
+    if (!featuredPdfDocuments.length) return;
+    setCurrentSlide((prev) => (prev + 1) % featuredPdfDocuments.length);
   };
 
   const prevSlide = () => {
-    if (!featuredDocuments.length) return;
-    setCurrentSlide((prev) => (prev - 1 + featuredDocuments.length) % featuredDocuments.length);
+    if (!featuredPdfDocuments.length) return;
+    setCurrentSlide((prev) => (prev - 1 + featuredPdfDocuments.length) % featuredPdfDocuments.length);
   };
 
   const handleViewOriginal = (doc: Document) => {
@@ -56,7 +58,7 @@ export function Home() {
       title: 'Câmara Legislativa',
       description: 'Projetos de lei e documentos',
       href: '/camara',
-      count: camaraDocuments.length
+      count: camaraPublicDocuments.length
     },
     {
       icon: TrendingUp,
@@ -115,7 +117,7 @@ export function Home() {
                     onClick={() => handleViewOriginal(currentFeatured)}
                     className="px-6 py-3 border border-white text-white font-mono text-sm hover:bg-white hover:text-black transition-colors"
                   >
-                    {currentFeatured.previewMode === "pdf" ? "VER PDF" : "ABRIR FONTE"}
+                    VER PDF
                   </button>
                 )}
                 {currentFeatured.hasAnalysis && (
@@ -137,7 +139,7 @@ export function Home() {
             {/* Navigation */}
             <div className="flex items-center justify-between mt-8">
               <div className="flex items-center space-x-2">
-                {featuredDocuments.map((_, idx) => (
+                {featuredPdfDocuments.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => setCurrentSlide(idx)}

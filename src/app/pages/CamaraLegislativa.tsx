@@ -4,41 +4,41 @@ import { useNavigate } from "react-router";
 import { DocumentCard } from "../components/DocumentCard";
 import { PdfModal } from "../components/PdfModal";
 import { PaginationControls } from "../components/PaginationControls";
-import { camaraDocuments } from "../data/realData";
-import type { Document } from "../data/realData";
-import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
+import {
+  camaraPublicDocuments,
+  camaraTypeOptions,
+  type CamaraPublicDocument,
+} from "../data/camaraPublicData";
+import { type CamaraTipoSigla } from "../lib/camaraAnalysis";
 
 const PAGE_SIZE = 24;
 
 export function CamaraLegislativa() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedType, setSelectedType] = useState("todos");
+  const [selectedType, setSelectedType] = useState<"todos" | CamaraTipoSigla>("todos");
   const [currentPage, setCurrentPage] = useState(1);
   const [pdfModalOpen, setPdfModalOpen] = useState(false);
-  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [selectedDocument, setSelectedDocument] = useState<CamaraPublicDocument | null>(null);
   const navigate = useNavigate();
 
-  const handleViewOriginal = (doc: Document) => {
+  const handleViewOriginal = (doc: CamaraPublicDocument) => {
     if (!doc.originalUrl) return;
-    if (isPdfDocument(doc)) {
-      setSelectedDocument(doc);
-      setPdfModalOpen(true);
-      return;
-    }
-
-    openExternalSource(doc.originalUrl);
+    setSelectedDocument(doc);
+    setPdfModalOpen(true);
   };
 
-  const handleViewAnalysis = (doc: Document) => {
+  const handleViewAnalysis = (doc: CamaraPublicDocument) => {
     if (doc.analysisUrl) {
       navigate(doc.analysisUrl);
     }
   };
 
-  const filteredDocuments = camaraDocuments.filter(doc => {
+  const filteredDocuments = camaraPublicDocuments.filter((doc) => {
     const matchesSearch = doc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         doc.summary.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = selectedType === "todos" || doc.subtype === selectedType;
+      doc.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.tipoNome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.camaraType.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesType = selectedType === "todos" || doc.camaraType === selectedType;
     return matchesSearch && matchesType;
   });
 
@@ -57,8 +57,6 @@ export function CamaraLegislativa() {
       setCurrentPage(totalPages);
     }
   }, [currentPage, totalPages]);
-
-  const types = Array.from(new Set(camaraDocuments.map(d => d.subtype).filter(Boolean)));
 
   return (
     <div className="min-h-screen bg-white">
@@ -102,29 +100,19 @@ export function CamaraLegislativa() {
               </label>
               <select
                 value={selectedType}
-                onChange={(e) => setSelectedType(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSelectedType(value === "todos" ? "todos" : (value as CamaraTipoSigla));
+                }}
                 className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black font-mono text-sm bg-white"
               >
                 <option value="todos">Todos os tipos</option>
-                {types.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
+                {camaraTypeOptions.map((type) => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
                   </option>
                 ))}
               </select>
-            </div>
-          </div>
-
-          {/* Info Badges */}
-          <div className="mt-6 flex flex-wrap gap-3">
-            <div className="px-3 py-2 bg-white border border-neutral-300 text-sm">
-              <span className="font-mono text-neutral-600">PLO:</span> Projeto de Lei Orçamentária
-            </div>
-            <div className="px-3 py-2 bg-white border border-neutral-300 text-sm">
-              <span className="font-mono text-neutral-600">PLC:</span> Projeto de Lei Complementar
-            </div>
-            <div className="px-3 py-2 bg-white border border-neutral-300 text-sm">
-              <span className="font-mono text-neutral-600">LO:</span> Lei Orçamentária
             </div>
           </div>
         </div>

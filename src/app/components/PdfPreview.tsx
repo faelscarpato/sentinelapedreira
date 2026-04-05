@@ -13,6 +13,7 @@ interface PdfPreviewProps {
 export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const isDirectPdf = useMemo(() => /\.pdf(\?|#|$)/i.test(pdfUrl), [pdfUrl]);
 
   const [pdfDocument, setPdfDocument] = useState<any | null>(null);
   const [pageNumber, setPageNumber] = useState(1);
@@ -43,6 +44,14 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
     setError(null);
     setPageNumber(1);
     setPdfDocument(null);
+    setNumPages(0);
+
+    if (!isDirectPdf) {
+      setIsLoading(false);
+      return () => {
+        isMounted = false;
+      };
+    }
 
     const loadingTask = pdfjsLib.getDocument({
       url: pdfUrl,
@@ -69,7 +78,7 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
       isMounted = false;
       loadingTask.destroy();
     };
-  }, [pdfUrl]);
+  }, [isDirectPdf, pdfUrl]);
 
   useEffect(() => {
     let isMounted = true;
@@ -124,11 +133,12 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
   const disableNext = pageNumber >= numPages || isLoading || isRendering;
 
   const statusText = useMemo(() => {
+    if (!isDirectPdf) return "Visualizacao web do documento.";
     if (isLoading) return "Carregando PDF...";
     if (error) return error;
     if (!numPages) return "PDF sem paginas para visualizacao.";
     return `Pagina ${pageNumber} de ${numPages}`;
-  }, [error, isLoading, numPages, pageNumber]);
+  }, [error, isDirectPdf, isLoading, numPages, pageNumber]);
 
   if (error) {
     return (
@@ -142,6 +152,7 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
     <div ref={containerRef} className="h-full flex flex-col">
       <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b border-neutral-200 bg-white">
         <p className="text-xs font-mono text-neutral-600 break-words">{statusText}</p>
+        {isDirectPdf && (
         <div className="flex items-center gap-2 ml-auto">
           <button
             type="button"
@@ -160,11 +171,18 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
             PROXIMA
           </button>
         </div>
+        )}
       </div>
 
       <div className="flex-1 overflow-auto bg-neutral-100 p-3">
         <div className="min-h-full flex items-center justify-center">
-          {isLoading ? (
+          {!isDirectPdf ? (
+            <iframe
+              title="Visualizacao do documento"
+              src={pdfUrl}
+              className="w-full h-full min-h-[70vh] border border-neutral-200 bg-white"
+            />
+          ) : isLoading ? (
             <p className="text-sm text-neutral-600">Carregando PDF...</p>
           ) : (
             <canvas ref={canvasRef} className="shadow-sm border border-neutral-200 bg-white" />

@@ -5,6 +5,7 @@ import { createBrowserRouter } from "react-router";
 import { Home } from "./pages/Home";
 import { DiarioOficial } from "./pages/DiarioOficial";
 import { CamaraLegislativa } from "./pages/CamaraLegislativa";
+import { CamaraAnaliseDetalhes } from "./pages/CamaraAnaliseDetalhes";
 import { ContasPublicas } from "./pages/ContasPublicas";
 import { ControleExterno } from "./pages/ControleExterno";
 import { Repasses } from "./pages/Repasses";
@@ -13,6 +14,7 @@ import { Relatorios } from "./pages/Relatorios";
 import { DocumentosFaltantes } from "./pages/DocumentosFaltantes";
 import { Denuncia } from "./pages/Denuncia";
 import { AssistenteJuridico } from "./pages/AssistenteJuridico";
+import { Rastreabilidade } from "./pages/Rastreabilidade";
 import { RelatorioDetalhes } from "./pages/RelatorioDetalhes";
 import { NotFound } from "./pages/NotFound";
 import { Root } from "./Root";
@@ -25,6 +27,7 @@ export const router = createBrowserRouter([
       { index: true, Component: Home },
       { path: "diario-oficial", Component: DiarioOficial },
       { path: "camara", Component: CamaraLegislativa },
+      { path: "camara/analises/:slug", Component: CamaraAnaliseDetalhes },
       { path: "contas-publicas", Component: ContasPublicas },
       { path: "controle-externo", Component: ControleExterno },
       { path: "repasses", Component: Repasses },
@@ -34,6 +37,7 @@ export const router = createBrowserRouter([
       { path: "documentos-faltantes", Component: DocumentosFaltantes },
       { path: "denuncia", Component: Denuncia },
       { path: "assistente", Component: AssistenteJuridico },
+      { path: "rastreabilidade", Component: Rastreabilidade },
       { path: "*", Component: NotFound },
     ],
   },
