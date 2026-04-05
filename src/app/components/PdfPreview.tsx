@@ -22,6 +22,23 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
   const [isRendering, setIsRendering] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [preferNativeViewer, setPreferNativeViewer] = useState(false);
+  const [forceNativeViewer, setForceNativeViewer] = useState(false);
+  const shouldUseNativeViewer = !isDirectPdf || preferNativeViewer || forceNativeViewer;
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setPreferNativeViewer(media.matches);
+
+    update();
+    if (typeof media.addEventListener === "function") {
+      media.addEventListener("change", update);
+      return () => media.removeEventListener("change", update);
+    }
+
+    media.addListener(update);
+    return () => media.removeListener(update);
+  }, []);
 
   useEffect(() => {
     const element = containerRef.current;
@@ -39,6 +56,10 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
   }, []);
 
   useEffect(() => {
+    setForceNativeViewer(false);
+  }, [pdfUrl]);
+
+  useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
     setError(null);
@@ -46,7 +67,7 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
     setPdfDocument(null);
     setNumPages(0);
 
-    if (!isDirectPdf) {
+    if (shouldUseNativeViewer) {
       setIsLoading(false);
       return () => {
         isMounted = false;
@@ -66,7 +87,8 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
       })
       .catch(() => {
         if (!isMounted) return;
-        setError("Nao foi possivel carregar este PDF no visualizador interno.");
+        setForceNativeViewer(true);
+        setError(null);
       })
       .finally(() => {
         if (isMounted) {
@@ -78,11 +100,11 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
       isMounted = false;
       loadingTask.destroy();
     };
-  }, [isDirectPdf, pdfUrl]);
+  }, [pdfUrl, shouldUseNativeViewer]);
 
   useEffect(() => {
     let isMounted = true;
-    if (!pdfDocument || !canvasRef.current || containerWidth <= 0) return;
+    if (shouldUseNativeViewer || !pdfDocument || !canvasRef.current || containerWidth <= 0) return;
 
     const renderPage = async () => {
       setIsRendering(true);
@@ -112,9 +134,7 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
 
         await page.render(renderContext).promise;
       } catch {
-        if (isMounted) {
-          setError("Falha ao renderizar a pagina do PDF neste dispositivo.");
-        }
+        if (isMounted) setForceNativeViewer(true);
       } finally {
         if (isMounted) {
           setIsRendering(false);
@@ -127,18 +147,18 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
     return () => {
       isMounted = false;
     };
-  }, [containerWidth, pageNumber, pdfDocument]);
+  }, [containerWidth, pageNumber, pdfDocument, shouldUseNativeViewer]);
 
   const disablePrevious = pageNumber <= 1 || isLoading || isRendering;
   const disableNext = pageNumber >= numPages || isLoading || isRendering;
 
   const statusText = useMemo(() => {
-    if (!isDirectPdf) return "Visualizacao web do documento.";
+    if (shouldUseNativeViewer) return "Visualizacao web do documento.";
     if (isLoading) return "Carregando PDF...";
     if (error) return error;
     if (!numPages) return "PDF sem paginas para visualizacao.";
     return `Pagina ${pageNumber} de ${numPages}`;
-  }, [error, isDirectPdf, isLoading, numPages, pageNumber]);
+  }, [error, isLoading, numPages, pageNumber, shouldUseNativeViewer]);
 
   if (error) {
     return (
@@ -152,7 +172,7 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
     <div ref={containerRef} className="h-full flex flex-col">
       <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border-b border-neutral-200 bg-white">
         <p className="text-xs font-mono text-neutral-600 break-words">{statusText}</p>
-        {isDirectPdf && (
+        {!shouldUseNativeViewer && (
         <div className="flex items-center gap-2 ml-auto">
           <button
             type="button"
@@ -176,11 +196,11 @@ export function PdfPreview({ pdfUrl }: PdfPreviewProps) {
 
       <div className="flex-1 overflow-auto bg-neutral-100 p-3">
         <div className="min-h-full flex items-center justify-center">
-          {!isDirectPdf ? (
+          {shouldUseNativeViewer ? (
             <iframe
               title="Visualizacao do documento"
               src={pdfUrl}
-              className="w-full h-full min-h-[70vh] border border-neutral-200 bg-white"
+              className="w-full h-full min-h-[65dvh] sm:min-h-[70vh] border border-neutral-200 bg-white"
             />
           ) : isLoading ? (
             <p className="text-sm text-neutral-600">Carregando PDF...</p>
