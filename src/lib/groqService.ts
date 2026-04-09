@@ -5,7 +5,6 @@
 
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_MODEL = "llama-3.3-70b-versatile";
-const MAX_CONTEXT_TOKENS = 6000; // margem segura no free tier
 
 export interface GroqMessage {
   role: "system" | "user" | "assistant";

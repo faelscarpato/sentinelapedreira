@@ -1,7 +1,10 @@
-/* Import Google Fonts for monospace design */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+/* Import Google Fonts for institutional/editorial design */
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-/* Apply fonts globally */
 .font-mono {
   font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+.font-headline {
+  font-family: 'Public Sans', 'Inter', sans-serif;
 }
