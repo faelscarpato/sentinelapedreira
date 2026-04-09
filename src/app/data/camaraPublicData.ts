@@ -11,6 +11,7 @@ import {
 
 export interface CamaraPublicDocument extends Document {
   camaraType: CamaraTipoSigla;
+  camaraNumber: number;
   tipoNome: string;
   hasReportFile: boolean;
   reportPath?: string;
@@ -92,6 +93,7 @@ const baseDocuments: CamaraPublicDocument[] = camaraPublicFiles
       isFeatured: false,
       status: "published",
       camaraType,
+      camaraNumber: file.number,
       tipoNome,
       hasReportFile: file.hasReport,
       reportPath: file.reportPath,
@@ -104,7 +106,7 @@ export const camaraPublicDocuments: CamaraPublicDocument[] = baseDocuments.sort(
   const rightOrder = orderByType.get(right.camaraType) ?? Number.MAX_SAFE_INTEGER;
   if (leftOrder !== rightOrder) return leftOrder - rightOrder;
 
-  return right.number - left.number;
+  return right.camaraNumber - left.camaraNumber;
 });
 
 export const camaraPublishedMarkdownAnalyses: CamaraPublicDocument[] = camaraPublicDocuments

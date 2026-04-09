@@ -2,8 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Bot, MessageCircle, RotateCcw, Send, Sparkles, StopCircle, User, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { askGroqAssistantStream, type GroqMessage } from "../../lib/groqService";
-import { allDocuments } from "../data/realData";
+import { askLegalAssistantStream, type AssistantMessage } from "../services/assistantService";
 import { addOpenAssistantChatListener } from "../lib/assistantEvents";
 
 interface Message {
@@ -46,6 +45,7 @@ export function AssistantChatWidget() {
   const [messages, setMessages] = useState<Message[]>([initialAssistantMessage]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+  const [sessionId, setSessionId] = useState<string | undefined>(undefined);
 
   const abortRef = useRef(false);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
@@ -68,11 +68,11 @@ export function AssistantChatWidget() {
   }, [isOpen, messages]);
 
   const buildGroqMessages = useCallback(
-    (items: Message[]): GroqMessage[] =>
+    (items: Message[]): AssistantMessage[] =>
       items
         .filter((item) => !item.error && !item.streaming)
         .map((item) => ({
-          role: item.role,
+          role: item.role as "user" | "assistant",
           content: item.content,
         })),
     [],
@@ -107,7 +107,18 @@ export function AssistantChatWidget() {
         const history = buildGroqMessages([...messages, userMessage]);
         let accumulated = "";
 
-        for await (const token of askGroqAssistantStream(history, query, allDocuments)) {
+        const iterator = askLegalAssistantStream(query, history, sessionId);
+
+        while (true) {
+          const { value, done } = await iterator.next();
+          if (done) {
+            if (value?.sessionId) {
+              setSessionId(value.sessionId);
+            }
+            break;
+          }
+
+          const token = value;
           if (abortRef.current) break;
           accumulated += token;
           setMessages((previous) =>
@@ -150,9 +161,10 @@ export function AssistantChatWidget() {
   const handleReset = () => {
     setMessages([initialAssistantMessage]);
     setInput("");
-    setIsStreaming(false);
-    abortRef.current = false;
-  };
+      setIsStreaming(false);
+      abortRef.current = false;
+      setSessionId(undefined);
+    };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -172,7 +184,7 @@ export function AssistantChatWidget() {
               </div>
               <div className="flex-1">
                 <p className="text-sm font-mono text-white">Assistente Jurídico</p>
-                <p className="text-[11px] text-neutral-500 font-mono">IA com Groq</p>
+                <p className="text-[11px] text-neutral-500 font-mono">IA via Edge Function</p>
               </div>
               <button
                 type="button"

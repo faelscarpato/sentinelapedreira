@@ -3,7 +3,7 @@
 // IA: NVIDIA Nemotron (interno) | Store: rastreabilidadeStore
 // ===================================================================
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import type { ElementType, ReactNode } from "react";
 import {
   GitBranch, AlertTriangle, CheckCircle, Clock, TrendingUp,
@@ -11,9 +11,8 @@ import {
   DollarSign, FileX, BarChart3, ArrowRight, RefreshCw,
   AlertCircle, XCircle
 } from "lucide-react";
-import { analyzeDocumentWithNemotron } from "../../lib/nemotronService";
-import { rastreabilidadeStore } from "../../lib/rastreabilidadeStore";
 import type { RastreabilidadeAnalysis, TraceStep } from "../../lib/rastreabilidadeTypes";
+import { fetchFinancialTraceabilityHistory, runFinancialTraceability } from "../services/traceabilityService";
 
 // ----- helpers de UI -----
 const RISK_CONFIG = {
@@ -41,6 +40,18 @@ const TRACE_TYPE_CONFIG: Record<string, { label: string; color: string }> = {
 function formatCurrency(value?: number): string {
   if (!value) return "N/D";
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
+
+function buildCurrentTreasurySnapshot() {
+  return {
+    capturedAt: new Date().toISOString(),
+    executionPercentage: 68,
+    availableBalance: 2_400_000,
+    status: "yellow" as const,
+    fiscalGoalOk: true,
+    personnelExpenseRate: 51.2,
+    notes: "Snapshot operacional inicial. Substituir por ingestão automatizada do portal de transparência.",
+  };
 }
 
 // ----- Componentes internos -----
@@ -276,12 +287,8 @@ function AnalysisDetail({ analysis }: { analysis: RastreabilidadeAnalysis }) {
 
 // ----- Página principal -----
 export function Rastreabilidade() {
-  const [analyses, setAnalyses] = useState<RastreabilidadeAnalysis[]>(
-    () => rastreabilidadeStore.getAll()
-  );
-  const [selectedId, setSelectedId] = useState<string | null>(
-    () => rastreabilidadeStore.getAll()[0]?.documentId ?? null
-  );
+  const [analyses, setAnalyses] = useState<RastreabilidadeAnalysis[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -290,7 +297,47 @@ export function Rastreabilidade() {
   const [manualDocContent, setManualDocContent] = useState("");
 
   const selectedAnalysis = analyses.find((a) => a.documentId === selectedId);
-  const stats = rastreabilidadeStore.getStats();
+  const stats = useMemo(() => {
+    const all = analyses;
+    return {
+      total: all.length,
+      critical: all.filter((a) => a.riskLevel === "critical").length,
+      high: all.filter((a) => a.riskLevel === "high").length,
+      medium: all.filter((a) => a.riskLevel === "medium").length,
+      low: all.filter((a) => a.riskLevel === "low").length,
+      withFinancialRequest: all.filter((a) => a.financialRequest.hasRequest).length,
+      totalValueAtRisk: all
+        .filter((a) => a.financialRequest.hasRequest && a.financialRequest.value)
+        .reduce((sum, a) => sum + (a.financialRequest.value ?? 0), 0),
+    };
+  }, [analyses]);
+
+  useEffect(() => {
+    let active = true;
+
+    const loadHistory = async () => {
+      try {
+        const history = await fetchFinancialTraceabilityHistory();
+        if (!active) return;
+        setAnalyses(history);
+      } catch (err) {
+        if (!active) return;
+        setAnalyzeError(err instanceof Error ? err.message : "Falha ao carregar histórico de rastreabilidade.");
+      }
+    };
+
+    void loadHistory();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!selectedId && analyses.length > 0) {
+      setSelectedId(analyses[0].documentId);
+    }
+  }, [analyses, selectedId]);
 
   const filteredAnalyses = analyses.filter(
     (a) =>
@@ -305,10 +352,16 @@ export function Rastreabilidade() {
     setAnalyzeError(null);
 
     try {
-      const treasury = rastreabilidadeStore.getTreasurySnapshot();
-      const previousAnalyses = rastreabilidadeStore.getSummariesForContext();
+      const treasury = buildCurrentTreasurySnapshot();
+      const previousAnalyses = analyses.slice(0, 10).map((item) => ({
+        id: item.documentId,
+        title: item.documentTitle,
+        riskScore: item.riskScore,
+        summary: item.summary,
+        financialValue: item.financialRequest.value,
+      }));
 
-      const result = await analyzeDocumentWithNemotron({
+      const result = await runFinancialTraceability({
         documentContent: manualDocContent,
         documentTitle: manualDocTitle,
         documentId: manualDocId,
@@ -316,13 +369,17 @@ export function Rastreabilidade() {
         previousAnalyses,
       });
 
-      result._status = "done";
-      result._treasuryAtAnalysis = treasury;
-      rastreabilidadeStore.save(result);
+      const normalized = {
+        ...result.analysis,
+        _status: "done" as const,
+        _treasuryAtAnalysis: treasury,
+      };
 
-      const updated = rastreabilidadeStore.getAll();
-      setAnalyses(updated);
-      setSelectedId(result.documentId);
+      setAnalyses((previous) => [
+        normalized,
+        ...previous.filter((item) => item.documentId !== normalized.documentId),
+      ]);
+      setSelectedId(normalized.documentId);
       setManualDocId("");
       setManualDocTitle("");
       setManualDocContent("");
@@ -331,7 +388,7 @@ export function Rastreabilidade() {
     } finally {
       setAnalyzing(false);
     }
-  }, [manualDocId, manualDocTitle, manualDocContent]);
+  }, [manualDocId, manualDocTitle, manualDocContent, analyses]);
 
   return (
     <div className="min-h-screen bg-neutral-950">
@@ -340,12 +397,12 @@ export function Rastreabilidade() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 mb-6">
             <GitBranch className="w-10 h-10 text-teal-400" />
-            <div>
-              <h1 className="text-3xl font-mono">Rastreabilidade Financeira</h1>
-              <p className="text-neutral-400 mt-1 text-sm">
-                Análise de fluxo de recursos públicos via IA · Alimentado por NVIDIA Nemotron
-              </p>
-            </div>
+              <div>
+                <h1 className="text-3xl font-mono">Rastreabilidade Financeira</h1>
+                <p className="text-neutral-400 mt-1 text-sm">
+                  Análise de fluxo de recursos públicos via IA · Processamento server-side em Edge Function
+                </p>
+              </div>
             <div className="ml-auto flex items-center gap-2">
               <span className="text-xs font-mono px-3 py-1 bg-neutral-800 border border-neutral-700 text-neutral-400">
                 🔒 USO INTERNO
@@ -417,12 +474,12 @@ export function Rastreabilidade() {
                   {analyzing ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      Analisando via Nemotron...
+                      Processando análise...
                     </>
                   ) : (
                     <>
                       <GitBranch className="w-4 h-4" />
-                      ANALISAR RASTREABILIDADE
+                      ANALISAR VIA EDGE FUNCTION
                     </>
                   )}
                 </button>

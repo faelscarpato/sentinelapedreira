@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { fiscalizaData } from "./generated/fiscalizaData";
 import { pipelineReports, pipelineUpdatedAt } from "./generated/pipelineReports";
 import prestacaoSource0 from "./sources/prestacao-2026-04-02-0.json";

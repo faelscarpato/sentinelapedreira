@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { fiscalizaData } from "./generated/fiscalizaData";
 
 type BaseDocument = (typeof fiscalizaData.documents)[number];

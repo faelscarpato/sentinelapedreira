@@ -1,7 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router";
 import { Search, Menu, X, AlertCircle, FileText, ChevronDown } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import type { FormEvent, MouseEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent, type MouseEvent } from "react";
 import {
   allDocuments,
   reports,
@@ -9,6 +8,8 @@ import {
   categoryRouteByLabel,
 } from "../data/realData";
 import { openAssistantChat } from "../lib/assistantEvents";
+import { useAuth } from "../../features/auth/useAuth";
+import { searchPublicDocuments } from "../services/documentsService";
 
 interface SearchResult {
   id: string;
@@ -17,6 +18,7 @@ interface SearchResult {
   href: string;
   type: "documento" | "relatorio";
   date: string;
+  source: "local" | "server";
 }
 
 interface NavigationItem {
@@ -31,11 +33,29 @@ interface NavigationGroup {
   items: NavigationItem[];
 }
 
+function resolveServerResultRoute(category: string) {
+  const normalized = category.toLowerCase();
+  if (normalized.includes("diario")) return "/diario-oficial";
+  if (normalized.includes("camara") || normalized.includes("câmara")) return "/camara";
+  if (normalized.includes("contas")) return "/contas-publicas";
+  if (normalized.includes("controle")) return "/controle-externo";
+  if (normalized.includes("repasses")) return "/repasses";
+  if (normalized.includes("terceiro")) return "/terceiro-setor";
+  if (normalized.includes("denunc")) return "/minha-conta";
+  return "/";
+}
+
 export function Header() {
+  const auth = useAuth();
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [openGroupId, setOpenGroupId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [serverSearchResults, setServerSearchResults] = useState<SearchResult[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [searchError, setSearchError] = useState<string | null>(null);
+
   const closeDropdownTimeoutRef = useRef<number | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -63,7 +83,7 @@ export function Header() {
         { name: "Panorama Contábil", href: "/contas-publicas", description: "Visão geral" },
         { name: "Receitas", href: "/contas-publicas?subtype=receita-mensal", description: "Arrecadação mensal" },
         { name: "Despesas", href: "/contas-publicas?subtype=despesa-mensal", description: "Gastos detalhados" },
-        { name: "Planejamento (LOA/LDO/PPA)", href: "/contas-publicas?subtype=loa", description: "Leis e metas orçamentárias" },
+        { name: "Planejamento (LOA/LDO/PPA)", href: "/contas-publicas?subtype=loa", description: "Leis e metas" },
         { name: "Repasses", href: "/repasses", description: "Transferências e destinação" },
         { name: "Pagamentos Pendentes", href: "/controle-externo?subtype=restos-a-pagar", description: "Restos a pagar" },
         { name: "Terceiro Setor", href: "/terceiro-setor", description: "Convênios e entidades" },
@@ -73,8 +93,8 @@ export function Header() {
       id: "inteligencia",
       name: "Inteligência",
       items: [
-        { name: "Assistente Jurídico", href: "/assistente", description: "IA com Groq" },
-        { name: "Radar de Transparência", href: "/documentos-faltantes", description: "Monitoramento de lacunas" },
+        { name: "Assistente Jurídico", href: "/assistente", description: "IA via Edge Function" },
+        { name: "Painel Editorial", href: "/painel-editorial", description: "Fluxo de revisão e publicação" },
       ],
     },
   ];
@@ -99,7 +119,7 @@ export function Header() {
     return () => clearCloseDropdownTimer();
   }, []);
 
-  const searchResults = useMemo<SearchResult[]>(() => {
+  const localSearchResults = useMemo<SearchResult[]>(() => {
     if (normalizedSearch.length < 2) return [];
 
     const searchableDocuments = [...allDocuments, ...documentosFaltantes];
@@ -129,6 +149,7 @@ export function Header() {
           (document.category === "Documentos Faltantes" ? "/documentos-faltantes" : "/"),
         type: "documento" as const,
         date: document.date,
+        source: "local" as const,
       }));
 
     const reportResults = reports
@@ -147,12 +168,61 @@ export function Header() {
         href: `/relatorios/${report.id}`,
         type: "relatorio" as const,
         date: report.date,
+        source: "local" as const,
       }));
 
     return [...documentResults, ...reportResults]
       .sort((a, b) => b.date.localeCompare(a.date))
       .slice(0, 8);
   }, [normalizedSearch]);
+
+  useEffect(() => {
+    if (!auth.isSupabaseEnabled || normalizedSearch.length < 2) {
+      setServerSearchResults([]);
+      setSearchLoading(false);
+      setSearchError(null);
+      return;
+    }
+
+    let canceled = false;
+
+    const run = async () => {
+      setSearchLoading(true);
+      setSearchError(null);
+      try {
+        const rows = await searchPublicDocuments(normalizedSearch, 8);
+        if (canceled) return;
+
+        const mapped: SearchResult[] = rows.map((row) => ({
+          id: `server-${row.id}`,
+          title: row.title,
+          subtitle: `${row.category}${row.subtype ? ` · ${row.subtype}` : ""}`,
+          href: resolveServerResultRoute(row.category),
+          type: "documento",
+          date: row.published_at,
+          source: "server",
+        }));
+
+        setServerSearchResults(mapped);
+      } catch (error) {
+        if (canceled) return;
+        setSearchError(error instanceof Error ? error.message : "Falha na busca server-side.");
+        setServerSearchResults([]);
+      } finally {
+        if (!canceled) {
+          setSearchLoading(false);
+        }
+      }
+    };
+
+    void run();
+
+    return () => {
+      canceled = true;
+    };
+  }, [auth.isSupabaseEnabled, normalizedSearch]);
+
+  const searchResults = serverSearchResults.length > 0 ? serverSearchResults : localSearchResults;
 
   const isActive = (href: string) => {
     const hrefPathname = href.split("?")[0];
@@ -191,11 +261,19 @@ export function Header() {
     handleSelectSearchResult(firstResult.href);
   };
 
+  const handleSignOut = async () => {
+    try {
+      await auth.signOut();
+      navigate("/");
+    } catch {
+      // noop
+    }
+  };
+
   return (
     <header className="bg-white border-b border-neutral-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-black flex items-center justify-center">
               <AlertCircle className="w-6 h-6 text-white" />
@@ -206,7 +284,6 @@ export function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden xl:flex items-center space-x-1">
             {primaryLinks.map((item) => (
               <Link
@@ -214,8 +291,8 @@ export function Header() {
                 to={item.href}
                 className={`px-3 py-2 text-sm font-mono transition-colors ${
                   isActive(item.href)
-                    ? 'text-black border-b-2 border-black'
-                    : 'text-neutral-600 hover:text-black'
+                    ? "text-black border-b-2 border-black"
+                    : "text-neutral-600 hover:text-black"
                 }`}
               >
                 {item.name}
@@ -274,9 +351,7 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Actions */}
           <div className="flex items-center space-x-2">
-            {/* Search */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               className="p-2 hover:bg-neutral-100 transition-colors"
@@ -285,13 +360,13 @@ export function Header() {
               <Search className="w-5 h-5" />
             </button>
 
-            {/* CTA Buttons */}
             <Link
               to="/denuncia"
               className="hidden md:block px-4 py-2 bg-black text-white text-sm font-mono hover:bg-neutral-800 transition-colors"
             >
               DENÚNCIA
             </Link>
+
             <button
               type="button"
               onClick={handleAssistantShortcut}
@@ -300,22 +375,41 @@ export function Header() {
               AI ASSIST
             </button>
 
-            {/* Mobile Menu Button */}
+            {auth.isAuthenticated ? (
+              <>
+                <Link
+                  to="/minha-conta"
+                  className="hidden md:block px-4 py-2 border border-neutral-300 text-sm font-mono hover:border-black"
+                >
+                  MINHA CONTA
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => void handleSignOut()}
+                  className="hidden md:block px-4 py-2 border border-neutral-300 text-sm font-mono hover:border-black"
+                >
+                  SAIR
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/entrar"
+                className="hidden md:block px-4 py-2 border border-neutral-300 text-sm font-mono hover:border-black"
+              >
+                ENTRAR
+              </Link>
+            )}
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="xl:hidden p-2 hover:bg-neutral-100 transition-colors"
               aria-label="Menu"
             >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Search Bar */}
         {searchOpen && (
           <div className="py-4 border-t border-neutral-200">
             <form className="relative" onSubmit={handleSearchSubmit}>
@@ -332,6 +426,16 @@ export function Header() {
 
             {normalizedSearch.length > 0 && (
               <div className="mt-3 border border-neutral-200 bg-white">
+                {searchLoading && (
+                  <div className="px-4 py-3 text-sm text-neutral-600">Buscando no servidor...</div>
+                )}
+
+                {searchError && (
+                  <div className="px-4 py-3 text-sm text-red-700 bg-red-50 border-b border-red-200">
+                    {searchError}
+                  </div>
+                )}
+
                 {searchResults.length > 0 ? (
                   <ul className="divide-y divide-neutral-200">
                     {searchResults.map((result) => (
@@ -348,7 +452,7 @@ export function Header() {
                             </div>
                             <span className="text-[11px] font-mono uppercase text-neutral-500 flex items-center gap-1">
                               <FileText className="w-3 h-3" />
-                              {result.type}
+                              {result.type} · {result.source}
                             </span>
                           </div>
                         </button>
@@ -356,9 +460,11 @@ export function Header() {
                     ))}
                   </ul>
                 ) : (
-                  <div className="px-4 py-3 text-sm text-neutral-600">
-                    Nenhum resultado encontrado para "{searchTerm}".
-                  </div>
+                  !searchLoading && (
+                    <div className="px-4 py-3 text-sm text-neutral-600">
+                      Nenhum resultado encontrado para "{searchTerm}".
+                    </div>
+                  )
                 )}
               </div>
             )}
@@ -366,7 +472,6 @@ export function Header() {
         )}
       </div>
 
-      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="xl:hidden border-t border-neutral-200 bg-white">
           <nav className="px-4 py-4 space-y-1">
@@ -377,8 +482,8 @@ export function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-3 py-2 text-sm font-mono transition-colors ${
                   isActive(item.href)
-                    ? 'bg-black text-white'
-                    : 'text-neutral-700 hover:bg-neutral-100'
+                    ? "bg-black text-white"
+                    : "text-neutral-700 hover:bg-neutral-100"
                 }`}
               >
                 {item.name}
@@ -415,6 +520,37 @@ export function Header() {
             >
               FAZER DENÚNCIA
             </Link>
+
+            {auth.isAuthenticated ? (
+              <>
+                <Link
+                  to="/minha-conta"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block px-3 py-2 border border-neutral-300 text-sm font-mono"
+                >
+                  MINHA CONTA
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    void handleSignOut();
+                  }}
+                  className="block w-full text-left px-3 py-2 border border-neutral-300 text-sm font-mono"
+                >
+                  SAIR
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/entrar"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2 border border-neutral-300 text-sm font-mono"
+              >
+                ENTRAR
+              </Link>
+            )}
+
             <button
               type="button"
               onClick={handleAssistantShortcut}
@@ -428,4 +564,3 @@ export function Header() {
     </header>
   );
 }
-
