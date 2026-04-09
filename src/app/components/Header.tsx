@@ -5,11 +5,11 @@ import {
   allDocuments,
   reports,
   documentosFaltantes,
-  categoryRouteByLabel,
 } from "../data/realData";
 import { openAssistantChat } from "../lib/assistantEvents";
 import { useAuth } from "../../features/auth/useAuth";
 import { searchPublicDocuments } from "../services/documentsService";
+import { getDocumentDetailHref } from "../lib/documentDetailRoute";
 
 interface SearchResult {
   id: string;
@@ -31,18 +31,6 @@ interface NavigationGroup {
   id: string;
   name: string;
   items: NavigationItem[];
-}
-
-function resolveServerResultRoute(category: string) {
-  const normalized = category.toLowerCase();
-  if (normalized.includes("diario")) return "/diario-oficial";
-  if (normalized.includes("camara") || normalized.includes("câmara")) return "/camara";
-  if (normalized.includes("contas")) return "/contas-publicas";
-  if (normalized.includes("controle")) return "/controle-externo";
-  if (normalized.includes("repasses")) return "/repasses";
-  if (normalized.includes("terceiro")) return "/terceiro-setor";
-  if (normalized.includes("denunc")) return "/minha-conta";
-  return "/";
 }
 
 export function Header() {
@@ -143,10 +131,7 @@ export function Header() {
         id: `doc-${document.id}`,
         title: document.title,
         subtitle: `${document.category} · ${document.sourceEntity}`,
-        href:
-          document.analysisUrl ??
-          categoryRouteByLabel[document.category] ??
-          (document.category === "Documentos Faltantes" ? "/documentos-faltantes" : "/"),
+        href: getDocumentDetailHref(document),
         type: "documento" as const,
         date: document.date,
         source: "local" as const,
@@ -197,7 +182,7 @@ export function Header() {
           id: `server-${row.id}`,
           title: row.title,
           subtitle: `${row.category}${row.subtype ? ` · ${row.subtype}` : ""}`,
-          href: resolveServerResultRoute(row.category),
+          href: `/documentos/${row.slug}`,
           type: "documento",
           date: row.published_at,
           source: "server",

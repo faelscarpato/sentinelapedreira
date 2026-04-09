@@ -35,6 +35,7 @@ function toDocument(row: DiarioOficialRow): Document {
 
   return {
     id: row.id,
+    slug: row.slug,
     source: "diario-oficial-sync",
     domain: "pedreira.sp.gov.br",
     categoryKey: "diario-oficial",

@@ -1,16 +1,29 @@
 import { FileText, AlertTriangle, Clock, ExternalLink } from "lucide-react";
 import type { Document } from "../data/realData";
+import { resolveDocumentOriginLabel } from "../lib/documentOrigin";
 
 interface DocumentCardProps {
   document: Document;
   onViewOriginal?: () => void;
   onViewAnalysis?: () => void;
+  onViewDetails?: () => void;
 }
 
-export function DocumentCard({ document, onViewOriginal, onViewAnalysis }: DocumentCardProps) {
+export function DocumentCard({
+  document,
+  onViewOriginal,
+  onViewAnalysis,
+  onViewDetails,
+}: DocumentCardProps) {
   const canViewOriginal = typeof onViewOriginal === "function";
   const canViewAnalysis = document.hasAnalysis && typeof onViewAnalysis === "function";
+  const canViewDetails = typeof onViewDetails === "function";
   const originalActionLabel = "VER PDF";
+  const originLabel = resolveDocumentOriginLabel({
+    source: document.source,
+    sourceEntity: document.sourceEntity,
+    domain: document.domain,
+  });
 
   const getRiskColor = (risk?: string) => {
     switch (risk) {
@@ -42,6 +55,9 @@ export function DocumentCard({ document, onViewOriginal, onViewAnalysis }: Docum
               <span className="px-2 py-1 bg-black text-white text-xs font-mono">
                 {document.category}
               </span>
+              <span className="px-2 py-1 border border-blue-300 bg-blue-50 text-blue-900 text-xs font-mono">
+                {originLabel}
+              </span>
               {document.subtype && (
                 <span className="px-2 py-1 border border-neutral-300 text-xs font-mono">
                   {document.subtype}
@@ -59,9 +75,20 @@ export function DocumentCard({ document, onViewOriginal, onViewAnalysis }: Docum
                 </span>
               )}
             </div>
-            <h3 className="font-mono text-base group-hover:underline break-words">
-              {document.title}
-            </h3>
+            {canViewDetails ? (
+              <button
+                type="button"
+                onClick={onViewDetails}
+                className="font-mono text-base group-hover:underline break-words text-left hover:underline"
+                aria-label={`Ver detalhes do documento ${document.title}`}
+              >
+                {document.title}
+              </button>
+            ) : (
+              <h3 className="font-mono text-base group-hover:underline break-words">
+                {document.title}
+              </h3>
+            )}
           </div>
         </div>
 
@@ -99,6 +126,15 @@ export function DocumentCard({ document, onViewOriginal, onViewAnalysis }: Docum
         {/* Actions */}
         <div className="flex flex-wrap gap-2">
           <button
+            type="button"
+            onClick={onViewDetails}
+            disabled={!canViewDetails}
+            className="min-w-[120px] px-4 py-2 border border-neutral-400 text-neutral-700 text-xs font-mono hover:border-black hover:text-black disabled:border-neutral-200 disabled:text-neutral-400 transition-colors"
+          >
+            DETALHES
+          </button>
+          <button
+            type="button"
             onClick={onViewOriginal}
             disabled={!canViewOriginal}
             className="flex-1 min-w-[120px] px-4 py-2 border border-black text-black text-xs font-mono hover:bg-black hover:text-white disabled:border-neutral-300 disabled:text-neutral-400 disabled:hover:bg-transparent disabled:hover:text-neutral-400 transition-colors flex items-center justify-center space-x-2"
@@ -108,6 +144,7 @@ export function DocumentCard({ document, onViewOriginal, onViewAnalysis }: Docum
           </button>
           {document.hasAnalysis && (
             <button
+              type="button"
               onClick={onViewAnalysis}
               disabled={!canViewAnalysis}
               className="flex-1 min-w-[120px] px-4 py-2 bg-black text-white text-xs font-mono hover:bg-neutral-800 disabled:bg-neutral-300 disabled:text-neutral-600 transition-colors"

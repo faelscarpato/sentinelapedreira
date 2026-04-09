@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Bot, MessageCircle, RotateCcw, Send, Sparkles, StopCircle, User, X } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { askLegalAssistantStream, type AssistantMessage } from "../services/assistantService";
 import { addOpenAssistantChatListener } from "../lib/assistantEvents";
+import { SafeMarkdown } from "./SafeMarkdown";
 
 interface Message {
   id: string;
@@ -230,7 +229,7 @@ export function AssistantChatWidget() {
                     <TypingIndicator />
                   ) : (
                     <div className="prose prose-invert prose-sm max-w-none prose-p:my-1 prose-ul:my-1 prose-li:my-0">
-                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{message.content}</ReactMarkdown>
+                      <SafeMarkdown content={message.content} />
                     </div>
                   )}
                 </div>

@@ -16,6 +16,7 @@ import { Denuncia } from "./pages/Denuncia";
 import { AssistenteJuridico } from "./pages/AssistenteJuridico";
 import { Rastreabilidade } from "./pages/Rastreabilidade";
 import { RelatorioDetalhes } from "./pages/RelatorioDetalhes";
+import { DocumentoDetalhe } from "./pages/DocumentoDetalhe";
 import { NotFound } from "./pages/NotFound";
 import { Entrar } from "./pages/Entrar";
 import { MinhaConta } from "./pages/MinhaConta";
@@ -40,6 +41,7 @@ export const router = createBrowserRouter([
       { path: "terceiro-setor", Component: TerceiroSetor },
       { path: "relatorios", Component: Relatorios },
       { path: "relatorios/:id", Component: RelatorioDetalhes },
+      { path: "documentos/:slug", Component: DocumentoDetalhe },
       { path: "documentos-faltantes", Component: DocumentosFaltantes },
       { path: "denuncia", Component: Denuncia },
       { path: "assistente", Component: AssistenteJuridico },

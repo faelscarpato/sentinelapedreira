@@ -22,30 +22,23 @@ export async function submitComplaint(input: ComplaintFormInput, files: File[] =
     throw new Error("Anexos exigem autenticação para garantir rastreabilidade segura.");
   }
 
-  const payload = {
-    created_by: input.anonymous ? null : userId ?? null,
-    is_anonymous: input.anonymous,
-    reporter_name: input.anonymous ? null : input.name || null,
-    reporter_email: input.anonymous ? null : input.email || null,
-    reporter_phone: input.anonymous ? null : input.phone || null,
-    category: input.category,
-    subject: input.subject,
-    description: input.description,
-    metadata: {
-      source: "sentinela-web",
-      has_attachments: files.length > 0,
+  const { data, error } = await client.functions.invoke("complaint-submit", {
+    body: {
+      name: input.name ?? "",
+      email: input.email ?? "",
+      phone: input.phone ?? "",
+      category: input.category,
+      subject: input.subject,
+      description: input.description,
+      anonymous: input.anonymous,
     },
-  };
+  });
 
-  const { data: complaint, error } = await client
-    .from("complaints")
-    .insert(payload)
-    .select("id, protocol, status, category, subject, description, created_at")
-    .single();
-
-  if (error || !complaint) {
+  if (error || !data?.complaint) {
     throw new Error(error?.message ?? "Falha ao registrar denúncia.");
   }
+
+  const complaint = data.complaint as ComplaintRecord;
 
   if (files.length > 0) {
     for (const file of files) {
@@ -56,7 +49,7 @@ export async function submitComplaint(input: ComplaintFormInput, files: File[] =
         .upload(path, file, { upsert: false });
 
       if (uploadError) {
-        throw new Error(`Falha ao enviar anexo \"${file.name}\": ${uploadError.message}`);
+        throw new Error(`Falha ao enviar anexo "${file.name}": ${uploadError.message}`);
       }
 
       const { error: attachmentError } = await client.from("complaint_attachments").insert({
@@ -70,7 +63,7 @@ export async function submitComplaint(input: ComplaintFormInput, files: File[] =
       });
 
       if (attachmentError) {
-        throw new Error(`Falha ao persistir metadados do anexo \"${file.name}\".`);
+        throw new Error(`Falha ao persistir metadados do anexo "${file.name}".`);
       }
     }
   }

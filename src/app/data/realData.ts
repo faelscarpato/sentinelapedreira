@@ -25,6 +25,7 @@ type PortalSourceRow = {
 
 export interface Document {
   id: string;
+  slug?: string;
   source: string;
   domain: string;
   categoryKey: string;
