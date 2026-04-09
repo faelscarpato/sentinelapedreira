@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { Send, Shield, CheckCircle, AlertCircle, Paperclip } from "lucide-react";
+import { Send, Shield, CheckCircle, Paperclip } from "lucide-react";
 import { complaintFormSchema, type ComplaintFormInput } from "../../features/complaints/schema";
 import { submitComplaint, type ComplaintRecord } from "../services/complaintsService";
 import { useAuth } from "../../features/auth/useAuth";
+import {
+  InlineStatus,
+  PageContainer,
+  PageHero,
+  PageState,
+  SectionBlock,
+} from "../components/layout/PagePrimitives";
 
 const initialFormState: ComplaintFormInput = {
   name: "",
@@ -65,158 +72,143 @@ export function Denuncia() {
 
   if (submittedComplaint) {
     return (
-      <div className="min-h-screen bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-6">
-              <CheckCircle className="w-8 h-8 text-green-600" />
-            </div>
-            <h1 className="text-3xl font-mono mb-4">Denúncia Recebida</h1>
-            <p className="text-neutral-600 mb-8">
-              Sua denúncia foi registrada com persistência oficial e trilha de status.
-            </p>
+      <div className="min-h-screen bg-slate-50 py-12">
+        <PageContainer>
+          <PageState
+            mode="empty"
+            title="Denúncia recebida com sucesso"
+            description="Seu relato foi persistido com protocolo oficial e trilha de eventos para acompanhamento."
+            className="mb-6"
+          />
 
-            <div className="bg-neutral-50 border border-neutral-200 p-8 mb-8">
-              <p className="text-sm font-mono text-neutral-600 mb-2">PROTOCOLO</p>
-              <p className="text-3xl font-mono mb-4">{submittedComplaint.protocol}</p>
-              <p className="text-sm text-neutral-600">Status inicial: {submittedComplaint.status}</p>
-            </div>
+          <SectionBlock>
+            <div className="text-center">
+              <div className="mx-auto mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100">
+                <CheckCircle className="h-8 w-8 text-emerald-600" />
+              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Protocolo</p>
+              <p className="font-headline mt-1 text-3xl font-black tracking-tight text-slate-900">
+                {submittedComplaint.protocol}
+              </p>
+              <p className="mt-2 text-sm text-slate-600">Status inicial: {submittedComplaint.status}</p>
 
-            <div className="space-y-3 text-sm text-neutral-600 mb-8">
-              <p>✓ Registro persistido em banco oficial</p>
-              <p>✓ Histórico de eventos e mudanças de status habilitado</p>
-              <p>✓ Prazo médio de triagem: 15 dias úteis</p>
-            </div>
+              <div className="mt-6 space-y-2 text-sm text-slate-600">
+                <p>Registro persistido em banco oficial</p>
+                <p>Histórico de eventos e mudanças de status habilitado</p>
+                <p>Prazo médio de triagem: 15 dias úteis</p>
+              </div>
 
-            <div className="flex flex-wrap justify-center gap-3">
-              <button
-                onClick={handleReset}
-                className="px-6 py-3 bg-black text-white font-mono hover:bg-neutral-800 transition-colors"
-              >
-                FAZER NOVA DENÚNCIA
-              </button>
-              {auth.isAuthenticated && (
-                <a
-                  href="/minha-conta"
-                  className="px-6 py-3 border border-black text-black font-mono hover:bg-black hover:text-white transition-colors"
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="rounded-lg bg-slate-900 px-6 py-3 text-sm font-semibold text-white hover:bg-slate-800"
                 >
-                  VER MINHAS DENÚNCIAS
-                </a>
-              )}
+                  Fazer nova denúncia
+                </button>
+                {auth.isAuthenticated ? (
+                  <a
+                    href="/minha-conta"
+                    className="rounded-lg border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900"
+                  >
+                    Ver minhas denúncias
+                  </a>
+                ) : null}
+              </div>
             </div>
-          </div>
-        </div>
+          </SectionBlock>
+        </PageContainer>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-neutral-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center space-x-4 mb-4">
-            <Shield className="w-10 h-10" />
-            <div>
-              <h1 className="text-3xl font-mono">Denúncia Pública</h1>
-              <p className="text-neutral-300 mt-2">
-                Canal oficial com protocolo real, status e rastreabilidade de eventos.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-slate-50 pb-16">
+      <PageHero
+        title="Canal de Denúncia"
+        description="Relate irregularidades com protocolo real, trilha de status e proteção de dados conforme LGPD."
+        eyebrow="Canal Oficial"
+        icon={Shield}
+      />
 
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-blue-50 border border-blue-200 p-6 mb-8">
-          <div className="flex items-start space-x-3">
-            <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-blue-900">
-              <p className="font-mono mb-2">PRIVACIDADE E PROTEÇÃO DE DADOS</p>
-              <p className="mb-2">
-                Esta denúncia é persistida com trilha de auditoria. Nunca inclua dados sensíveis sem necessidade.
-              </p>
-              <p className="italic">
-                Para anexar arquivos, faça login. Isso protege integridade e cadeia de custódia dos documentos.
-              </p>
-            </div>
-          </div>
-        </div>
+      <PageContainer className="pt-8">
+        <InlineStatus kind="info" className="mb-6">
+          Esta denúncia é persistida com auditoria de eventos. Evite incluir dados sensíveis desnecessários.
+        </InlineStatus>
 
-        {!auth.isSupabaseEnabled && (
-          <div className="border border-orange-300 bg-orange-50 p-4 mb-6 text-sm text-orange-900">
-            Supabase não configurado no frontend. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY para registrar denúncias reais.
-          </div>
-        )}
+        {!auth.isSupabaseEnabled ? (
+          <InlineStatus kind="warning" className="mb-6">
+            Supabase não configurado no frontend. Defina `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` para registrar denúncias reais.
+          </InlineStatus>
+        ) : null}
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="border border-neutral-200 p-6">
-            <h2 className="font-mono mb-4">IDENTIFICAÇÃO (Opcional)</h2>
+          <SectionBlock title="Identificação (Opcional)">
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-mono text-neutral-700 mb-2">Nome Completo</label>
+                <label className="mb-2 block text-sm font-semibold text-slate-700">Nome Completo</label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name ?? ""}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-slate-900 focus:outline-none"
                   placeholder="Seu nome (opcional)"
                   disabled={formData.anonymous}
                 />
               </div>
 
-              <div className="grid md:grid-cols-2 gap-4">
+              <div className="grid gap-4 md:grid-cols-2">
                 <div>
-                  <label className="block text-sm font-mono text-neutral-700 mb-2">E-mail</label>
+                  <label className="mb-2 block text-sm font-semibold text-slate-700">E-mail</label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email ?? ""}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-slate-900 focus:outline-none"
                     placeholder="seu@email.com"
                     disabled={formData.anonymous}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-mono text-neutral-700 mb-2">Telefone</label>
+                  <label className="mb-2 block text-sm font-semibold text-slate-700">Telefone</label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone ?? ""}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black"
+                    className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-slate-900 focus:outline-none"
                     placeholder="(00) 00000-0000"
                     disabled={formData.anonymous}
                   />
                 </div>
               </div>
 
-              <label className="flex items-center space-x-2 text-sm">
+              <label className="inline-flex items-center gap-2 text-sm text-slate-700">
                 <input
                   type="checkbox"
                   name="anonymous"
                   checked={formData.anonymous}
                   onChange={handleChange}
-                  className="w-4 h-4"
+                  className="h-4 w-4 rounded border-slate-300"
                 />
-                <span>Quero fazer uma denúncia anônima</span>
+                Quero fazer uma denúncia anônima
               </label>
             </div>
-          </div>
+          </SectionBlock>
 
-          <div className="border border-neutral-200 p-6">
-            <h2 className="font-mono mb-4">DETALHES DA DENÚNCIA</h2>
+          <SectionBlock title="Detalhes da Denúncia">
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-mono text-neutral-700 mb-2">Categoria *</label>
+                <label className="mb-2 block text-sm font-semibold text-slate-700">Categoria *</label>
                 <select
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black bg-white"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-slate-900 focus:outline-none"
                 >
                   <option value="">Selecione uma categoria</option>
                   <option value="licitacao">Licitações e Contratos</option>
@@ -230,37 +222,41 @@ export function Denuncia() {
               </div>
 
               <div>
-                <label className="block text-sm font-mono text-neutral-700 mb-2">Assunto *</label>
+                <label className="mb-2 block text-sm font-semibold text-slate-700">Assunto *</label>
                 <input
                   type="text"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black"
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-slate-900 focus:outline-none"
                   placeholder="Título resumido da denúncia"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-mono text-neutral-700 mb-2">Descrição Detalhada *</label>
+                <label className="mb-2 block text-sm font-semibold text-slate-700">Descrição detalhada *</label>
                 <textarea
                   name="description"
                   value={formData.description}
                   onChange={handleChange}
                   required
                   rows={8}
-                  className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black resize-none"
+                  className="w-full resize-none rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm focus:border-slate-900 focus:outline-none"
                   placeholder="Descreva os fatos com datas, locais, valores e evidências."
                 />
-                <p className="text-xs text-neutral-500 mt-2">Mínimo de 50 caracteres.</p>
+                <p className="mt-2 text-xs text-slate-500">Mínimo de 50 caracteres.</p>
               </div>
 
               <div>
-                <label className="block text-sm font-mono text-neutral-700 mb-2">Anexos (opcional)</label>
-                <label className="w-full border border-dashed border-neutral-300 p-4 flex items-center gap-2 text-sm cursor-pointer hover:bg-neutral-50">
-                  <Paperclip className="w-4 h-4" />
-                  <span>{files.length > 0 ? `${files.length} arquivo(s) selecionado(s)` : "Selecionar arquivos"}</span>
+                <label className="mb-2 block text-sm font-semibold text-slate-700">Anexos (opcional)</label>
+                <label className="flex w-full cursor-pointer items-center gap-2 rounded-xl border border-dashed border-slate-300 bg-slate-50 px-4 py-4 text-sm hover:bg-slate-100">
+                  <Paperclip className="h-4 w-4" />
+                  <span>
+                    {files.length > 0
+                      ? `${files.length} arquivo(s) selecionado(s)`
+                      : "Selecionar arquivos"}
+                  </span>
                   <input
                     type="file"
                     multiple
@@ -269,40 +265,37 @@ export function Denuncia() {
                     disabled={!auth.isAuthenticated}
                   />
                 </label>
-                {!auth.isAuthenticated && (
-                  <p className="text-xs text-neutral-500 mt-2">Faça login para anexar documentos com trilha de custódia.</p>
-                )}
+                {!auth.isAuthenticated ? (
+                  <p className="mt-2 text-xs text-slate-500">Faça login para anexar documentos com trilha de custódia.</p>
+                ) : null}
               </div>
             </div>
-          </div>
+          </SectionBlock>
 
-          {formError && (
-            <div className="border border-red-300 bg-red-50 p-4 text-sm text-red-900">{formError}</div>
-          )}
+          {formError ? <InlineStatus kind="error">{formError}</InlineStatus> : null}
 
-          <div className="flex items-center justify-between pt-4">
-            <p className="text-sm text-neutral-600">* Campos obrigatórios</p>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm text-slate-600">* Campos obrigatórios</p>
             <button
               type="submit"
               disabled={!auth.isSupabaseEnabled || submitting}
-              className="px-8 py-3 bg-black text-white font-mono hover:bg-neutral-800 transition-colors flex items-center space-x-2 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-8 py-3 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-45"
             >
-              <Send className="w-4 h-4" />
-              <span>{submitting ? "ENVIANDO..." : "ENVIAR DENÚNCIA"}</span>
+              <Send className="h-4 w-4" />
+              {submitting ? "Enviando..." : "Enviar denúncia"}
             </button>
           </div>
         </form>
 
-        <div className="mt-8 p-6 bg-neutral-50 border border-neutral-200">
-          <h3 className="font-mono text-sm mb-3">INFORMAÇÕES IMPORTANTES</h3>
-          <ul className="space-y-2 text-sm text-neutral-700">
-            <li>• Denúncias falsas podem configurar crime (Art. 339 do Código Penal)</li>
-            <li>• Todo status gera evento e histórico de acompanhamento</li>
-            <li>• Análise inicial prevista em até 15 dias úteis</li>
-            <li>• Denúncias anônimas são aceitas e avaliadas</li>
+        <SectionBlock title="Informações Importantes" className="mt-8">
+          <ul className="space-y-2 text-sm text-slate-700">
+            <li>Denúncias falsas podem configurar crime (Art. 339 do Código Penal).</li>
+            <li>Todo status gera evento e histórico de acompanhamento.</li>
+            <li>Análise inicial prevista em até 15 dias úteis.</li>
+            <li>Denúncias anônimas são aceitas e avaliadas.</li>
           </ul>
-        </div>
-      </div>
+        </SectionBlock>
+      </PageContainer>
     </div>
   );
 }

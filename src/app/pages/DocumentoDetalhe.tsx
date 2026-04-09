@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
-import { ArrowLeft, CalendarDays, Download, FileText, Globe } from "lucide-react";
+import { ArrowLeft, CalendarDays, Download, Globe, ShieldCheck } from "lucide-react";
 import { allDocuments, type Document } from "../data/realData";
 import { deriveDocumentSlug } from "../lib/documentDetailRoute";
 import { resolveDocumentOriginLabel } from "../lib/documentOrigin";
@@ -11,6 +11,7 @@ import {
   fetchPublicDocumentBySlug,
   type PublicDocumentDetail,
 } from "../services/documentDetailsService";
+import { InlineStatus, PageContainer, PageHero, PageState, SectionBlock } from "../components/layout/PagePrimitives";
 
 interface DocumentDetailView {
   source: "server" | "fallback";
@@ -99,6 +100,7 @@ export function DocumentoDetalhe() {
   const [detail, setDetail] = useState<DocumentDetailView | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const fallbackDetail = useMemo(() => {
     const local = allDocuments.find((item) => deriveDocumentSlug(item) === slug);
     return local ? toFallbackDetail(local) : null;
@@ -146,123 +148,137 @@ export function DocumentoDetalhe() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="border border-neutral-200 p-6 text-sm text-neutral-600">
-            Carregando documento...
-          </div>
-        </div>
+      <div className="min-h-screen bg-slate-50 py-12">
+        <PageContainer>
+          <PageState mode="loading" title="Carregando documento" description="Buscando metadados e conteúdo da fonte oficial." />
+        </PageContainer>
       </div>
     );
   }
 
   if (!detail) {
     return (
-      <div className="min-h-screen bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <Link to="/" className="inline-flex items-center space-x-2 text-sm font-mono hover:underline mb-6">
-            <ArrowLeft className="w-4 h-4" />
-            <span>Voltar</span>
+      <div className="min-h-screen bg-slate-50 py-10">
+        <PageContainer>
+          <Link to="/" className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-950">
+            <ArrowLeft className="h-4 w-4" />
+            Voltar para início
           </Link>
-          <div className="border border-neutral-200 p-8 text-center">
-            <FileText className="w-12 h-12 text-neutral-300 mx-auto mb-3" />
-            <p className="font-mono text-neutral-700">Documento não encontrado.</p>
-          </div>
-        </div>
+          <PageState
+            mode="empty"
+            title="Documento não encontrado"
+            description="Não localizamos um item com esse identificador na base pública atual."
+          />
+        </PageContainer>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link to="/" className="inline-flex items-center space-x-2 text-sm font-mono hover:underline mb-6">
-          <ArrowLeft className="w-4 h-4" />
-          <span>Voltar</span>
-        </Link>
-
-        {errorMessage && (
-          <div className="mb-6 border border-orange-300 bg-orange-50 p-4 text-sm text-orange-900">
-            {errorMessage}
-          </div>
-        )}
-
-        <article className="border border-neutral-200 bg-white p-6 md:p-8">
-          <div className="flex flex-wrap gap-2 mb-4">
-            <span className="px-2 py-1 text-xs font-mono bg-black text-white">{detail.category}</span>
-            {detail.subtype && (
-              <span className="px-2 py-1 text-xs font-mono border border-neutral-300">
-                {detail.subtype}
-              </span>
-            )}
-            <span className="px-2 py-1 text-xs font-mono border border-blue-300 bg-blue-50 text-blue-900">
-              Origem: {detail.originLabel}
-            </span>
-            {detail.source === "fallback" && (
-              <span className="px-2 py-1 text-xs font-mono border border-yellow-300 bg-yellow-50 text-yellow-900">
-                Modo fallback
-              </span>
-            )}
-          </div>
-
-          <h1 className="text-2xl md:text-3xl font-mono mb-4">{detail.title}</h1>
-
-          {detail.summary && (
-            <p className="text-neutral-700 mb-6 leading-7">{detail.summary}</p>
-          )}
-
-          <div className="grid md:grid-cols-2 gap-4 mb-6 text-sm">
-            <div className="border border-neutral-200 p-4">
-              <p className="text-xs font-mono text-neutral-500 mb-1">Fonte Oficial</p>
-              <p className="font-medium">{detail.sourceName}</p>
-              {detail.sourceDomain && (
-                <p className="text-neutral-600">{detail.sourceDomain}</p>
-              )}
-              <p className="text-neutral-600 mt-1">
-                {detail.sourceIsOfficial ? "Marcada como oficial" : "Fonte sem marcação oficial"}
-              </p>
-            </div>
-
-            <div className="border border-neutral-200 p-4 space-y-2">
-              <div className="flex items-center gap-2 text-neutral-700">
-                <CalendarDays className="w-4 h-4" />
-                <span>Publicação: {formatDate(detail.publicationDate ?? detail.publishedAt)}</span>
-              </div>
-              <div className="flex items-center gap-2 text-neutral-700">
-                <Globe className="w-4 h-4" />
-                <span>Captura/Sincronização: {formatDate(detail.capturedAt)}</span>
-              </div>
-            </div>
-          </div>
-
-          {detail.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
-              {detail.tags.map((tag) => (
-                <span key={`${tag.type}:${tag.value}`} className="px-2 py-1 bg-neutral-100 text-neutral-700 text-xs font-mono">
-                  {tag.value}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {detail.bodyMarkdown && (
-            <div className="border border-neutral-200 bg-neutral-50 p-4 mb-6 prose prose-neutral max-w-none">
-              <SafeMarkdown content={detail.bodyMarkdown} />
-            </div>
-          )}
-
-          {detail.originalUrl && (
+    <div className="min-h-screen bg-slate-50 pb-16">
+      <PageHero
+        eyebrow="Documento Oficial"
+        title={detail.title}
+        description={detail.summary ?? "Documento sem resumo disponível."}
+        icon={ShieldCheck}
+        actions={
+          detail.originalUrl ? (
             <button
               type="button"
               onClick={() => openExternalSource(detail.originalUrl ?? undefined)}
-              className="inline-flex items-center gap-2 px-4 py-2 border border-black text-black text-sm font-mono hover:bg-black hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
             >
-              <Download className="w-4 h-4" />
-              Download / Fonte original
+              <Download className="h-4 w-4" />
+              Fonte original
             </button>
-          )}
-        </article>
-      </div>
+          ) : null
+        }
+      />
+
+      <PageContainer className="pt-8">
+        <Link
+          to="/"
+          className="mb-6 inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-950"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Voltar
+        </Link>
+
+        {errorMessage ? <InlineStatus kind="warning" className="mb-6">{errorMessage}</InlineStatus> : null}
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          <SectionBlock className="lg:col-span-2">
+            <div className="mb-4 flex flex-wrap gap-2">
+              <span className="rounded-full bg-slate-900 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
+                {detail.category}
+              </span>
+              {detail.subtype ? (
+                <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600">
+                  {detail.subtype}
+                </span>
+              ) : null}
+              <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-blue-800">
+                Origem: {detail.originLabel}
+              </span>
+              {detail.source === "fallback" ? (
+                <span className="rounded-full bg-amber-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-amber-800">
+                  Modo fallback
+                </span>
+              ) : null}
+            </div>
+
+            {detail.bodyMarkdown ? (
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 prose prose-slate max-w-none">
+                <SafeMarkdown content={detail.bodyMarkdown} />
+              </div>
+            ) : (
+              <PageState
+                mode="empty"
+                title="Corpo do documento indisponível"
+                description="Apenas metadados e referência de origem foram localizados nesta versão."
+              />
+            )}
+          </SectionBlock>
+
+          <div className="space-y-6">
+            <SectionBlock title="Fonte e Integridade">
+              <div className="space-y-3 text-sm text-slate-700">
+                <p className="font-semibold text-slate-900">{detail.sourceName}</p>
+                {detail.sourceDomain ? <p className="text-slate-600">{detail.sourceDomain}</p> : null}
+                <p>{detail.sourceIsOfficial ? "Fonte marcada como oficial" : "Fonte sem marcação oficial"}</p>
+              </div>
+            </SectionBlock>
+
+            <SectionBlock title="Linha do Tempo">
+              <div className="space-y-3 text-sm text-slate-700">
+                <div className="inline-flex items-center gap-2">
+                  <CalendarDays className="h-4 w-4" />
+                  Publicação: {formatDate(detail.publicationDate ?? detail.publishedAt)}
+                </div>
+                <div className="inline-flex items-center gap-2">
+                  <Globe className="h-4 w-4" />
+                  Captura: {formatDate(detail.capturedAt)}
+                </div>
+              </div>
+            </SectionBlock>
+
+            {detail.tags.length > 0 ? (
+              <SectionBlock title="Tags">
+                <div className="flex flex-wrap gap-2">
+                  {detail.tags.map((tag) => (
+                    <span
+                      key={`${tag.type}:${tag.value}`}
+                      className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-600"
+                    >
+                      {tag.value}
+                    </span>
+                  ))}
+                </div>
+              </SectionBlock>
+            ) : null}
+          </div>
+        </div>
+      </PageContainer>
     </div>
   );
 }

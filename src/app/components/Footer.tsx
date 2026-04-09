@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Shield } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { lastUpdatedAt } from "../data/realData";
 
 function formatDate(date: string) {
@@ -8,80 +8,72 @@ function formatDate(date: string) {
 
 export function Footer() {
   return (
-    <footer className="bg-neutral-50 border-t border-neutral-200 mt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* About */}
-          <div className="col-span-1 md:col-span-2">
-            <div className="font-mono text-lg mb-4">CIVIC_WATCH</div>
-            <p className="text-sm text-neutral-600 mb-4">
-              Plataforma pública de inteligência cívica municipal. Organizando dados públicos
-              para facilitar o controle social e a transparência.
+    <footer className="mt-20 border-t border-slate-200 bg-white">
+      <div className="mx-auto w-full max-w-[1280px] px-4 py-12 sm:px-6 lg:px-10">
+        <div className="grid gap-8 md:grid-cols-4">
+          <div className="md:col-span-2">
+            <p className="font-headline text-lg font-black tracking-tight text-slate-950">Sentinela Pedreira</p>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
+              Plataforma pública de inteligência cívica municipal para transparência ativa, controle social
+              e rastreabilidade editorial de documentos oficiais.
             </p>
-            <div className="flex items-center space-x-2 text-xs text-neutral-500">
-              <Shield className="w-4 h-4" />
-              <span>Base legal: LAI, LRF e legislação de transparência pública</span>
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+              <ShieldCheck className="h-4 w-4" />
+              Base legal: LAI, LRF e legislação de transparência pública
             </div>
           </div>
 
-          {/* Links */}
           <div>
-            <h3 className="font-mono text-sm mb-4">NAVEGAÇÃO</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">Navegação</h3>
+            <ul className="mt-4 space-y-2 text-sm">
               <li>
-                <Link to="/" className="text-neutral-600 hover:text-black transition-colors">
+                <Link to="/" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Início
                 </Link>
               </li>
               <li>
-                <Link to="/diario-oficial" className="text-neutral-600 hover:text-black transition-colors">
+                <Link to="/diario-oficial" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Diário Oficial
                 </Link>
               </li>
               <li>
-                <Link to="/relatorios" className="text-neutral-600 hover:text-black transition-colors">
+                <Link to="/contas-publicas" className="text-slate-600 hover:text-slate-950 transition-colors">
+                  Contas Públicas
+                </Link>
+              </li>
+              <li>
+                <Link to="/relatorios" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Relatórios
                 </Link>
               </li>
               <li>
-                <Link to="/repasses" className="text-neutral-600 hover:text-black transition-colors">
-                  Repasses
-                </Link>
-              </li>
-              <li>
-                <Link to="/terceiro-setor" className="text-neutral-600 hover:text-black transition-colors">
-                  Terceiro Setor
-                </Link>
-              </li>
-              <li>
-                <Link to="/documentos-faltantes" className="text-neutral-600 hover:text-black transition-colors">
-                  Documentos Faltantes
+                <Link to="/denuncia" className="text-slate-600 hover:text-slate-950 transition-colors">
+                  Canal de Denúncia
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
-            <h3 className="font-mono text-sm mb-4">INSTITUCIONAL</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">Institucional</h3>
+            <ul className="mt-4 space-y-2 text-sm">
               <li>
-                <a href="#sobre" className="text-neutral-600 hover:text-black transition-colors">
+                <a href="#sobre" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Sobre a Plataforma
                 </a>
               </li>
               <li>
-                <a href="#base-legal" className="text-neutral-600 hover:text-black transition-colors">
+                <a href="#base-legal" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Base Legal
                 </a>
               </li>
               <li>
-                <a href="#privacidade" className="text-neutral-600 hover:text-black transition-colors">
+                <a href="#privacidade" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Política de Privacidade
                 </a>
               </li>
               <li>
-                <a href="#contato" className="text-neutral-600 hover:text-black transition-colors">
+                <a href="#contato" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Contato
                 </a>
               </li>
@@ -89,26 +81,18 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-8 pt-8 border-t border-neutral-200">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-xs text-neutral-500 font-mono">
-              © 2026 CIVIC_WATCH. Plataforma de interesse público e controle social.
-            </p>
-            <div className="flex items-center space-x-4 text-xs text-neutral-500">
-              <span>Dados atualizados em: {formatDate(lastUpdatedAt)}</span>
-            </div>
+        <div className="mt-10 border-t border-slate-200 pt-6">
+          <div className="flex flex-col gap-3 text-xs text-slate-500 md:flex-row md:items-center md:justify-between">
+            <p>© 2026 Sentinela Pedreira. Plataforma de interesse público e controle social.</p>
+            <p>Dados atualizados em: {formatDate(lastUpdatedAt)}</p>
           </div>
-          <div className="mt-4">
-            <p className="text-xs text-neutral-500 italic">
-              Aviso: Esta plataforma tem caráter informativo e fiscalizatório. As análises automatizadas
-              são apoio técnico e não constituem pareceres jurídicos oficiais. A divulgação de nomes
-              de agentes públicos ocorre no contexto de transparência e controle social, conforme LAI.
-            </p>
-          </div>
+          <p className="mt-3 text-xs leading-relaxed text-slate-500">
+            Aviso: As análises automatizadas têm caráter de apoio técnico e não substituem pareceres
+            jurídicos oficiais. A divulgação de nomes de agentes públicos ocorre sob interesse público,
+            conforme regras de transparência e acesso à informação.
+          </p>
         </div>
       </div>
     </footer>
   );
 }
-

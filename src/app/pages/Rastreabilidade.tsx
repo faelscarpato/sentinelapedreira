@@ -1,44 +1,92 @@
-// ===================================================================
-// Rastreabilidade.tsx — Página de análise de rastreabilidade financeira
-// IA: NVIDIA Nemotron (interno) | Store: rastreabilidadeStore
-// ===================================================================
-
-import { useState, useCallback, useEffect, useMemo } from "react";
-import type { ElementType, ReactNode } from "react";
+import { useState, useCallback, useEffect, useMemo, type ElementType, type ReactNode } from "react";
 import {
-  GitBranch, AlertTriangle, CheckCircle, TrendingUp,
-  Search, ChevronDown, ChevronRight, Loader2, Shield,
-  DollarSign, FileX, BarChart3, ArrowRight,
-  AlertCircle, XCircle
+  AlertCircle,
+  AlertTriangle,
+  ArrowRight,
+  BarChart3,
+  CheckCircle2,
+  ChevronDown,
+  ChevronRight,
+  FileX,
+  GitBranch,
+  Loader2,
+  Search,
+  Shield,
+  TrendingUp,
+  XCircle,
 } from "lucide-react";
 import type { RastreabilidadeAnalysis, TraceStep } from "../../lib/rastreabilidadeTypes";
 import { fetchFinancialTraceabilityHistory, runFinancialTraceability } from "../services/traceabilityService";
+import {
+  AuthBadge,
+  InlineStatus,
+  PageContainer,
+  PageHero,
+  PageState,
+  SectionBlock,
+  StatKpi,
+} from "../components/layout/PagePrimitives";
+import { cn } from "../components/ui/utils";
 
-// ----- helpers de UI -----
 const RISK_CONFIG = {
-  critical: { color: "text-red-400", bg: "bg-red-950", border: "border-red-800", label: "CRÍTICO", icon: XCircle },
-  high:     { color: "text-orange-400", bg: "bg-orange-950", border: "border-orange-800", label: "ALTO", icon: AlertTriangle },
-  medium:   { color: "text-yellow-400", bg: "bg-yellow-950", border: "border-yellow-800", label: "MÉDIO", icon: AlertCircle },
-  low:      { color: "text-green-400", bg: "bg-green-950", border: "border-green-800", label: "BAIXO", icon: CheckCircle },
+  critical: {
+    badge: "border-red-200 bg-red-50 text-red-700",
+    chip: "bg-red-100 text-red-700",
+    label: "Crítico",
+    icon: XCircle,
+  },
+  high: {
+    badge: "border-orange-200 bg-orange-50 text-orange-700",
+    chip: "bg-orange-100 text-orange-700",
+    label: "Alto",
+    icon: AlertTriangle,
+  },
+  medium: {
+    badge: "border-amber-200 bg-amber-50 text-amber-700",
+    chip: "bg-amber-100 text-amber-700",
+    label: "Médio",
+    icon: AlertCircle,
+  },
+  low: {
+    badge: "border-emerald-200 bg-emerald-50 text-emerald-700",
+    chip: "bg-emerald-100 text-emerald-700",
+    label: "Baixo",
+    icon: CheckCircle2,
+  },
 };
 
 const TREASURY_CONFIG = {
-  red:    { color: "text-red-400", label: "🔴 COFRE CRÍTICO", desc: "Abaixo do mínimo operacional" },
-  yellow: { color: "text-yellow-400", label: "🟡 COFRE LIMITADO", desc: "Capacidade reduzida" },
-  green:  { color: "text-green-400", label: "🟢 COFRE REGULAR", desc: "Dentro da normalidade" },
+  red: {
+    box: "border-red-200 bg-red-50",
+    label: "Cofre crítico",
+    labelColor: "text-red-700",
+    desc: "Abaixo do mínimo operacional.",
+  },
+  yellow: {
+    box: "border-amber-200 bg-amber-50",
+    label: "Cofre limitado",
+    labelColor: "text-amber-700",
+    desc: "Capacidade reduzida para novos compromissos.",
+  },
+  green: {
+    box: "border-emerald-200 bg-emerald-50",
+    label: "Cofre regular",
+    labelColor: "text-emerald-700",
+    desc: "Situação operacional dentro do esperado.",
+  },
 };
 
-const TRACE_TYPE_CONFIG: Record<string, { label: string; color: string }> = {
-  origem:    { label: "ORIGEM", color: "bg-neutral-700" },
-  proposta:  { label: "PROPOSTA", color: "bg-blue-900" },
-  aprovacao: { label: "APROVAÇÃO", color: "bg-purple-900" },
-  recurso:   { label: "RECURSO", color: "bg-orange-900" },
-  destino:   { label: "DESTINO", color: "bg-teal-900" },
-  impacto:   { label: "IMPACTO", color: "bg-red-900" },
+const TRACE_TYPE_CONFIG: Record<string, { label: string; chip: string }> = {
+  origem: { label: "Origem", chip: "bg-slate-200 text-slate-700" },
+  proposta: { label: "Proposta", chip: "bg-blue-100 text-blue-700" },
+  aprovacao: { label: "Aprovação", chip: "bg-violet-100 text-violet-700" },
+  recurso: { label: "Recurso", chip: "bg-orange-100 text-orange-700" },
+  destino: { label: "Destino", chip: "bg-cyan-100 text-cyan-700" },
+  impacto: { label: "Impacto", chip: "bg-rose-100 text-rose-700" },
 };
 
 function formatCurrency(value?: number): string {
-  if (!value) return "N/D";
+  if (value == null) return "N/D";
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
@@ -54,15 +102,14 @@ function buildCurrentTreasurySnapshot() {
   };
 }
 
-// ----- Componentes internos -----
-
 function RiskBadge({ level, score }: { level: string; score: number }) {
   const cfg = RISK_CONFIG[level as keyof typeof RISK_CONFIG] ?? RISK_CONFIG.medium;
   const Icon = cfg.icon;
+
   return (
-    <span className={`inline-flex items-center gap-1.5 px-3 py-1 font-mono text-xs border ${cfg.color} ${cfg.bg} ${cfg.border}`}>
-      <Icon className="w-3.5 h-3.5" />
-      {cfg.label} — {score}/100
+    <span className={cn("inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold", cfg.badge)}>
+      <Icon className="h-3.5 w-3.5" />
+      Risco {cfg.label} - {score}/100
     </span>
   );
 }
@@ -70,34 +117,35 @@ function RiskBadge({ level, score }: { level: string; score: number }) {
 function TraceChainView({ steps }: { steps: TraceStep[] }) {
   return (
     <div className="space-y-0">
-      {steps.map((step, i) => {
-        const cfg = TRACE_TYPE_CONFIG[step.type] ?? { label: step.type.toUpperCase(), color: "bg-neutral-700" };
+      {steps.map((step, index) => {
+        const cfg = TRACE_TYPE_CONFIG[step.type] ?? { label: step.type.toUpperCase(), chip: "bg-slate-200 text-slate-700" };
         return (
-          <div key={i} className="flex gap-4">
-            {/* Linha vertical */}
+          <div key={`${step.step}-${index}`} className="flex gap-3">
             <div className="flex flex-col items-center">
-              <div className={`w-8 h-8 flex items-center justify-center text-xs font-mono font-bold text-white ${cfg.color} flex-shrink-0`}>
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-900 text-xs font-bold text-white">
                 {step.step}
               </div>
-              {i < steps.length - 1 && <div className="w-px flex-1 bg-neutral-700 min-h-[24px]" />}
+              {index < steps.length - 1 ? <div className="h-full min-h-6 w-px bg-slate-200" /> : null}
             </div>
-            {/* Conteúdo */}
-            <div className={`pb-6 flex-1 ${i < steps.length - 1 ? "" : ""}`}>
-              <div className="flex items-center gap-2 mb-1">
-                <span className={`text-xs font-mono px-2 py-0.5 ${cfg.color} text-white`}>{cfg.label}</span>
-                <span className="text-xs text-neutral-500 font-mono">{step.entity}</span>
-                {step.date && <span className="text-xs text-neutral-600 font-mono">• {step.date}</span>}
+            <div className="flex-1 pb-5">
+              <div className="mb-1 flex flex-wrap items-center gap-2">
+                <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-semibold", cfg.chip)}>{cfg.label}</span>
+                <span className="text-xs text-slate-600">{step.entity}</span>
+                {step.date ? <span className="text-xs text-slate-500">• {step.date}</span> : null}
               </div>
-              <p className="text-sm text-neutral-300">{step.description}</p>
-              {step.flags && step.flags.length > 0 && (
+              <p className="text-sm text-slate-700">{step.description}</p>
+              {step.flags && step.flags.length > 0 ? (
                 <div className="mt-2 flex flex-wrap gap-1.5">
-                  {step.flags.map((f, fi) => (
-                    <span key={fi} className="text-xs font-mono px-2 py-0.5 bg-red-950 text-red-400 border border-red-800">
-                      ⚠ {f}
+                  {step.flags.map((flag) => (
+                    <span
+                      key={`${step.step}-${flag}`}
+                      className="rounded-full border border-red-200 bg-red-50 px-2 py-0.5 text-[11px] font-semibold text-red-700"
+                    >
+                      {flag}
                     </span>
                   ))}
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
         );
@@ -115,180 +163,210 @@ function AnalysisCard({
   onSelect: () => void;
   selected: boolean;
 }) {
-  const riskCfg = RISK_CONFIG[analysis.riskLevel] ?? RISK_CONFIG.medium;
+  const risk = RISK_CONFIG[analysis.riskLevel] ?? RISK_CONFIG.medium;
+
   return (
     <button
+      type="button"
       onClick={onSelect}
-      className={`w-full text-left p-4 border transition-colors ${
+      className={cn(
+        "w-full rounded-xl border p-4 text-left transition-colors",
         selected
-          ? "border-neutral-400 bg-neutral-800"
-          : "border-neutral-800 bg-neutral-900 hover:border-neutral-600"
-      }`}
+          ? "border-slate-900 bg-slate-900 text-white"
+          : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50",
+      )}
     >
-      <div className="flex items-start justify-between gap-2 mb-2">
-        <span className={`text-xs font-mono ${riskCfg.color}`}>{riskCfg.label}</span>
-        <span className="text-xs text-neutral-600 font-mono">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <span
+          className={cn(
+            "rounded-full px-2 py-0.5 text-[11px] font-semibold",
+            selected ? "bg-white/15 text-white" : risk.chip,
+          )}
+        >
+          {risk.label}
+        </span>
+        <span className={cn("text-xs", selected ? "text-slate-300" : "text-slate-500")}>
           {new Date(analysis.analyzedAt).toLocaleDateString("pt-BR")}
         </span>
       </div>
-      <h4 className="text-sm font-mono text-white line-clamp-2 mb-2">{analysis.documentTitle}</h4>
-      {analysis.financialRequest.hasRequest && (
-        <div className="flex items-center gap-1.5 text-xs text-orange-400 font-mono">
-          <DollarSign className="w-3 h-3" />
-          {formatCurrency(analysis.financialRequest.value)}
-        </div>
-      )}
+
+      <h3 className={cn("line-clamp-2 text-sm font-semibold", selected ? "text-white" : "text-slate-900")}>
+        {analysis.documentTitle}
+      </h3>
+
+      {analysis.financialRequest.hasRequest ? (
+        <p className={cn("mt-2 text-xs font-semibold", selected ? "text-orange-300" : "text-orange-700")}>
+          Pedido financeiro: {formatCurrency(analysis.financialRequest.value)}
+        </p>
+      ) : null}
     </button>
   );
 }
 
 function AnalysisDetail({ analysis }: { analysis: RastreabilidadeAnalysis }) {
-  const [openSection, setOpenSection] = useState<string>("summary");
+  const [openSection, setOpenSection] = useState("trace");
+  const treasury = TREASURY_CONFIG[analysis.treasuryImpact.riskLevel] ?? TREASURY_CONFIG.yellow;
 
-  const toggle = (s: string) => setOpenSection((prev) => (prev === s ? "" : s));
-  const Section = ({
-    id, label, icon: Icon, children,
-  }: { id: string; label: string; icon: ElementType; children: ReactNode }) => (
-    <div className="border border-neutral-800">
+  const toggleSection = (sectionId: string) => {
+    setOpenSection((previous) => (previous === sectionId ? "" : sectionId));
+  };
+
+  const DetailSection = ({
+    id,
+    label,
+    icon: Icon,
+    children,
+  }: {
+    id: string;
+    label: string;
+    icon: ElementType;
+    children: ReactNode;
+  }) => (
+    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
       <button
-        onClick={() => toggle(id)}
-        className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-neutral-800 transition-colors"
+        type="button"
+        onClick={() => toggleSection(id)}
+        className="flex w-full items-center justify-between px-4 py-3 text-left hover:bg-slate-50"
       >
-        <div className="flex items-center gap-2 font-mono text-sm text-neutral-200">
-          <Icon className="w-4 h-4" />
+        <span className="inline-flex items-center gap-2 text-sm font-semibold text-slate-800">
+          <Icon className="h-4 w-4" />
           {label}
-        </div>
-        {openSection === id ? <ChevronDown className="w-4 h-4 text-neutral-500" /> : <ChevronRight className="w-4 h-4 text-neutral-500" />}
+        </span>
+        {openSection === id ? (
+          <ChevronDown className="h-4 w-4 text-slate-500" />
+        ) : (
+          <ChevronRight className="h-4 w-4 text-slate-500" />
+        )}
       </button>
-      {openSection === id && <div className="px-4 pb-4 pt-2">{children}</div>}
+      {openSection === id ? <div className="border-t border-slate-200 p-4">{children}</div> : null}
     </div>
   );
 
-  const treasury = TREASURY_CONFIG[analysis.treasuryImpact.riskLevel] ?? TREASURY_CONFIG.yellow;
-
   return (
-    <div className="space-y-px">
-      {/* Header */}
-      <div className="bg-neutral-900 border border-neutral-800 p-4 mb-4">
-        <RiskBadge level={analysis.riskLevel} score={analysis.riskScore} />
-        <h3 className="text-lg font-mono text-white mt-3 mb-2">{analysis.documentTitle}</h3>
-        <p className="text-sm text-neutral-300">{analysis.summary}</p>
-        <div className="flex flex-wrap gap-3 mt-4 text-xs font-mono text-neutral-500">
-          <span>Analisado: {new Date(analysis.analyzedAt).toLocaleString("pt-BR")}</span>
-          <span>Importância: {analysis.importanceRanking.priority.toUpperCase()}</span>
+    <div className="space-y-4">
+      <SectionBlock title={analysis.documentTitle} description={analysis.summary}>
+        <div className="flex flex-wrap items-center gap-2">
+          <RiskBadge level={analysis.riskLevel} score={analysis.riskScore} />
+          <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+            Prioridade {analysis.importanceRanking.priority.toUpperCase()}
+          </span>
+          <span className="text-xs text-slate-500">
+            Analisado em {new Date(analysis.analyzedAt).toLocaleString("pt-BR")}
+          </span>
         </div>
+      </SectionBlock>
+
+      <div className={cn("rounded-xl border p-4", treasury.box)}>
+        <p className={cn("text-sm font-semibold", treasury.labelColor)}>{treasury.label}</p>
+        <p className="mt-1 text-xs text-slate-600">{treasury.desc}</p>
+        <p className="mt-2 text-sm text-slate-700">{analysis.treasuryImpact.explanation}</p>
+        {!analysis.treasuryImpact.canFulfillCommitment ? (
+          <InlineStatus kind="error" className="mt-3">
+            Cofre pode não cumprir este compromisso sem ajuste de execução.
+          </InlineStatus>
+        ) : null}
       </div>
 
-      {/* Status do Cofre */}
-      <div className={`p-4 border ${analysis.treasuryImpact.riskLevel === "red" ? "border-red-800 bg-red-950/30" : analysis.treasuryImpact.riskLevel === "yellow" ? "border-yellow-800 bg-yellow-950/20" : "border-green-800 bg-green-950/20"}`}>
-        <div className={`font-mono text-sm font-bold mb-1 ${treasury.color}`}>{treasury.label}</div>
-        <p className="text-xs text-neutral-400 mb-2">{treasury.desc}</p>
-        <p className="text-sm text-neutral-300">{analysis.treasuryImpact.explanation}</p>
-        {!analysis.treasuryImpact.canFulfillCommitment && (
-          <div className="mt-2 text-xs font-mono text-red-400 border border-red-800 px-3 py-1.5">
-            ⚠ COFRE PODE NÃO CUMPRIR ESTE COMPROMISSO
+      {analysis.financialRequest.hasRequest ? (
+        <SectionBlock
+          title="Pedido de Recurso Identificado"
+          description="Resumo estruturado do pedido financeiro detectado pela análise."
+        >
+          <div className="grid gap-3 text-sm sm:grid-cols-2">
+            <p>
+              <span className="font-semibold text-slate-700">Valor:</span> {formatCurrency(analysis.financialRequest.value)}
+            </p>
+            <p>
+              <span className="font-semibold text-slate-700">Categoria:</span> {analysis.financialRequest.category ?? "N/D"}
+            </p>
+            <p>
+              <span className="font-semibold text-slate-700">Fonte:</span> {analysis.financialRequest.source ?? "N/D"}
+            </p>
+            <p>
+              <span className="font-semibold text-slate-700">Destino:</span> {analysis.financialRequest.destination ?? "N/D"}
+            </p>
           </div>
-        )}
-      </div>
+          {analysis.financialRequest.description ? (
+            <p className="mt-3 text-sm text-slate-700">{analysis.financialRequest.description}</p>
+          ) : null}
+        </SectionBlock>
+      ) : null}
 
-      {/* Recurso financeiro */}
-      {analysis.financialRequest.hasRequest && (
-        <div className="p-4 border border-orange-800 bg-orange-950/20">
-          <div className="font-mono text-sm text-orange-400 mb-2">💰 PEDIDO DE RECURSO IDENTIFICADO</div>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm font-mono">
-            <span className="text-neutral-500">Valor:</span>
-            <span className="text-white">{formatCurrency(analysis.financialRequest.value)}</span>
-            <span className="text-neutral-500">Categoria:</span>
-            <span className="text-white">{analysis.financialRequest.category ?? "N/D"}</span>
-            <span className="text-neutral-500">Fonte:</span>
-            <span className="text-white">{analysis.financialRequest.source ?? "N/D"}</span>
-            <span className="text-neutral-500">Destino:</span>
-            <span className="text-white">{analysis.financialRequest.destination ?? "N/D"}</span>
-          </div>
-          {analysis.financialRequest.description && (
-            <p className="mt-3 text-sm text-neutral-300">{analysis.financialRequest.description}</p>
-          )}
-        </div>
-      )}
-
-      {/* Docs faltantes */}
-      {analysis.missingDocuments.length > 0 && (
-        <Section id="docs" label={`Documentos Faltantes (${analysis.missingDocuments.length})`} icon={FileX}>
+      {analysis.missingDocuments.length > 0 ? (
+        <DetailSection id="docs" label={`Documentos faltantes (${analysis.missingDocuments.length})`} icon={FileX}>
           <div className="space-y-2">
-            {analysis.missingDocuments.map((doc, i) => (
-              <div key={i} className={`flex items-start gap-3 p-3 border ${
-                doc.severity === "critical" ? "border-red-800 bg-red-950/20" :
-                doc.severity === "high" ? "border-orange-800 bg-orange-950/20" : "border-yellow-800 bg-yellow-950/10"
-              }`}>
-                <AlertTriangle className={`w-4 h-4 mt-0.5 flex-shrink-0 ${
-                  doc.severity === "critical" ? "text-red-400" : doc.severity === "high" ? "text-orange-400" : "text-yellow-400"
-                }`} />
-                <div>
-                  <div className="font-mono text-sm text-white">{doc.name}</div>
-                  <div className="text-xs text-neutral-400 mt-0.5">{doc.reason}</div>
-                </div>
+            {analysis.missingDocuments.map((document) => (
+              <div
+                key={`${document.name}-${document.reason}`}
+                className={cn(
+                  "rounded-lg border p-3",
+                  document.severity === "critical"
+                    ? "border-red-200 bg-red-50"
+                    : document.severity === "high"
+                      ? "border-orange-200 bg-orange-50"
+                      : "border-amber-200 bg-amber-50",
+                )}
+              >
+                <p className="text-sm font-semibold text-slate-900">{document.name}</p>
+                <p className="mt-1 text-xs text-slate-600">{document.reason}</p>
               </div>
             ))}
           </div>
-        </Section>
-      )}
+        </DetailSection>
+      ) : null}
 
-      {/* Cadeia de rastreabilidade */}
-      <Section id="trace" label="Cadeia de Rastreabilidade" icon={GitBranch}>
+      <DetailSection id="trace" label="Cadeia de rastreabilidade" icon={GitBranch}>
         <TraceChainView steps={analysis.traceChain} />
-      </Section>
+      </DetailSection>
 
-      {/* Importância relativa */}
-      <Section id="importance" label="Importância Relativa" icon={BarChart3}>
-        <div className="mb-3">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-mono text-neutral-400">Score de Importância</span>
-            <span className="text-xs font-mono text-white">{analysis.importanceRanking.score}/100</span>
-          </div>
-          <div className="h-2 bg-neutral-800">
-            <div
-              className="h-2 bg-teal-600 transition-all"
-              style={{ width: `${analysis.importanceRanking.score}%` }}
-            />
-          </div>
+      <DetailSection id="importance" label="Importância relativa" icon={BarChart3}>
+        <div className="mb-2 flex items-center justify-between text-xs">
+          <span className="font-semibold uppercase tracking-[0.12em] text-slate-500">Score</span>
+          <span className="font-semibold text-slate-800">{analysis.importanceRanking.score}/100</span>
         </div>
-        <p className="text-sm text-neutral-300">{analysis.importanceRanking.justification}</p>
-      </Section>
+        <div className="h-2 rounded-full bg-slate-200">
+          <div className="h-2 rounded-full bg-slate-900" style={{ width: `${analysis.importanceRanking.score}%` }} />
+        </div>
+        <p className="mt-3 text-sm text-slate-700">{analysis.importanceRanking.justification}</p>
+      </DetailSection>
 
-      {/* Recomendações */}
-      <Section id="recs" label="Recomendações" icon={TrendingUp}>
+      <DetailSection id="recommendations" label="Recomendações" icon={TrendingUp}>
         <ul className="space-y-2">
-          {analysis.recommendations.map((rec, i) => (
-            <li key={i} className="flex items-start gap-2 text-sm text-neutral-300">
-              <ArrowRight className="w-4 h-4 mt-0.5 flex-shrink-0 text-teal-500" />
-              {rec}
+          {analysis.recommendations.map((recommendation) => (
+            <li key={recommendation} className="flex items-start gap-2 text-sm text-slate-700">
+              <ArrowRight className="mt-0.5 h-4 w-4 flex-shrink-0 text-slate-500" />
+              {recommendation}
             </li>
           ))}
         </ul>
-      </Section>
+      </DetailSection>
 
-      {/* Análises relacionadas */}
-      {analysis.relatedAnalyses.length > 0 && (
-        <Section id="related" label={`Análises Relacionadas (${analysis.relatedAnalyses.length})`} icon={GitBranch}>
+      {analysis.relatedAnalyses.length > 0 ? (
+        <DetailSection id="related" label={`Análises relacionadas (${analysis.relatedAnalyses.length})`} icon={GitBranch}>
           <div className="space-y-2">
-            {analysis.relatedAnalyses.map((rel, i) => (
-              <div key={i} className="flex items-center justify-between p-2 border border-neutral-800">
-                <span className="text-xs font-mono text-neutral-400">{rel.id}</span>
-                <span className="text-xs font-mono text-teal-400">{rel.relationship}</span>
-                <span className="text-xs text-neutral-500">{rel.relevanceScore}% relevante</span>
+            {analysis.relatedAnalyses.map((related) => (
+              <div key={`${related.id}-${related.relationship}`} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                  <span className="font-semibold text-slate-900">{related.id}</span>
+                  <span className="rounded-full bg-white px-2 py-0.5 font-semibold text-slate-600">
+                    {related.relationship.replaceAll("_", " ")}
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-slate-600">Relevância: {related.relevanceScore}%</p>
               </div>
             ))}
           </div>
-        </Section>
-      )}
+        </DetailSection>
+      ) : null}
     </div>
   );
 }
 
-// ----- Página principal -----
 export function Rastreabilidade() {
   const [analyses, setAnalyses] = useState<RastreabilidadeAnalysis[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [loadingHistory, setLoadingHistory] = useState(true);
+  const [historyError, setHistoryError] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
   const [analyzeError, setAnalyzeError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -296,19 +374,19 @@ export function Rastreabilidade() {
   const [manualDocTitle, setManualDocTitle] = useState("");
   const [manualDocContent, setManualDocContent] = useState("");
 
-  const selectedAnalysis = analyses.find((a) => a.documentId === selectedId);
+  const selectedAnalysis = analyses.find((analysis) => analysis.documentId === selectedId);
+
   const stats = useMemo(() => {
-    const all = analyses;
     return {
-      total: all.length,
-      critical: all.filter((a) => a.riskLevel === "critical").length,
-      high: all.filter((a) => a.riskLevel === "high").length,
-      medium: all.filter((a) => a.riskLevel === "medium").length,
-      low: all.filter((a) => a.riskLevel === "low").length,
-      withFinancialRequest: all.filter((a) => a.financialRequest.hasRequest).length,
-      totalValueAtRisk: all
-        .filter((a) => a.financialRequest.hasRequest && a.financialRequest.value)
-        .reduce((sum, a) => sum + (a.financialRequest.value ?? 0), 0),
+      total: analyses.length,
+      critical: analyses.filter((analysis) => analysis.riskLevel === "critical").length,
+      high: analyses.filter((analysis) => analysis.riskLevel === "high").length,
+      medium: analyses.filter((analysis) => analysis.riskLevel === "medium").length,
+      low: analyses.filter((analysis) => analysis.riskLevel === "low").length,
+      withFinancialRequest: analyses.filter((analysis) => analysis.financialRequest.hasRequest).length,
+      totalValueAtRisk: analyses
+        .filter((analysis) => analysis.financialRequest.hasRequest && analysis.financialRequest.value)
+        .reduce((total, analysis) => total + (analysis.financialRequest.value ?? 0), 0),
     };
   }, [analyses]);
 
@@ -320,9 +398,16 @@ export function Rastreabilidade() {
         const history = await fetchFinancialTraceabilityHistory();
         if (!active) return;
         setAnalyses(history);
-      } catch (err) {
+        setHistoryError(null);
+      } catch (error) {
         if (!active) return;
-        setAnalyzeError(err instanceof Error ? err.message : "Falha ao carregar histórico de rastreabilidade.");
+        setHistoryError(
+          error instanceof Error ? error.message : "Falha ao carregar histórico de rastreabilidade.",
+        );
+      } finally {
+        if (active) {
+          setLoadingHistory(false);
+        }
       }
     };
 
@@ -340,25 +425,26 @@ export function Rastreabilidade() {
   }, [analyses, selectedId]);
 
   const filteredAnalyses = analyses.filter(
-    (a) =>
+    (analysis) =>
       !searchTerm ||
-      a.documentTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      a.summary.toLowerCase().includes(searchTerm.toLowerCase())
+      analysis.documentTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      analysis.summary.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const runAnalysis = useCallback(async () => {
     if (!manualDocId || !manualDocTitle || !manualDocContent.trim()) return;
+
     setAnalyzing(true);
     setAnalyzeError(null);
 
     try {
       const treasury = buildCurrentTreasurySnapshot();
-      const previousAnalyses = analyses.slice(0, 10).map((item) => ({
-        id: item.documentId,
-        title: item.documentTitle,
-        riskScore: item.riskScore,
-        summary: item.summary,
-        financialValue: item.financialRequest.value,
+      const previousAnalyses = analyses.slice(0, 10).map((analysis) => ({
+        id: analysis.documentId,
+        title: analysis.documentTitle,
+        riskScore: analysis.riskScore,
+        summary: analysis.summary,
+        financialValue: analysis.financialRequest.value,
       }));
 
       const result = await runFinancialTraceability({
@@ -375,162 +461,143 @@ export function Rastreabilidade() {
         _treasuryAtAnalysis: treasury,
       };
 
-      setAnalyses((previous) => [
-        normalized,
-        ...previous.filter((item) => item.documentId !== normalized.documentId),
-      ]);
+      setAnalyses((previous) => [normalized, ...previous.filter((item) => item.documentId !== normalized.documentId)]);
       setSelectedId(normalized.documentId);
       setManualDocId("");
       setManualDocTitle("");
       setManualDocContent("");
-    } catch (err) {
-      setAnalyzeError(err instanceof Error ? err.message : "Erro na análise");
+    } catch (error) {
+      setAnalyzeError(error instanceof Error ? error.message : "Erro ao executar análise.");
     } finally {
       setAnalyzing(false);
     }
   }, [manualDocId, manualDocTitle, manualDocContent, analyses]);
 
   return (
-    <div className="min-h-screen bg-neutral-950">
-      {/* Header */}
-      <div className="bg-neutral-900 text-white py-10 border-b border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-4 mb-6">
-            <GitBranch className="w-10 h-10 text-teal-400" />
-              <div>
-                <h1 className="text-3xl font-mono">Rastreabilidade Financeira</h1>
-                <p className="text-neutral-400 mt-1 text-sm">
-                  Análise de fluxo de recursos públicos via IA · Processamento server-side em Edge Function
-                </p>
-              </div>
-            <div className="ml-auto flex items-center gap-2">
-              <span className="text-xs font-mono px-3 py-1 bg-neutral-800 border border-neutral-700 text-neutral-400">
-                🔒 USO INTERNO
-              </span>
-            </div>
-          </div>
+    <div className="min-h-screen bg-slate-50 pb-16">
+      <PageHero
+        title="Rastreabilidade Financeira"
+        description="Análise auditável de fluxo de recursos públicos, risco fiscal e cadeia de decisão de documentos."
+        eyebrow="Governança Interna"
+        icon={GitBranch}
+        actions={<AuthBadge text="Uso interno" />}
+      />
 
-          {/* KPIs */}
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-            {[
-              { label: "Total", value: stats.total, color: "text-white" },
-              { label: "Crítico", value: stats.critical, color: "text-red-400" },
-              { label: "Alto", value: stats.high, color: "text-orange-400" },
-              { label: "Médio", value: stats.medium, color: "text-yellow-400" },
-              { label: "Baixo", value: stats.low, color: "text-green-400" },
-            ].map((s) => (
-              <div key={s.label} className="bg-neutral-800 p-3">
-                <div className={`text-2xl font-mono font-bold ${s.color}`}>{s.value}</div>
-                <div className="text-xs text-neutral-500 font-mono">{s.label}</div>
-              </div>
-            ))}
-          </div>
-          {stats.withFinancialRequest > 0 && (
-            <div className="mt-3 text-xs font-mono text-orange-400">
-              {stats.withFinancialRequest} análise(s) com pedido de recurso ·{" "}
-              {formatCurrency(stats.totalValueAtRisk)} em risco monitorado
-            </div>
-          )}
-        </div>
-      </div>
+      <PageContainer className="space-y-6 pt-8">
+        <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
+          <StatKpi label="Análises" value={stats.total} />
+          <StatKpi label="Crítico" value={stats.critical} className="border-red-200 bg-red-50" />
+          <StatKpi label="Alto" value={stats.high} className="border-orange-200 bg-orange-50" />
+          <StatKpi label="Médio" value={stats.medium} className="border-amber-200 bg-amber-50" />
+          <StatKpi label="Baixo" value={stats.low} className="border-emerald-200 bg-emerald-50" />
+          <StatKpi label="Com Pedido" value={stats.withFinancialRequest} />
+        </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Sidebar: lista + nova análise */}
+        {stats.withFinancialRequest > 0 ? (
+          <InlineStatus kind="warning">
+            {stats.withFinancialRequest} análise(s) com pedido de recurso. Volume em risco monitorado:{" "}
+            <strong>{formatCurrency(stats.totalValueAtRisk)}</strong>.
+          </InlineStatus>
+        ) : null}
+
+        <div className="grid gap-6 lg:grid-cols-[minmax(320px,380px)_minmax(0,1fr)]">
           <div className="space-y-4">
-            {/* Formulário: nova análise */}
-            <div className="border border-neutral-700 p-4">
-              <h3 className="font-mono text-sm text-teal-400 mb-3 flex items-center gap-2">
-                <Shield className="w-4 h-4" /> NOVA ANÁLISE
-              </h3>
-              <div className="space-y-2">
+            <SectionBlock
+              title="Nova Análise"
+              description="Envie ID, título e conteúdo bruto para processar via Edge Function."
+            >
+              <div className="space-y-3">
                 <input
-                  className="w-full bg-neutral-900 border border-neutral-700 px-3 py-2 text-sm font-mono text-white placeholder-neutral-600 focus:outline-none focus:border-teal-600"
+                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-400"
                   placeholder="ID do documento (ex: PL-2024-047)"
                   value={manualDocId}
-                  onChange={(e) => setManualDocId(e.target.value)}
+                  onChange={(event) => setManualDocId(event.target.value)}
                 />
                 <input
-                  className="w-full bg-neutral-900 border border-neutral-700 px-3 py-2 text-sm font-mono text-white placeholder-neutral-600 focus:outline-none focus:border-teal-600"
+                  className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-400"
                   placeholder="Título do documento"
                   value={manualDocTitle}
-                  onChange={(e) => setManualDocTitle(e.target.value)}
+                  onChange={(event) => setManualDocTitle(event.target.value)}
                 />
                 <textarea
-                  className="w-full bg-neutral-900 border border-neutral-700 px-3 py-2 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-teal-600 resize-none"
-                  placeholder="Cole o conteúdo do documento aqui (texto, PDF extraído, etc.)"
-                  rows={6}
+                  className="w-full resize-none rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm placeholder:text-slate-400"
+                  placeholder="Cole o conteúdo do documento (texto extraído, corpo de projeto etc.)"
+                  rows={7}
                   value={manualDocContent}
-                  onChange={(e) => setManualDocContent(e.target.value)}
+                  onChange={(event) => setManualDocContent(event.target.value)}
                 />
-                {analyzeError && (
-                  <p className="text-xs text-red-400 font-mono">{analyzeError}</p>
-                )}
+
+                {analyzeError ? <InlineStatus kind="error">{analyzeError}</InlineStatus> : null}
+
                 <button
+                  type="button"
                   onClick={runAnalysis}
-                  disabled={analyzing || !manualDocId || !manualDocTitle || !manualDocContent}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-teal-900 border border-teal-700 text-teal-200 font-mono text-sm hover:bg-teal-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  disabled={analyzing || !manualDocId || !manualDocTitle || !manualDocContent.trim()}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-45"
                 >
                   {analyzing ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 className="h-4 w-4 animate-spin" />
                       Processando análise...
                     </>
                   ) : (
                     <>
-                      <GitBranch className="w-4 h-4" />
-                      ANALISAR VIA EDGE FUNCTION
+                      <Shield className="h-4 w-4" />
+                      Analisar via Edge Function
                     </>
                   )}
                 </button>
               </div>
-            </div>
+            </SectionBlock>
 
-            {/* Busca + lista */}
-            <div>
-              <div className="relative mb-2">
-                <Search className="absolute left-3 top-2.5 w-4 h-4 text-neutral-600" />
+            <SectionBlock title="Histórico de Análises" description="Selecione um item para abrir os detalhes completos.">
+              <div className="relative mb-3">
+                <Search className="pointer-events-none absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
                 <input
-                  className="w-full bg-neutral-900 border border-neutral-800 pl-9 pr-3 py-2 text-sm font-mono text-white placeholder-neutral-600 focus:outline-none focus:border-neutral-600"
-                  placeholder="Buscar análises..."
+                  className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-sm placeholder:text-slate-400"
+                  placeholder="Buscar por título ou resumo"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(event) => setSearchTerm(event.target.value)}
                 />
               </div>
-              {filteredAnalyses.length === 0 ? (
-                <div className="p-6 text-center text-sm text-neutral-600 font-mono border border-neutral-800">
-                  {analyses.length === 0 ? "Nenhuma análise ainda. Inicie acima." : "Sem resultados."}
-                </div>
+
+              {historyError ? <InlineStatus kind="error" className="mb-3">{historyError}</InlineStatus> : null}
+
+              {loadingHistory ? (
+                <PageState mode="loading" title="Carregando histórico" />
+              ) : filteredAnalyses.length === 0 ? (
+                <PageState
+                  mode="empty"
+                  title={analyses.length === 0 ? "Nenhuma análise registrada" : "Sem resultados para o filtro"}
+                />
               ) : (
-                <div className="space-y-px">
-                  {filteredAnalyses.map((a) => (
+                <div className="space-y-2">
+                  {filteredAnalyses.map((analysis) => (
                     <AnalysisCard
-                      key={a.documentId}
-                      analysis={a}
-                      selected={selectedId === a.documentId}
-                      onSelect={() => setSelectedId(a.documentId)}
+                      key={analysis.documentId}
+                      analysis={analysis}
+                      selected={selectedId === analysis.documentId}
+                      onSelect={() => setSelectedId(analysis.documentId)}
                     />
                   ))}
                 </div>
               )}
-            </div>
+            </SectionBlock>
           </div>
 
-          {/* Main: detalhe */}
-          <div className="lg:col-span-2">
+          <div>
             {selectedAnalysis ? (
               <AnalysisDetail analysis={selectedAnalysis} />
             ) : (
-              <div className="border border-neutral-800 p-12 text-center">
-                <GitBranch className="w-12 h-12 text-neutral-700 mx-auto mb-4" />
-                <p className="text-neutral-500 font-mono text-sm">
-                  Selecione uma análise à esquerda ou inicie uma nova
-                </p>
-              </div>
+              <PageState
+                mode="empty"
+                title="Selecione uma análise"
+                description="Escolha um item na coluna lateral para visualizar o diagnóstico completo."
+              />
             )}
           </div>
         </div>
-      </div>
+      </PageContainer>
     </div>
   );
 }

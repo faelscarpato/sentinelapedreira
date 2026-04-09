@@ -8,8 +8,21 @@ import { terceiroSetorDocuments } from "../data/realData";
 import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
 import { getDocumentDetailHref } from "../lib/documentDetailRoute";
+import {
+  fetchConveniosGerais,
+  fetchConveniosTerceiroSetor,
+  type ConvenioRow,
+} from "../services/portalTransparencyService";
+import { InlineStatus, PageContainer, PageHero, PageState, SectionBlock, StatKpi } from "../components/layout/PagePrimitives";
 
 const PAGE_SIZE = 24;
+
+function formatCurrency(value: number) {
+  return value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+}
 
 export function TerceiroSetor() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,6 +30,10 @@ export function TerceiroSetor() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pdfModalOpen, setPdfModalOpen] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [conveniosLoading, setConveniosLoading] = useState(true);
+  const [conveniosError, setConveniosError] = useState<string | null>(null);
+  const [conveniosTerceiroSetor, setConveniosTerceiroSetor] = useState<Awaited<ReturnType<typeof fetchConveniosTerceiroSetor>> | null>(null);
+  const [conveniosGerais, setConveniosGerais] = useState<Awaited<ReturnType<typeof fetchConveniosGerais>> | null>(null);
   const navigate = useNavigate();
 
   const handleViewOriginal = (doc: Document) => {
@@ -50,10 +67,7 @@ export function TerceiroSetor() {
   });
 
   const totalPages = Math.max(1, Math.ceil(filteredDocuments.length / PAGE_SIZE));
-  const paginatedDocuments = filteredDocuments.slice(
-    (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE,
-  );
+  const paginatedDocuments = filteredDocuments.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -65,9 +79,52 @@ export function TerceiroSetor() {
     }
   }, [currentPage, totalPages]);
 
-  const subtypes = Array.from(
-    new Set(terceiroSetorDocuments.map((doc) => doc.subtype).filter(Boolean)),
-  );
+  const subtypes = Array.from(new Set(terceiroSetorDocuments.map((doc) => doc.subtype).filter(Boolean)));
+  const totalConvenios = (conveniosTerceiroSetor?.rowCount ?? 0) + (conveniosGerais?.rowCount ?? 0);
+  const totalValorConvenios =
+    (conveniosTerceiroSetor?.summary.numericTotals.valor ?? 0)
+    + (conveniosGerais?.summary.numericTotals.valor ?? 0);
+  const totalPagoConvenios = conveniosTerceiroSetor?.summary.numericTotals.valor_pago ?? 0;
+
+  useEffect(() => {
+    let active = true;
+    setConveniosLoading(true);
+    setConveniosError(null);
+
+    const run = async () => {
+      try {
+        const [terceiroSetor, gerais] = await Promise.all([
+          fetchConveniosTerceiroSetor(),
+          fetchConveniosGerais(),
+        ]);
+
+        if (!active) return;
+        setConveniosTerceiroSetor(terceiroSetor);
+        setConveniosGerais(gerais);
+      } catch (error) {
+        if (!active) return;
+        setConveniosError(error instanceof Error ? error.message : "Falha ao carregar convênios.");
+      } finally {
+        if (active) {
+          setConveniosLoading(false);
+        }
+      }
+    };
+
+    void run();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const topConvenios: ConvenioRow[] = [
+    ...(conveniosTerceiroSetor?.rows ?? []),
+    ...(conveniosGerais?.rows ?? []),
+  ]
+    .filter((row) => (row.valor ?? 0) > 0)
+    .sort((left, right) => (right.valor ?? 0) - (left.valor ?? 0))
+    .slice(0, 20);
 
   const relatedSourceLinks = Array.from(
     new Map(
@@ -78,41 +135,34 @@ export function TerceiroSetor() {
   ).slice(0, 10);
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="bg-neutral-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center space-x-4 mb-4">
-            <Handshake className="w-10 h-10" />
-            <div>
-              <h1 className="text-3xl font-mono">Terceiro Setor</h1>
-              <p className="text-neutral-300 mt-2">
-                Convênios e parcerias com organizações da sociedade civil
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-slate-50 pb-16">
+      <PageHero
+        title="Terceiro Setor"
+        description="Convênios e parcerias com organizações da sociedade civil monitoradas em base pública."
+        eyebrow="Parcerias Públicas"
+        icon={Handshake}
+      />
 
-      <div className="border-b border-neutral-200 bg-neutral-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="md:col-span-2">
-              <label className="block text-xs font-mono text-neutral-600 mb-2">BUSCAR</label>
+      <PageContainer className="pt-8">
+        <SectionBlock title="Filtros" className="mb-8">
+          <div className="grid gap-4 md:grid-cols-3">
+            <label className="md:col-span-2">
+              <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">Buscar</span>
               <input
                 type="text"
                 placeholder="Pesquisar por convênios, OSCs ou objeto..."
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
-                className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black font-mono text-sm"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-slate-900 focus:outline-none"
               />
-            </div>
+            </label>
 
-            <div>
-              <label className="block text-xs font-mono text-neutral-600 mb-2">TIPO</label>
+            <label>
+              <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">Tipo</span>
               <select
                 value={selectedSubtype}
                 onChange={(event) => setSelectedSubtype(event.target.value)}
-                className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black font-mono text-sm bg-white"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-slate-900 focus:outline-none"
               >
                 <option value="todos">Todos os tipos</option>
                 {subtypes.map((subtype) => (
@@ -121,65 +171,96 @@ export function TerceiroSetor() {
                   </option>
                 ))}
               </select>
-            </div>
+            </label>
           </div>
 
-          <div className="mt-6 bg-blue-50 border border-blue-200 p-4">
-            <p className="text-sm text-blue-900 mb-3">
-              <strong className="font-mono">Fontes relacionadas ao tema:</strong> links oficiais
-              monitorados para consulta rápida sem uso de iframe.
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {relatedSourceLinks.map((link) => (
-                <button
-                  key={link.url}
-                  type="button"
-                  onClick={() => openExternalSource(link.url)}
-                  className="px-3 py-2 border border-blue-300 bg-white text-blue-900 text-xs font-mono hover:bg-blue-100 transition-colors"
-                >
-                  {link.title}
-                </button>
-              ))}
-            </div>
+          <InlineStatus kind="info" className="mt-4">
+            Fontes oficiais relacionadas ao tema para consulta rápida sem uso de iframe.
+          </InlineStatus>
+
+          <div className="mt-3 flex flex-wrap gap-2">
+            {relatedSourceLinks.map((link) => (
+              <button
+                key={link.url}
+                type="button"
+                onClick={() => openExternalSource(link.url)}
+                className="rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-xs font-semibold text-blue-800 hover:bg-blue-100"
+              >
+                {link.title}
+              </button>
+            ))}
           </div>
-        </div>
-      </div>
+        </SectionBlock>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-sm text-neutral-600 font-mono">
-            {filteredDocuments.length} documento{filteredDocuments.length !== 1 ? "s" : ""} encontrado
-            {filteredDocuments.length !== 1 ? "s" : ""}
-          </p>
-        </div>
+        <SectionBlock
+          title="Convênios e Termos de Repasse"
+          description="Dados adicionais integrados de convênios e termos vinculados ao terceiro setor."
+          className="mb-8"
+        >
+          {conveniosError ? <InlineStatus kind="error" className="mb-4">{conveniosError}</InlineStatus> : null}
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {paginatedDocuments.map((doc) => (
-            <DocumentCard
-              key={doc.id}
-              document={doc}
-              onViewDetails={() => handleViewDetails(doc)}
-              onViewOriginal={doc.originalUrl ? () => handleViewOriginal(doc) : undefined}
-              onViewAnalysis={doc.analysisUrl ? () => handleViewAnalysis(doc) : undefined}
+          <div className="grid gap-3 sm:grid-cols-3">
+            <StatKpi label="Registros" value={totalConvenios} />
+            <StatKpi label="Valor pactuado" value={formatCurrency(totalValorConvenios)} />
+            <StatKpi label="Valor pago (TS)" value={formatCurrency(totalPagoConvenios)} />
+          </div>
+
+          {conveniosLoading ? (
+            <PageState
+              mode="loading"
+              className="mt-4"
+              title="Carregando convênios"
+              description="Lendo datasets complementares do Portal da Transparência."
             />
-          ))}
-        </div>
+          ) : (
+            <div className="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-white">
+              <table className="w-full text-sm">
+                <thead className="bg-slate-100">
+                  <tr>
+                    <th className="px-3 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">Tipo</th>
+                    <th className="px-3 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">Convênio</th>
+                    <th className="px-3 py-2 text-left text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">Favorecido</th>
+                    <th className="px-3 py-2 text-right text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">Valor</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {topConvenios.map((row, index) => (
+                    <tr key={`${row.numero ?? "conv"}-${index}`} className="hover:bg-slate-50">
+                      <td className="px-3 py-2">{row.tipo ?? "N/D"}</td>
+                      <td className="px-3 py-2">{row.convenio ?? "N/D"}</td>
+                      <td className="px-3 py-2">{row.favorecido ?? "N/D"}</td>
+                      <td className="px-3 py-2 text-right font-semibold">{formatCurrency(row.valor ?? 0)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </SectionBlock>
 
-        <PaginationControls
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
+        <p className="mb-5 text-sm font-semibold text-slate-600">
+          {filteredDocuments.length} documento{filteredDocuments.length !== 1 ? "s" : ""} encontrado
+          {filteredDocuments.length !== 1 ? "s" : ""}
+        </p>
 
-        {filteredDocuments.length === 0 && (
-          <div className="text-center py-20">
-            <Handshake className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
-            <p className="text-neutral-600 font-mono">
-              Nenhum documento encontrado com os filtros selecionados
-            </p>
+        {filteredDocuments.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2">
+            {paginatedDocuments.map((doc) => (
+              <DocumentCard
+                key={doc.id}
+                document={doc}
+                onViewDetails={() => handleViewDetails(doc)}
+                onViewOriginal={doc.originalUrl ? () => handleViewOriginal(doc) : undefined}
+                onViewAnalysis={doc.analysisUrl ? () => handleViewAnalysis(doc) : undefined}
+              />
+            ))}
           </div>
+        ) : (
+          <PageState mode="empty" title="Nenhum documento encontrado" />
         )}
-      </div>
+
+        <PaginationControls currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
+      </PageContainer>
 
       <PdfModal
         isOpen={pdfModalOpen}
@@ -192,4 +273,3 @@ export function TerceiroSetor() {
     </div>
   );
 }
-

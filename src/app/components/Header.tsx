@@ -69,8 +69,9 @@ export function Header() {
       name: "Finanças Públicas",
       items: [
         { name: "Panorama Contábil", href: "/contas-publicas", description: "Visão geral" },
-        { name: "Receitas", href: "/contas-publicas?subtype=receita-mensal", description: "Arrecadação mensal" },
-        { name: "Despesas", href: "/contas-publicas?subtype=despesa-mensal", description: "Gastos detalhados" },
+        { name: "Receitas", href: "/receitas", description: "Arrecadação mensal" },
+        { name: "Despesas", href: "/despesas", description: "Gastos detalhados" },
+        { name: "Licitações", href: "/licitacoes", description: "Compras e contratos" },
         { name: "Planejamento (LOA/LDO/PPA)", href: "/contas-publicas?subtype=loa", description: "Leis e metas" },
         { name: "Repasses", href: "/repasses", description: "Transferências e destinação" },
         { name: "Pagamentos Pendentes", href: "/controle-externo?subtype=restos-a-pagar", description: "Restos a pagar" },
@@ -256,28 +257,30 @@ export function Header() {
   };
 
   return (
-    <header className="bg-white border-b border-neutral-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-black flex items-center justify-center">
-              <AlertCircle className="w-6 h-6 text-white" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-mono tracking-tight text-lg">CIVIC_WATCH</span>
-              <span className="text-xs text-neutral-600 font-mono">FISCALIZA PEDREIRA</span>
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/85 backdrop-blur-xl shadow-sm">
+      <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-10">
+        <div className="flex h-20 items-center justify-between gap-4">
+          <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Ir para início">
+            <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-white shadow-sm">
+              <AlertCircle className="h-6 w-6" />
+            </span>
+            <div className="min-w-0">
+              <p className="font-headline truncate text-lg font-black tracking-tight text-slate-950">Sentinela Pedreira</p>
+              <p className="truncate text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-500">
+                Transparência Cívica
+              </p>
             </div>
           </Link>
 
-          <nav className="hidden xl:flex items-center space-x-1">
+          <nav className="hidden items-center gap-1 xl:flex" aria-label="Navegação principal">
             {primaryLinks.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`px-3 py-2 text-sm font-mono transition-colors ${
+                className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
                   isActive(item.href)
-                    ? "text-black border-b-2 border-black"
-                    : "text-neutral-600 hover:text-black"
+                    ? "bg-slate-900 text-white"
+                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-950"
                 }`}
               >
                 {item.name}
@@ -296,23 +299,23 @@ export function Header() {
               >
                 <button
                   type="button"
-                  className={`px-3 py-2 text-sm font-mono transition-colors inline-flex items-center gap-1 ${
+                  className={`inline-flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
                     groupIsActive(group)
-                      ? "text-black border-b-2 border-black"
-                      : "text-neutral-600 hover:text-black"
+                      ? "bg-slate-100 text-slate-950"
+                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-950"
                   }`}
                 >
                   {group.name}
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="h-4 w-4" />
                 </button>
 
                 {openGroupId === group.id && (
                   <div
-                    className="absolute left-0 top-full pt-1 w-[320px] z-50"
+                    className="absolute left-0 top-full z-50 w-[340px] pt-2"
                     onMouseEnter={clearCloseDropdownTimer}
                     onMouseLeave={scheduleDropdownClose}
                   >
-                    <div className="border border-neutral-200 bg-white shadow-sm">
+                    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-2xl">
                       {group.items.map((item) => (
                         <Link
                           key={item.href}
@@ -321,12 +324,12 @@ export function Header() {
                             handleGroupedItemClick(event, item);
                             setOpenGroupId(null);
                           }}
-                          className="block px-4 py-3 border-b border-neutral-100 last:border-b-0 hover:bg-neutral-50 transition-colors"
+                          className="block border-b border-slate-100 px-4 py-3 last:border-b-0 hover:bg-slate-50 transition-colors"
                         >
-                          <p className="font-mono text-sm text-neutral-900">{item.name}</p>
-                          {item.description && (
-                            <p className="text-xs text-neutral-600 mt-1">{item.description}</p>
-                          )}
+                          <p className="text-sm font-semibold text-slate-900">{item.name}</p>
+                          {item.description ? (
+                            <p className="mt-1 text-xs leading-relaxed text-slate-600">{item.description}</p>
+                          ) : null}
                         </Link>
                       ))}
                     </div>
@@ -336,107 +339,109 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 hover:bg-neutral-100 transition-colors"
+              className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-950 transition-colors"
               aria-label="Buscar"
             >
-              <Search className="w-5 h-5" />
+              <Search className="h-5 w-5" />
             </button>
 
             <Link
               to="/denuncia"
-              className="hidden md:block px-4 py-2 bg-black text-white text-sm font-mono hover:bg-neutral-800 transition-colors"
+              className="hidden rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800 md:inline-block"
             >
-              DENÚNCIA
+              Denunciar
             </Link>
 
             <button
               type="button"
               onClick={handleAssistantShortcut}
-              className="hidden md:block px-4 py-2 border border-black text-black text-sm font-mono hover:bg-black hover:text-white transition-colors"
+              className="hidden rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900 md:inline-block"
             >
-              AI ASSIST
+              Assistente IA
             </button>
 
             {auth.isAuthenticated ? (
               <>
                 <Link
                   to="/minha-conta"
-                  className="hidden md:block px-4 py-2 border border-neutral-300 text-sm font-mono hover:border-black"
+                  className="hidden rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900 md:inline-block"
                 >
-                  MINHA CONTA
+                  Minha conta
                 </Link>
                 <button
                   type="button"
                   onClick={() => void handleSignOut()}
-                  className="hidden md:block px-4 py-2 border border-neutral-300 text-sm font-mono hover:border-black"
+                  className="hidden rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900 md:inline-block"
                 >
-                  SAIR
+                  Sair
                 </button>
               </>
             ) : (
               <Link
                 to="/entrar"
-                className="hidden md:block px-4 py-2 border border-neutral-300 text-sm font-mono hover:border-black"
+                className="hidden rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900 md:inline-block"
               >
-                ENTRAR
+                Entrar
               </Link>
             )}
 
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-2 hover:bg-neutral-100 transition-colors"
-              aria-label="Menu"
+              className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-950 xl:hidden"
+              aria-label="Abrir menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
 
         {searchOpen && (
-          <div className="py-4 border-t border-neutral-200">
+          <div className="border-t border-slate-200 py-4">
             <form className="relative" onSubmit={handleSearchSubmit}>
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
                 placeholder="Buscar documentos, leis, projetos..."
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-neutral-300 focus:outline-none focus:border-black font-mono text-sm"
+                className="w-full rounded-xl border border-slate-300 bg-white py-2.5 pl-10 pr-4 text-sm focus:border-slate-800 focus:outline-none"
                 autoFocus
               />
             </form>
 
             {normalizedSearch.length > 0 && (
-              <div className="mt-3 border border-neutral-200 bg-white">
+              <div className="mt-3 overflow-hidden rounded-xl border border-slate-200 bg-white">
                 {searchLoading && (
-                  <div className="px-4 py-3 text-sm text-neutral-600">Buscando no servidor...</div>
+                  <div className="px-4 py-3 text-sm text-slate-600">Buscando no servidor...</div>
                 )}
 
                 {searchError && (
-                  <div className="px-4 py-3 text-sm text-red-700 bg-red-50 border-b border-red-200">
+                  <div className="border-b border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
                     {searchError}
                   </div>
                 )}
 
                 {searchResults.length > 0 ? (
-                  <ul className="divide-y divide-neutral-200">
+                  <ul className="divide-y divide-slate-200">
                     {searchResults.map((result) => (
                       <li key={result.id}>
                         <button
                           type="button"
                           onClick={() => handleSelectSearchResult(result.href)}
-                          className="w-full text-left px-4 py-3 hover:bg-neutral-50 transition-colors"
+                          className="w-full px-4 py-3 text-left hover:bg-slate-50 transition-colors"
                         >
                           <div className="flex items-start justify-between gap-4">
                             <div>
-                              <p className="font-mono text-sm">{result.title}</p>
-                              <p className="text-xs text-neutral-600 mt-1">{result.subtitle}</p>
+                              <p className="text-sm font-semibold text-slate-900">{result.title}</p>
+                              <p className="mt-1 text-xs text-slate-600">{result.subtitle}</p>
                             </div>
-                            <span className="text-[11px] font-mono uppercase text-neutral-500 flex items-center gap-1">
-                              <FileText className="w-3 h-3" />
+                            <span className="inline-flex items-center gap-1 text-[11px] font-semibold uppercase text-slate-500">
+                              <FileText className="h-3 w-3" />
                               {result.type} · {result.source}
                             </span>
                           </div>
@@ -446,7 +451,7 @@ export function Header() {
                   </ul>
                 ) : (
                   !searchLoading && (
-                    <div className="px-4 py-3 text-sm text-neutral-600">
+                    <div className="px-4 py-3 text-sm text-slate-600">
                       Nenhum resultado encontrado para "{searchTerm}".
                     </div>
                   )
@@ -458,17 +463,17 @@ export function Header() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="xl:hidden border-t border-neutral-200 bg-white">
-          <nav className="px-4 py-4 space-y-1">
+        <div className="border-t border-slate-200 bg-white xl:hidden">
+          <nav className="space-y-1 px-4 py-4">
             {primaryLinks.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-3 py-2 text-sm font-mono transition-colors ${
+                className={`block rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
                   isActive(item.href)
-                    ? "bg-black text-white"
-                    : "text-neutral-700 hover:bg-neutral-100"
+                    ? "bg-slate-900 text-white"
+                    : "text-slate-700 hover:bg-slate-100"
                 }`}
               >
                 {item.name}
@@ -476,8 +481,10 @@ export function Header() {
             ))}
 
             {groupedNavigation.map((group) => (
-              <div key={group.id} className="pt-3 mt-3 border-t border-neutral-200">
-                <p className="px-3 pb-1 text-xs text-neutral-500 font-mono uppercase">{group.name}</p>
+              <div key={group.id} className="mt-3 border-t border-slate-200 pt-3">
+                <p className="px-3 pb-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                  {group.name}
+                </p>
                 {group.items.map((item) => (
                   <Link
                     key={item.href}
@@ -486,10 +493,10 @@ export function Header() {
                       handleGroupedItemClick(event, item);
                       setMobileMenuOpen(false);
                     }}
-                    className={`block px-3 py-2 text-sm font-mono transition-colors ${
+                    className={`block rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
                       isActive(item.href)
-                        ? "bg-black text-white"
-                        : "text-neutral-700 hover:bg-neutral-100"
+                        ? "bg-slate-900 text-white"
+                        : "text-slate-700 hover:bg-slate-100"
                     }`}
                   >
                     {item.name}
@@ -501,9 +508,9 @@ export function Header() {
             <Link
               to="/denuncia"
               onClick={() => setMobileMenuOpen(false)}
-              className="block px-3 py-2 bg-black text-white text-sm font-mono mt-4"
+              className="mt-4 block rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white"
             >
-              FAZER DENÚNCIA
+              Fazer denúncia
             </Link>
 
             {auth.isAuthenticated ? (
@@ -511,9 +518,9 @@ export function Header() {
                 <Link
                   to="/minha-conta"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block px-3 py-2 border border-neutral-300 text-sm font-mono"
+                  className="block rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700"
                 >
-                  MINHA CONTA
+                  Minha conta
                 </Link>
                 <button
                   type="button"
@@ -521,27 +528,27 @@ export function Header() {
                     setMobileMenuOpen(false);
                     void handleSignOut();
                   }}
-                  className="block w-full text-left px-3 py-2 border border-neutral-300 text-sm font-mono"
+                  className="block w-full rounded-lg border border-slate-300 px-3 py-2 text-left text-sm font-semibold text-slate-700"
                 >
-                  SAIR
+                  Sair
                 </button>
               </>
             ) : (
               <Link
                 to="/entrar"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 border border-neutral-300 text-sm font-mono"
+                className="block rounded-lg border border-slate-300 px-3 py-2 text-sm font-semibold text-slate-700"
               >
-                ENTRAR
+                Entrar
               </Link>
             )}
 
             <button
               type="button"
               onClick={handleAssistantShortcut}
-              className="block w-full text-left px-3 py-2 border border-black text-black text-sm font-mono"
+              className="block w-full rounded-lg border border-slate-900 px-3 py-2 text-left text-sm font-semibold text-slate-900"
             >
-              ASSISTENTE JURÍDICO
+              Assistente Jurídico
             </button>
           </nav>
         </div>

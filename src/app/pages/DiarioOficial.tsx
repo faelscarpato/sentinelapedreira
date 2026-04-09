@@ -10,6 +10,13 @@ import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
 import { useAuth } from "../../features/auth/useAuth";
 import { listDiarioOficialDocuments } from "../services/diarioOficialService";
 import { getDocumentDetailHref } from "../lib/documentDetailRoute";
+import {
+  InlineStatus,
+  PageContainer,
+  PageHero,
+  PageState,
+  SectionBlock,
+} from "../components/layout/PagePrimitives";
 
 const PAGE_SIZE = 24;
 
@@ -49,8 +56,9 @@ export function DiarioOficial() {
   };
 
   const filteredDocuments = diarioOficialDocuments.filter((doc) => {
-    const matchesSearch = doc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         doc.summary.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch =
+      doc.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      doc.summary.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesYear = selectedYear === "todos" || doc.year.toString() === selectedYear;
     return matchesSearch && matchesYear;
   });
@@ -106,10 +114,7 @@ export function DiarioOficial() {
   const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
   const paginatedDocuments = shouldUseServer
     ? remoteDocuments
-    : filteredDocuments.slice(
-      (currentPage - 1) * PAGE_SIZE,
-      currentPage * PAGE_SIZE,
-    );
+    : filteredDocuments.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   useEffect(() => {
     if (currentPage > totalPages) {
@@ -118,110 +123,87 @@ export function DiarioOficial() {
   }, [currentPage, totalPages]);
 
   const years = shouldUseServer
-    ? Array.from({ length: Math.max(new Date().getFullYear() - 1999, 1) }, (_, index) => new Date().getFullYear() - index)
+    ? Array.from(
+        { length: Math.max(new Date().getFullYear() - 1999, 1) },
+        (_, index) => new Date().getFullYear() - index,
+      )
     : Array.from(new Set(diarioOficialDocuments.map((d) => d.year))).sort((a, b) => b - a);
 
   const todayIso = new Date().toLocaleDateString("en-CA", { timeZone: "America/Sao_Paulo" });
   const isTodayHighlighted =
-    currentPage === 1 &&
-    paginatedDocuments.length > 0 &&
-    paginatedDocuments[0].date === todayIso;
+    currentPage === 1 && paginatedDocuments.length > 0 && paginatedDocuments[0].date === todayIso;
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <div className="bg-neutral-900 text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center space-x-4 mb-4">
-            <FileText className="w-10 h-10" />
-            <div>
-              <h1 className="text-3xl font-mono">Diário Oficial</h1>
-              <p className="text-neutral-300 mt-2">
-                Publicações municipais oficiais organizadas por data
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-slate-50 pb-14">
+      <PageHero
+        title="Diário Oficial"
+        description="Publicações oficiais organizadas por data, com busca, filtros e acesso a PDF/análises."
+        eyebrow="Explorador Oficial"
+        icon={FileText}
+      />
 
-      {/* Filters */}
-      <div className="border-b border-neutral-200 bg-neutral-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="grid md:grid-cols-3 gap-4">
-            {/* Search */}
-            <div className="md:col-span-2">
-              <label className="block text-xs font-mono text-neutral-600 mb-2">
-                BUSCAR
-              </label>
+      <PageContainer className="pt-8">
+        <SectionBlock title="Filtros" className="mb-8">
+          <div className="grid gap-4 md:grid-cols-3">
+            <label className="md:col-span-2">
+              <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">
+                Buscar
+              </span>
               <input
                 type="text"
                 placeholder="Pesquisar por edição, data ou conteúdo..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black font-mono text-sm"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-slate-900 focus:outline-none"
               />
-            </div>
+            </label>
 
-            {/* Year Filter */}
-            <div>
-              <label className="block text-xs font-mono text-neutral-600 mb-2">
-                ANO
-              </label>
+            <label>
+              <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">
+                Ano
+              </span>
               <select
                 value={selectedYear}
                 onChange={(e) => setSelectedYear(e.target.value)}
-                className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black font-mono text-sm bg-white"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-slate-900 focus:outline-none"
               >
                 <option value="todos">Todos os anos</option>
-                {years.map(year => (
-                  <option key={year} value={year.toString()}>{year}</option>
+                {years.map((year) => (
+                  <option key={year} value={year.toString()}>
+                    {year}
+                  </option>
                 ))}
               </select>
-            </div>
+            </label>
           </div>
-        </div>
-      </div>
+        </SectionBlock>
 
-      {/* Results */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-sm text-neutral-600 font-mono">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm font-semibold text-slate-600">
             {totalItems} documento{totalItems !== 1 ? "s" : ""} encontrado{totalItems !== 1 ? "s" : ""}
           </p>
-          <div className="flex items-center space-x-2 text-sm">
-            <Calendar className="w-4 h-4 text-neutral-500" />
-            <span className="text-neutral-600">Ordenado por: Mais recente</span>
-          </div>
+          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+            <Calendar className="h-4 w-4" />
+            Mais recente primeiro
+          </span>
         </div>
 
-        {/* Today's Highlight */}
-        {isTodayHighlighted && (
-          <div className="mb-8">
-            <div className="bg-blue-50 border-l-4 border-blue-600 p-4 mb-4">
-              <div className="flex items-center space-x-2 mb-2">
-                <div className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></div>
-                <span className="text-sm font-mono text-blue-900">EDIÇÃO DE HOJE</span>
-              </div>
-              <p className="text-sm text-blue-800">
-                O Diário Oficial de hoje já está disponível para consulta
-              </p>
-            </div>
-          </div>
-        )}
+        {isTodayHighlighted ? (
+          <InlineStatus kind="info" className="mb-6">
+            Edição de hoje detectada na primeira posição dos resultados.
+          </InlineStatus>
+        ) : null}
 
-        {/* Document Grid */}
-        {remoteError && (
-          <div className="border border-red-300 bg-red-50 p-4 text-sm text-red-900 mb-6">
-            {remoteError}
-          </div>
-        )}
+        {remoteError ? <InlineStatus kind="error" className="mb-6">{remoteError}</InlineStatus> : null}
 
         {remoteLoading ? (
-          <div className="border border-neutral-200 p-6 text-sm text-neutral-600 mb-6">
-            Carregando Diário Oficial do Supabase...
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 gap-6">
+          <PageState
+            mode="loading"
+            title="Sincronizando Diário Oficial"
+            description="Consultando publicações no Supabase para esta página de resultados."
+          />
+        ) : paginatedDocuments.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2">
             {paginatedDocuments.map((doc) => (
               <DocumentCard
                 key={doc.id}
@@ -232,6 +214,12 @@ export function DiarioOficial() {
               />
             ))}
           </div>
+        ) : (
+          <PageState
+            mode="empty"
+            title="Nenhum documento encontrado"
+            description="Ajuste os filtros ou amplie o período para localizar novas publicações."
+          />
         )}
 
         <PaginationControls
@@ -239,22 +227,12 @@ export function DiarioOficial() {
           totalPages={totalPages}
           onPageChange={setCurrentPage}
         />
+      </PageContainer>
 
-        {!remoteLoading && paginatedDocuments.length === 0 && (
-          <div className="text-center py-20">
-            <FileText className="w-16 h-16 text-neutral-300 mx-auto mb-4" />
-            <p className="text-neutral-600 font-mono">
-              Nenhum documento encontrado com os filtros selecionados
-            </p>
-          </div>
-        )}
-      </div>
-
-      {/* PDF Modal */}
       <PdfModal
         isOpen={pdfModalOpen}
         onClose={() => setPdfModalOpen(false)}
-        title={selectedDocument?.title || ''}
+        title={selectedDocument?.title || ""}
         date={selectedDocument?.date}
         source={selectedDocument?.sourceEntity}
         pdfUrl={selectedDocument?.originalUrl}
@@ -262,4 +240,3 @@ export function DiarioOficial() {
     </div>
   );
 }
-

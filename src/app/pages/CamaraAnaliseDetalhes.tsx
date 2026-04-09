@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
-import { ArrowLeft, LoaderCircle } from "lucide-react";
+import { ArrowLeft, FileText } from "lucide-react";
 import { getCamaraPublicFileBySlug, parseCamaraAnalysisSlug } from "../lib/camaraAnalysis";
 import { SafeMarkdown } from "../components/SafeMarkdown";
+import { PageContainer, PageHero, PageState, SectionBlock } from "../components/layout/PagePrimitives";
 
 function hasTechnicalMetadataBlock(markdown: string) {
   const normalized = markdown.toLowerCase();
@@ -29,19 +30,10 @@ export function CamaraAnaliseDetalhes() {
   useEffect(() => {
     let active = true;
 
-    if (!analysisRef || !publicFile) {
+    if (!analysisRef || !publicFile || !publicFile.reportPath) {
       setIsLoading(false);
       setMarkdownContent("");
-      setErrorMessage("Analise em andamento");
-      return () => {
-        active = false;
-      };
-    }
-
-    if (!publicFile.reportPath) {
-      setIsLoading(false);
-      setMarkdownContent("");
-      setErrorMessage("Analise em andamento");
+      setErrorMessage("Análise em andamento");
       return () => {
         active = false;
       };
@@ -54,7 +46,7 @@ export function CamaraAnaliseDetalhes() {
     fetch(publicFile.reportPath, { cache: "no-store" })
       .then(async (response) => {
         if (!response.ok) {
-          throw new Error("Analise em andamento");
+          throw new Error("Análise em andamento");
         }
         return response.text();
       })
@@ -62,14 +54,14 @@ export function CamaraAnaliseDetalhes() {
         if (!active) return;
         if (hasTechnicalMetadataBlock(content)) {
           setMarkdownContent("");
-          setErrorMessage("Analise em andamento");
+          setErrorMessage("Análise em andamento");
           return;
         }
         setMarkdownContent(content);
       })
       .catch(() => {
         if (!active) return;
-        setErrorMessage("Analise em andamento");
+        setErrorMessage("Análise em andamento");
       })
       .finally(() => {
         if (!active) return;
@@ -83,55 +75,78 @@ export function CamaraAnaliseDetalhes() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <LoaderCircle className="w-10 h-10 animate-spin text-neutral-600 mx-auto mb-3" />
-          <p className="text-sm font-mono text-neutral-600">Carregando analise...</p>
-        </div>
+      <div className="min-h-screen bg-slate-50 py-12">
+        <PageContainer>
+          <PageState mode="loading" title="Carregando análise" description="Buscando o relatório editorial público." />
+        </PageContainer>
+      </div>
+    );
+  }
+
+  if (errorMessage) {
+    return (
+      <div className="min-h-screen bg-slate-50 pb-16">
+        <PageHero
+          title="Câmara Legislativa"
+          description="A análise ainda não foi disponibilizada para esta matéria."
+          eyebrow="Análises"
+          icon={FileText}
+          actions={
+            <Link
+              to="/camara"
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Voltar para Câmara
+            </Link>
+          }
+        />
+        <PageContainer className="pt-8">
+          <PageState mode="empty" title={errorMessage} description="Retorne mais tarde para verificar a publicação." />
+        </PageContainer>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link
-          to="/camara"
-          className="inline-flex items-center space-x-2 text-sm mb-8 font-mono hover:underline"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Voltar para Câmara Legislativa</span>
-        </Link>
+    <div className="min-h-screen bg-slate-50 pb-16">
+      <PageHero
+        title="Análise da Câmara Legislativa"
+        description="Leitura consolidada da tramitação, riscos e pontos críticos identificados."
+        eyebrow="Análises"
+        icon={FileText}
+        actions={
+          <Link
+            to="/camara"
+            className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Voltar para Câmara
+          </Link>
+        }
+      />
 
-        {errorMessage ? (
-          <article className="border border-neutral-300 bg-neutral-50 p-6">
-            <p className="font-mono text-base">{errorMessage}</p>
-          </article>
-        ) : (
-          <article className="border border-neutral-200 bg-white p-6 md:p-10 shadow-sm">
-            <div
-              className="prose prose-neutral max-w-none
-              prose-headings:font-mono prose-headings:tracking-tight
-              prose-h1:text-3xl prose-h1:mb-8 prose-h1:mt-0
-              prose-h2:text-2xl prose-h2:mb-5 prose-h2:mt-10 prose-h2:pb-2 prose-h2:border-b prose-h2:border-neutral-200
-              prose-h3:text-xl prose-h3:mb-3 prose-h3:mt-8
-              prose-p:text-[15px] prose-p:leading-8 prose-p:mb-5
-              prose-ul:my-5 prose-ul:pl-6
-              prose-ol:my-5 prose-ol:pl-6
-              prose-li:my-2 prose-li:leading-7
-              prose-table:my-8 prose-table:w-full prose-table:border-collapse prose-table:text-sm
-              prose-th:border prose-th:border-neutral-300 prose-th:bg-neutral-100 prose-th:px-3 prose-th:py-2 prose-th:text-left
-              prose-td:border prose-td:border-neutral-300 prose-td:px-3 prose-td:py-2
-              prose-strong:font-semibold
-              prose-code:bg-neutral-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-[13px]
-              prose-pre:bg-neutral-900 prose-pre:text-white prose-pre:px-4 prose-pre:py-3 prose-pre:rounded-md prose-pre:overflow-x-auto
-              prose-blockquote:border-l-4 prose-blockquote:border-neutral-400 prose-blockquote:pl-4 prose-blockquote:italic"
-            >
-              <SafeMarkdown content={markdownContent} />
-            </div>
-          </article>
-        )}
-      </div>
+      <PageContainer className="pt-8">
+        <SectionBlock>
+          <div
+            className="prose prose-slate max-w-none
+            prose-headings:font-headline prose-headings:tracking-tight
+            prose-h1:text-3xl prose-h1:mt-0 prose-h1:mb-8
+            prose-h2:text-2xl prose-h2:mb-5 prose-h2:mt-10 prose-h2:border-b prose-h2:border-slate-200 prose-h2:pb-2
+            prose-h3:text-xl prose-h3:mb-3 prose-h3:mt-8
+            prose-p:text-[15px] prose-p:leading-8 prose-p:text-slate-700
+            prose-li:text-slate-700 prose-li:leading-7
+            prose-table:my-8 prose-table:w-full prose-table:border-collapse prose-table:text-sm
+            prose-th:border prose-th:border-slate-300 prose-th:bg-slate-100 prose-th:px-3 prose-th:py-2 prose-th:text-left
+            prose-td:border prose-td:border-slate-300 prose-td:px-3 prose-td:py-2
+            prose-code:rounded prose-code:bg-slate-100 prose-code:px-1 prose-code:py-0.5 prose-code:text-[13px]
+            prose-pre:rounded-xl prose-pre:bg-slate-900 prose-pre:px-4 prose-pre:py-3 prose-pre:text-white prose-pre:overflow-x-auto
+            prose-blockquote:border-l-4 prose-blockquote:border-slate-400 prose-blockquote:pl-4 prose-blockquote:italic"
+          >
+            <SafeMarkdown content={markdownContent} />
+          </div>
+        </SectionBlock>
+      </PageContainer>
     </div>
   );
 }

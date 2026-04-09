@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "../../features/auth/useAuth";
+import { InlineStatus, PageContainer, PageHero, SectionBlock } from "../components/layout/PagePrimitives";
 
 export function Entrar() {
   const auth = useAuth();
@@ -40,49 +41,47 @@ export function Entrar() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center px-4">
-      <div className="w-full max-w-md border border-neutral-200 p-6">
-        <h1 className="text-2xl font-mono mb-2">Entrar</h1>
-        <p className="text-sm text-neutral-600 mb-6">
-          Acesse a área autenticada para acompanhar denúncias, favoritos e workflow editorial.
-        </p>
+    <div className="min-h-screen bg-slate-50 pb-16">
+      <PageHero
+        title="Entrar"
+        description="Acesse a área autenticada para acompanhar denúncias, favoritos e fluxo editorial."
+        eyebrow="Autenticação"
+      />
 
-        {!auth.isSupabaseEnabled && (
-          <div className="mb-4 border border-orange-300 bg-orange-50 p-3 text-sm text-orange-900">
-            Supabase não configurado no frontend. Defina VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY.
-          </div>
-        )}
+      <PageContainer className="pt-8">
+        <SectionBlock className="mx-auto max-w-xl" title="Link mágico por e-mail">
+          {!auth.isSupabaseEnabled ? (
+            <InlineStatus kind="warning" className="mb-4">
+              Supabase não configurado no frontend. Defina `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`.
+            </InlineStatus>
+          ) : null}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-xs font-mono text-neutral-700 mb-2">E-MAIL</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-              className="w-full px-4 py-2 border border-neutral-300 focus:outline-none focus:border-black"
-              placeholder="voce@exemplo.com"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <label>
+              <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">E-mail</span>
+              <input
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm focus:border-slate-900 focus:outline-none"
+                placeholder="voce@exemplo.com"
+              />
+            </label>
 
-          {successMessage && (
-            <div className="border border-green-300 bg-green-50 p-3 text-sm text-green-900">{successMessage}</div>
-          )}
+            {successMessage ? <InlineStatus kind="success">{successMessage}</InlineStatus> : null}
+            {errorMessage ? <InlineStatus kind="error">{errorMessage}</InlineStatus> : null}
 
-          {errorMessage && (
-            <div className="border border-red-300 bg-red-50 p-3 text-sm text-red-900">{errorMessage}</div>
-          )}
-
-          <button
-            type="submit"
-            disabled={!auth.isSupabaseEnabled || loading}
-            className="w-full px-4 py-3 bg-black text-white font-mono text-sm hover:bg-neutral-800 disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            {loading ? "ENVIANDO..." : "ENVIAR LINK MÁGICO"}
-          </button>
-        </form>
-      </div>
+            <button
+              type="submit"
+              disabled={!auth.isSupabaseEnabled || loading}
+              className="w-full rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-45"
+            >
+              {loading ? "Enviando..." : "Enviar link mágico"}
+            </button>
+          </form>
+        </SectionBlock>
+      </PageContainer>
     </div>
   );
 }

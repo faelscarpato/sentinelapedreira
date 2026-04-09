@@ -15,28 +15,28 @@ export function PaginationControls({
   const nextPage = () => onPageChange(Math.min(totalPages, currentPage + 1));
 
   return (
-    <div className="flex items-center justify-center gap-3 mt-8">
+    <nav className="mt-8 flex items-center justify-center gap-2" aria-label="Paginação">
       <button
         type="button"
         onClick={previousPage}
         disabled={currentPage === 1}
-        className="px-3 py-2 border border-neutral-300 text-sm font-mono hover:border-black disabled:text-neutral-400 disabled:border-neutral-200"
+        className="rounded-full border border-slate-300 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-700 hover:border-slate-900 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-45"
       >
-        ANTERIOR
+        Anterior
       </button>
 
-      <span className="text-sm font-mono text-neutral-600">
-        PÁGINA {currentPage} DE {totalPages}
+      <span className="rounded-full bg-slate-100 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-600">
+        Página {currentPage} de {totalPages}
       </span>
 
       <button
         type="button"
         onClick={nextPage}
         disabled={currentPage === totalPages}
-        className="px-3 py-2 border border-neutral-300 text-sm font-mono hover:border-black disabled:text-neutral-400 disabled:border-neutral-200"
+        className="rounded-full border border-slate-300 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-700 hover:border-slate-900 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-45"
       >
-        PRÓXIMA
+        Próxima
       </button>
-    </div>
+    </nav>
   );
 }

@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { fiscalizaData } from "./generated/fiscalizaData";
 import { pipelineReports, pipelineUpdatedAt } from "./generated/pipelineReports";
+import { diarioReportByEditionYear, diarioReports } from "./generated/diarioReports";
 import prestacaoSource0 from "./sources/prestacao-2026-04-02-0.json";
 import prestacaoSource1 from "./sources/prestacao-2026-04-02-1.json";
 import prestacaoSource2 from "./sources/prestacao-2026-04-02-2.json";
@@ -622,6 +623,35 @@ function resolveReportPath(document: BaseDocument) {
   return resolveReportPathByDocumentId(document.id);
 }
 
+function resolveDiarioEditionFromDocument(document: BaseDocument) {
+  if (document.category !== "diario-oficial") return null;
+
+  const fromId = document.id.match(/^diario-oficial-(\d+)-((?:19|20)\d{2})-\d{2}-\d{2}$/i);
+  if (fromId) {
+    return {
+      edition: Number(fromId[1]),
+      year: Number(fromId[2]),
+    };
+  }
+
+  const fromTitle = document.title.match(/n[ºo]?\s*(\d+)/i);
+  if (!fromTitle) return null;
+
+  return {
+    edition: Number(fromTitle[1]),
+    year: document.year ?? Number(document.date.slice(0, 4)),
+  };
+}
+
+function resolveDiarioReportPath(document: BaseDocument) {
+  const parsed = resolveDiarioEditionFromDocument(document);
+  if (!parsed) return undefined;
+
+  const reportId = diarioReportByEditionYear[`${parsed.edition}-${parsed.year}`];
+  if (!reportId) return undefined;
+  return `/relatorios/${reportId}`;
+}
+
 function inferPipelineSubtype(report: PipelineReportRow) {
   const text = `${report.id} ${report.title} ${report.tags.join(" ")}`.toLowerCase();
   if (/\bplc\b/.test(text)) return "PLC";
@@ -688,7 +718,7 @@ function buildPipelineCamaraDocuments() {
 }
 
 function toFrontendDocument(document: BaseDocument): Document {
-  const analysisUrl = resolveReportPath(document);
+  const analysisUrl = resolveDiarioReportPath(document) ?? resolveReportPath(document);
 
   return {
     id: document.id,
@@ -808,6 +838,10 @@ const allDocumentsBase = sortDocuments(
   dedupeByUrl(dedupeDocuments([...normalizedBaseDocuments, ...supplementalDocuments])),
 );
 function applyTemporaryAnalysisRules(document: Document): Document {
+  if (document.categoryKey === "diario-oficial" && document.analysisUrl) {
+    return document;
+  }
+
   return {
     ...document,
     analysisUrl: undefined,
@@ -816,7 +850,17 @@ function applyTemporaryAnalysisRules(document: Document): Document {
 }
 
 export const allDocuments: Document[] = allDocumentsBase.map(applyTemporaryAnalysisRules);
-export const reports: Report[] = [];
+export const reports: Report[] = diarioReports.map((report) => ({
+  id: report.id,
+  title: report.title,
+  category: report.category,
+  date: report.date,
+  summary: report.summary,
+  tags: report.tags,
+  content: report.content,
+  sources: report.sources,
+  confidenceLevel: report.confidenceLevel,
+}));
 export const documentosFaltantes: Document[] = [];
 
 function byCategory(category: BaseDocument["category"]) {
