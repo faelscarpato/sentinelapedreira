@@ -9,6 +9,9 @@ import { CamaraAnaliseDetalhes } from "./pages/CamaraAnaliseDetalhes";
 import { ContasPublicas } from "./pages/ContasPublicas";
 import { ControleExterno } from "./pages/ControleExterno";
 import { Repasses } from "./pages/Repasses";
+import { Receitas } from "./pages/Receitas";
+import { Despesas } from "./pages/Despesas";
+import { Licitacoes } from "./pages/Licitacoes";
 import { TerceiroSetor } from "./pages/TerceiroSetor";
 import { Relatorios } from "./pages/Relatorios";
 import { DocumentosFaltantes } from "./pages/DocumentosFaltantes";
@@ -38,6 +41,9 @@ export const router = createBrowserRouter([
       { path: "contas-publicas", Component: ContasPublicas },
       { path: "controle-externo", Component: ControleExterno },
       { path: "repasses", Component: Repasses },
+      { path: "receitas", Component: Receitas },
+      { path: "despesas", Component: Despesas },
+      { path: "licitacoes", Component: Licitacoes },
       { path: "terceiro-setor", Component: TerceiroSetor },
       { path: "relatorios", Component: Relatorios },
       { path: "relatorios/:id", Component: RelatorioDetalhes },

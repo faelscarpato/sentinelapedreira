@@ -5,9 +5,9 @@ import { AssistantChatWidget } from "./components/AssistantChatWidget";
 
 export function Root() {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900">
       <Header />
-      <main className="flex-1">
+      <main className="min-h-[calc(100vh-18rem)]">
         <Outlet />
       </main>
       <Footer />
