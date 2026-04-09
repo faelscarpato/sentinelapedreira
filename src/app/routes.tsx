@@ -17,7 +17,12 @@ import { AssistenteJuridico } from "./pages/AssistenteJuridico";
 import { Rastreabilidade } from "./pages/Rastreabilidade";
 import { RelatorioDetalhes } from "./pages/RelatorioDetalhes";
 import { NotFound } from "./pages/NotFound";
+import { Entrar } from "./pages/Entrar";
+import { MinhaConta } from "./pages/MinhaConta";
+import { PainelEditorial } from "./pages/PainelEditorial";
 import { Root } from "./Root";
+import { RequireAuth } from "./guards/RequireAuth";
+import { RequireRoles } from "./guards/RequireRoles";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +30,7 @@ export const router = createBrowserRouter([
     Component: Root,
     children: [
       { index: true, Component: Home },
+      { path: "entrar", Component: Entrar },
       { path: "diario-oficial", Component: DiarioOficial },
       { path: "camara", Component: CamaraLegislativa },
       { path: "camara/analises/:slug", Component: CamaraAnaliseDetalhes },
@@ -37,7 +43,30 @@ export const router = createBrowserRouter([
       { path: "documentos-faltantes", Component: DocumentosFaltantes },
       { path: "denuncia", Component: Denuncia },
       { path: "assistente", Component: AssistenteJuridico },
-      { path: "rastreabilidade", Component: Rastreabilidade },
+      {
+        path: "minha-conta",
+        element: (
+          <RequireAuth>
+            <MinhaConta />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "painel-editorial",
+        element: (
+          <RequireRoles roles={["editor", "reviewer", "admin"]}>
+            <PainelEditorial />
+          </RequireRoles>
+        ),
+      },
+      {
+        path: "rastreabilidade",
+        element: (
+          <RequireRoles roles={["editor", "reviewer", "admin"]}>
+            <Rastreabilidade />
+          </RequireRoles>
+        ),
+      },
       { path: "*", Component: NotFound },
     ],
   },
