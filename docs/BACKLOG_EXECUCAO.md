@@ -31,6 +31,7 @@
 ## 5. Persistência de documentos e eventos
 
 - [x] modelagem `documents`, `document_versions`, `document_events`, `document_files`
+- [x] detalhe de documento por slug (`/documentos/:slug`)
 - [ ] ingestão de todo acervo legado no banco
 
 ## 6. Workflow editorial
@@ -59,4 +60,11 @@
 
 - [x] RPC `search_public_documents`
 - [x] busca no header com fallback local
-- [ ] navegar para detalhe de documento por slug server-side
+- [x] navegar para detalhe de documento por slug server-side
+
+## 11. Pipeline TCE-SP oficial
+
+- [x] modelagem `tce_import_jobs`, `tce_receitas`, `tce_despesas`
+- [x] ingestão via API oficial (`municipios/receitas/despesas`)
+- [x] idempotência de import por `row_hash`
+- [x] tela de Contas Públicas com filtros por ano/mês/órgão/fornecedor

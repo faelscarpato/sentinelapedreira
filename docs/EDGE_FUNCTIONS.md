@@ -1,5 +1,16 @@
 # Edge Functions Implementadas
 
+## Política JWT por função
+
+- Configuração central em `supabase/config.toml`.
+- `verify_jwt=false` para endpoints públicos/controlados:
+  - `legal-assistant`
+  - `complaint-submit`
+  - `diario-oficial-sync`
+  - `webhooks`
+  - `notifications-automation`
+- Funções internas permanecem com JWT obrigatório + checagem de papel.
+
 ## 1) `legal-assistant`
 
 - Entrada validada com `zod`
@@ -7,6 +18,11 @@
 - Recupera contexto via RPC `search_public_documents`
 - Persiste sessão/mensagens/logs quando usuário autenticado
 - Retorna conteúdo + citações
+- Rate limiting por IP/usuário:
+  - `RATE_LIMIT_LEGAL_ASSISTANT_ANON_MAX`
+  - `RATE_LIMIT_LEGAL_ASSISTANT_USER_MAX`
+  - `RATE_LIMIT_LEGAL_ASSISTANT_WINDOW_SECONDS`
+- Resposta 429 com `Retry-After` e headers `X-RateLimit-*`
 
 ## 2) `financial-traceability`
 
@@ -61,9 +77,35 @@
   - `x-sync-secret` (`DIARIO_SYNC_SECRET`) para automação
   - fallback com auth + papel `editor/admin` para execução manual
 
+## 8) `complaint-submit`
+
+- Endpoint público (via `anon key`) para submissão de denúncia
+- Validação de payload com `zod`
+- Aplica rate limiting por IP/usuário (429 em abuso)
+- Registra denúncia com protocolo real em `complaints`
+- Escreve auditoria em `audit_logs`
+- Upload de anexos permanece no fluxo autenticado do frontend (bucket `complaint-attachments`)
+
+## 9) `tce-import`
+
+- Ingestão oficial da API do TCE-SP (sem scraping):
+  - `/api/json/municipios`
+  - `/api/json/receitas/{municipio}/{exercicio}/{mes}`
+  - `/api/json/despesas/{municipio}/{exercicio}/{mes}`
+- Auth obrigatório com papel `editor` ou `admin`
+- Persiste `tce_import_jobs`, `tce_receitas`, `tce_despesas`
+- Idempotência por:
+  - `idempotency_key` no job (município/ano/mês)
+  - `row_hash` por registro (não duplica linhas)
+- Suporta:
+  - `force`: reexecutar período já importado
+  - `replaceMonth`: limpar período antes de persistir
+  - `dryRun`: validar sem gravar linhas
+
 ## Segurança comum
 
 - Segredos apenas em environment server-side
 - Logs estruturados de sucesso/erro
 - Respostas padronizadas em JSON
 - Tratamento explícito de status HTTP
+- Funções públicas com proteção anti-abuso (rate limit + headers)

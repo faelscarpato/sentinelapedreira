@@ -26,6 +26,15 @@
 - Tabelas de documentos/versionamento/eventos criadas
 - Publicação atualiza `status`, `published_at`, `published_by`
 - Busca RPC retorna apenas documentos publicados
+- Busca abre rota canônica `/documentos/:slug`
+- Detalhe exibe fonte, origem, data de publicação e data de captura/sync
+
+## Contas Públicas (TCE-SP)
+
+- Import oficial por Edge Function (`tce-import`) sem scraping
+- `tce_import_jobs`, `tce_receitas`, `tce_despesas` com RLS e índices
+- Import idempotente (sem duplicação de linhas por `row_hash`)
+- Tela `/contas-publicas` filtra por ano, mês, órgão e fornecedor
 
 ## IA e RAG Base
 
@@ -51,6 +60,10 @@
 - `service_role` não aparece em frontend
 - Variáveis `VITE_*` não contêm segredos sensíveis
 - Buckets possuem políticas por papel/dono
+- `legal-assistant` e `complaint-submit` respondem 429 sob abuso
+- Markdown renderizado com sanitização e links externos seguros
+- CI falha em detecção de segredo indevido em `VITE_*`
+- CI falha se detectar tabela pública sem RLS nas migrations
 
 ## Acessibilidade (WCAG 2.2)
 

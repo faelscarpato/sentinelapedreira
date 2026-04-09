@@ -9,7 +9,7 @@ export interface ChatMessage {
 
 export interface ChatCompletionInput {
   provider?: ProviderName;
-  model: string;
+  model?: string;
   messages: ChatMessage[];
   temperature?: number;
   maxTokens?: number;
@@ -88,6 +88,18 @@ function resolveProvider(provider?: ProviderName): ProviderName {
   return "openai";
 }
 
+export function resolveDefaultChatModel(provider: ProviderName) {
+  if (provider === "groq") {
+    return Deno.env.get("GROQ_CHAT_MODEL") ?? "llama-3.3-70b-versatile";
+  }
+
+  if (provider === "nvidia") {
+    return Deno.env.get("NVIDIA_CHAT_MODEL") ?? "meta/llama-3.1-70b-instruct";
+  }
+
+  return Deno.env.get("OPENAI_CHAT_MODEL") ?? "gpt-5.4-mini";
+}
+
 async function fetchWithTimeout(url: string, init: RequestInit, timeoutMs: number) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort("timeout"), timeoutMs);
@@ -103,6 +115,9 @@ export async function runChatCompletion(input: ChatCompletionInput): Promise<Cha
   const provider = resolveProvider(input.provider);
   const cfg = getProviderConfig(provider);
   const timeoutMs = input.timeoutMs ?? 25_000;
+  const model = (input.model?.trim() && input.model.trim().length > 0)
+    ? input.model.trim()
+    : resolveDefaultChatModel(provider);
 
   const response = await fetchWithTimeout(`${cfg.baseUrl}/chat/completions`, {
     method: "POST",
@@ -111,7 +126,7 @@ export async function runChatCompletion(input: ChatCompletionInput): Promise<Cha
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: input.model,
+      model,
       messages: input.messages,
       temperature: input.temperature ?? 0.2,
       max_tokens: input.maxTokens ?? 1200,
@@ -140,7 +155,7 @@ export async function runChatCompletion(input: ChatCompletionInput): Promise<Cha
 
   return {
     provider,
-    model: input.model,
+    model,
     content,
     usage: json.usage,
     raw: json,

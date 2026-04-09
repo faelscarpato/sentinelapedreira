@@ -1,50 +1,60 @@
 # Testes, Rollout e Riscos
 
-## Testes recomendados
+## Pipeline de validação local
 
-## 1) Banco e RLS
+```bash
+npm install
+npm run ci:check-vite-secrets
+npm run ci:check-public-rls
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+```
 
-1. Executar migrations na ordem:
-   1. `202604080001_core_schema.sql`
-   2. `202604080002_rls_policies.sql`
-   3. `202604080003_storage_and_seed.sql`
-2. Validar papéis seed em `roles`
-3. Validar trigger de profile com novo usuário
-4. Validar políticas de leitura pública vs privada
+## Testes funcionais críticos
 
-## 2) Frontend
+## 1) Auth e papéis
 
-1. `npm install`
-2. `npm run check`
-3. `npm run build`
-4. Fluxo manual:
-   1. Login magic link
-   2. Criar denúncia (com e sem anexos)
-   3. Abrir central do usuário
-   4. Testar busca no header
-   5. Testar assistente jurídico
-   6. Testar rastreabilidade (papel editor/reviewer/admin)
+1. Login em `/entrar`.
+2. Conferir perfil em `/minha-conta`.
+3. Confirmar bloqueio de rota editorial para usuário sem papel.
 
-## 3) Edge Functions
+## 2) Denúncia com protocolo
 
-1. Definir secrets:
-   - `SUPABASE_SERVICE_ROLE_KEY`
-   - `OPENAI_API_KEY` e/ou `GROQ_API_KEY` e/ou `NVIDIA_API_KEY`
-   - `WEBHOOK_SHARED_SECRET`
-2. Deploy de funções
-3. Testar cada endpoint com payload válido e inválido
-4. Validar timeout, logs e tratamento de erro
+1. Enviar denúncia anônima.
+2. Enviar denúncia identificada.
+3. Validar protocolo retornado.
+4. Validar histórico/eventos no banco.
+
+## 3) Diário Oficial
+
+1. Rodar `diario-oficial-sync`.
+2. Confirmar novas linhas em `documents` com categoria `Diário Oficial`.
+3. Abrir `/diario-oficial` e navegar para `/documentos/:slug`.
+
+## 4) Contas Públicas TCE
+
+1. Executar `tce-import` para mês/ano alvo.
+2. Validar `tce_import_jobs`, `tce_receitas`, `tce_despesas`.
+3. Filtrar em `/contas-publicas` por ano/mês/órgão/fornecedor.
+
+## 5) Segurança e abuso
+
+1. Stressar `legal-assistant` para validar resposta `429`.
+2. Stressar `complaint-submit` para validar resposta `429`.
+3. Validar headers `Retry-After` e `X-RateLimit-*`.
 
 ## Riscos de rollout
 
-- Dados legados ainda em arquivos estáticos: páginas públicas podem divergir do banco até migração completa
-- Busca server-side sem detalhe por slug: navegação ainda retorna para páginas de categoria
-- `notifications-automation` sem provider externo configurado para e-mail/webhook (atualmente marca falha controlada)
-- Dependência de secrets corretas para IA
+- Bloqueio anti-bot da origem do Diário Oficial pode exigir modo `items` (ingestão assistida).
+- API do TCE pode alterar payload sem versionamento explícito.
+- Fallback local ainda existe em módulos legados (migração incremental).
+- `migrations-smoke` com Supabase CLI depende de ambiente com Docker.
 
-## Mitigação recomendada
+## Mitigações
 
-1. Fazer rollout por feature flag (`VITE_SUPABASE_ENABLED` opcional)
-2. Migrar por domínio (denúncias, depois editorial, depois acervo público)
-3. Habilitar monitoramento de erro por função
-4. Validar performance de busca e custo de embeddings por lote
+1. Monitoramento de logs por função (status e latência).
+2. Job TCE com `dryRun` antes do primeiro import produtivo.
+3. Rollout gradual por módulo e validação diária de dados.
+4. Alertas operacionais para falha de cron/ingestão.

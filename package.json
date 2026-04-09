@@ -6,7 +6,13 @@
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "check": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings=0",
+    "test": "node scripts/test-markdown-sanitization.mjs",
+    "ci:check-vite-secrets": "node scripts/check-vite-secrets.mjs",
+    "ci:check-public-rls": "node scripts/check-public-rls.mjs",
+    "ci:validate": "npm run ci:check-vite-secrets && npm run ci:check-public-rls && npm run lint && npm run typecheck && npm run test && npm run build",
     "sync:diario-oficial": "node scripts/diario-oficial-sync-runner.mjs"
   },
   "dependencies": {
@@ -64,6 +70,8 @@
     "react-router": "7.13.0",
     "react-slick": "0.31.0",
     "recharts": "2.15.2",
+    "rehype-external-links": "^3.0.0",
+    "rehype-sanitize": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "sonner": "2.0.3",
     "tailwind-merge": "3.2.0",
@@ -72,12 +80,15 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@tailwindcss/vite": "4.1.12",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "4.7.0",
+    "eslint": "^10.2.0",
     "tailwindcss": "4.1.12",
     "typescript": "^6.0.2",
+    "typescript-eslint": "^8.58.1",
     "vite": "6.3.5",
     "vite-plugin-pwa": "^1.2.0"
   },

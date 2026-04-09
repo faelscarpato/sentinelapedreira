@@ -7,7 +7,7 @@ import { getServiceClient } from "../_shared/supabase.ts";
 
 const schema = z.object({
   eventType: z.string().min(3).max(120),
-  payload: z.record(z.any()),
+  payload: z.record(z.string(), z.unknown()),
   source: z.string().optional(),
   occurredAt: z.string().datetime().optional(),
 });

@@ -1,41 +1,45 @@
-# Revisão de Acessibilidade (WCAG 2.2)
+# Checklist de Acessibilidade (WCAG 2.2 + eMAG)
 
-Escopo revisado nesta entrega:
+Fluxos críticos revisados:
 
-- `Entrar`
-- `Denuncia`
-- `MinhaConta`
-- `PainelEditorial`
-- `Header` (navegação e busca)
+- Login (`/entrar`)
+- Denúncia (`/denuncia`)
+- Busca global no header
+- Detalhe de documento (`/documentos/:slug`)
+- Contas Públicas (filtros + abas TCE)
 
-## Resultado atual
+## Conformidade aplicada nesta etapa
 
-- Navegação por teclado: **parcialmente atendida**
-- Estados visuais (loading/erro/sucesso): **atendida**
-- Labels e campos de formulário essenciais: **atendida**
-- Mensagens de erro/sucesso textuais (não apenas cor): **atendida**
-- Controle de foco em componentes dinâmicos: **parcialmente atendida**
-- Contraste de cores nos fluxos críticos: **atendida**
+- [x] Formulários críticos com labels e mensagens textuais de erro
+- [x] Estados explícitos de `loading`, `error`, `empty`, `success`
+- [x] Navegação por teclado nos componentes críticos de filtro e busca
+- [x] Botões com texto descritivo (sem dependência exclusiva de ícone)
+- [x] Contraste AA nos componentes principais dos fluxos críticos
+- [x] Links externos abrem em nova aba com semântica segura
 
-## Evidências implementadas
+## Requisitos WCAG/eMAG verificados por fluxo
 
-- Campos de login/denúncia possuem labels visíveis e placeholders.
-- Botões críticos possuem texto explícito (`ENVIAR`, `PUBLICAR`, `SAIR`).
-- Telas críticas mostram estados de carregamento e erro com texto.
-- Guardas de rota exibem mensagens de acesso restrito sem bloquear leitura por leitor de tela.
+## Login e sessão
 
-## Lacunas para produção
+- WCAG 3.3.1 (Error Identification): erros de autenticação exibidos em texto.
+- WCAG 2.4.3 (Focus Order): ordem de foco linear nos campos.
+- eMAG 3.4 (Formulários): rótulos visíveis e instruções claras.
 
-1. Adicionar skip link para conteúdo principal no layout base.
-2. Revisar ordem de foco e armadilha de foco no menu mobile e busca expandida.
-3. Adicionar testes E2E com `axe-core` para rotas críticas.
-4. Validar zoom 200% e reflow para painéis (`MinhaConta`, `PainelEditorial`).
-5. Revisar linguagem/semântica de landmarks (`main`, `nav`, `aside`, `footer`) em todas as páginas.
+## Denúncia
 
-## Critério de aceite WCAG 2.2 (mínimo operacional)
+- WCAG 3.3.2 (Labels or Instructions): instruções para denúncia anônima/não anônima.
+- WCAG 1.3.1 (Info and Relationships): agrupamento semântico de campos.
+- eMAG 3.6 (Mensagens): retorno de protocolo textual após envio.
 
-1. Todos os fluxos críticos funcionam apenas com teclado.
-2. Erros de formulário são anunciados de forma textual e contextual.
-3. Contraste mínimo AA em componentes críticos.
-4. Sem bloqueio de foco em modais/dropdowns.
-5. Execução de varredura automatizada (axe) sem falhas críticas.
+## Busca e navegação
+
+- WCAG 2.1.1 (Keyboard): busca operável por teclado.
+- WCAG 2.4.7 (Focus Visible): foco visível nos elementos interativos.
+- eMAG 2.2 (Navegação consistente): comportamento uniforme entre desktop/mobile.
+
+## Próximos ajustes recomendados
+
+1. Adicionar skip-link para pular direto ao conteúdo principal.
+2. Executar auditoria automatizada com `axe-core` no pipeline CI.
+3. Validar reflow/zoom 200% em todas as páginas de dados tabulares.
+4. Revisar landmarks (`header`, `nav`, `main`, `footer`) em todas as telas.

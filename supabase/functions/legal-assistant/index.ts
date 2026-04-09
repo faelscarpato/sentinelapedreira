@@ -4,6 +4,7 @@ import { toHttpError } from "../_shared/errors.ts";
 import { logError, logInfo } from "../_shared/logger.ts";
 import { resolveAuthContext } from "../_shared/auth.ts";
 import { getServiceClient } from "../_shared/supabase.ts";
+import { checkRateLimit, extractClientIp } from "../_shared/rate-limit.ts";
 import { runChatCompletion } from "../_shared/ai-provider.ts";
 
 const schema = z.object({
@@ -14,7 +15,7 @@ const schema = z.object({
   })).max(12).optional().default([]),
   sessionId: z.string().uuid().optional(),
   provider: z.enum(["openai", "groq", "nvidia"]).optional(),
-  model: z.string().default("gpt-5.4-mini"),
+  model: z.string().optional(),
 });
 
 const SYSTEM_PROMPT = `Você é o Assistente Jurídico do Sentinela Pedreira.
@@ -42,6 +43,43 @@ Deno.serve(async (req) => {
     const authHeader = req.headers.get("Authorization");
     const ctx = await resolveAuthContext(authHeader, false);
     const service = getServiceClient();
+    const clientIp = extractClientIp(req);
+
+    const rateLimit = await checkRateLimit({
+      scope: "legal_assistant.chat",
+      key: ctx.user?.id ? `user:${ctx.user.id}` : `ip:${clientIp}`,
+      limit: ctx.user
+        ? Number(Deno.env.get("RATE_LIMIT_LEGAL_ASSISTANT_USER_MAX") ?? "40")
+        : Number(Deno.env.get("RATE_LIMIT_LEGAL_ASSISTANT_ANON_MAX") ?? "12"),
+      windowSeconds: Number(Deno.env.get("RATE_LIMIT_LEGAL_ASSISTANT_WINDOW_SECONDS") ?? "60"),
+    });
+
+    if (!rateLimit.allowed) {
+      logInfo("legal-assistant.rate_limited", {
+        requestId,
+        userId: ctx.user?.id ?? null,
+        clientIp,
+        retryAfterSeconds: rateLimit.retryAfterSeconds,
+        resetAt: rateLimit.resetAt,
+      });
+
+      return jsonResponse({
+        requestId,
+        error: "rate_limited",
+        message: "Muitas solicitações para o Assistente Jurídico. Aguarde e tente novamente.",
+        details: {
+          retryAfterSeconds: rateLimit.retryAfterSeconds,
+          resetAt: rateLimit.resetAt,
+        },
+      }, 429, {
+        "Retry-After": String(rateLimit.retryAfterSeconds),
+        "X-RateLimit-Limit": String(ctx.user
+          ? Number(Deno.env.get("RATE_LIMIT_LEGAL_ASSISTANT_USER_MAX") ?? "40")
+          : Number(Deno.env.get("RATE_LIMIT_LEGAL_ASSISTANT_ANON_MAX") ?? "12")),
+        "X-RateLimit-Remaining": String(rateLimit.remaining),
+        "X-RateLimit-Reset": rateLimit.resetAt,
+      });
+    }
 
     const { data: hits, error: searchError } = await service.rpc("search_public_documents", {
       p_query: payload.query,
@@ -163,6 +201,9 @@ Deno.serve(async (req) => {
       usage: completion.usage,
       provider: completion.provider,
       model: completion.model,
+    }, 200, {
+      "X-RateLimit-Remaining": String(rateLimit.remaining),
+      "X-RateLimit-Reset": rateLimit.resetAt,
     });
   } catch (error) {
     const normalized = toHttpError(error);
@@ -174,11 +215,17 @@ Deno.serve(async (req) => {
       details: normalized.details,
     });
 
+    const headers = normalized.status === 429
+      ? {
+        "Retry-After": String((normalized.details as { retryAfterSeconds?: number } | undefined)?.retryAfterSeconds ?? 60),
+      }
+      : {};
+
     return jsonResponse({
       requestId,
       error: normalized.code,
       message: normalized.message,
       details: normalized.details,
-    }, normalized.status);
+    }, normalized.status, headers);
   }
 });

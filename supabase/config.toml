@@ -1,0 +1,19 @@
+project_id = "sentinela-pedreira-v2"
+
+[functions.diario-oficial-sync]
+verify_jwt = false
+
+[functions.webhooks]
+verify_jwt = false
+
+[functions.notifications-automation]
+verify_jwt = false
+
+[functions.legal-assistant]
+verify_jwt = false
+
+[functions.complaint-submit]
+verify_jwt = false
+
+[functions.tce-import]
+verify_jwt = false

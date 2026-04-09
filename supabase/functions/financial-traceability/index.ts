@@ -29,7 +29,7 @@ const requestSchema = z.object({
     financialValue: z.number().optional(),
   })).max(20).optional().default([]),
   provider: z.enum(["openai", "groq", "nvidia"]).optional(),
-  model: z.string().default("gpt-5.4-mini"),
+  model: z.string().optional(),
 });
 
 const analysisSchema = z.object({
