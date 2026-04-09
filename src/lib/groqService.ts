@@ -104,8 +104,8 @@ export async function* askGroqAssistantStream(
   userQuery: string,
   contextDocuments: Array<{ title: string; summary: string; category: string; date: string }> = []
 ): AsyncGenerator<string> {
-  const apiKey = import.meta.env.VITE_GROQ_API_KEY;
-  if (!apiKey) throw new Error("VITE_GROQ_API_KEY não configurada");
+  const apiKey = import.meta.env.GROQ_API_KEY;
+  if (!apiKey) throw new Error("GROQ_API_KEY não configurada");
 
   const context = buildContextFromDocuments(userQuery, contextDocuments);
 
