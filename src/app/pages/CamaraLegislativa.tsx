@@ -10,6 +10,7 @@ import {
   type CamaraPublicDocument,
 } from "../data/camaraPublicData";
 import { type CamaraTipoSigla } from "../lib/camaraAnalysis";
+import { getDocumentDetailHref } from "../lib/documentDetailRoute";
 
 const PAGE_SIZE = 24;
 
@@ -31,6 +32,10 @@ export function CamaraLegislativa() {
     if (doc.analysisUrl) {
       navigate(doc.analysisUrl);
     }
+  };
+
+  const handleViewDetails = (doc: CamaraPublicDocument) => {
+    navigate(getDocumentDetailHref(doc));
   };
 
   const filteredDocuments = camaraPublicDocuments.filter((doc) => {
@@ -132,6 +137,7 @@ export function CamaraLegislativa() {
             <DocumentCard
               key={doc.id}
               document={doc}
+              onViewDetails={() => handleViewDetails(doc)}
               onViewOriginal={doc.originalUrl ? () => handleViewOriginal(doc) : undefined}
               onViewAnalysis={doc.analysisUrl ? () => handleViewAnalysis(doc) : undefined}
             />

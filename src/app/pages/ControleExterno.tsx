@@ -7,6 +7,7 @@ import { PaginationControls } from "../components/PaginationControls";
 import { controleExternoDocuments } from "../data/realData";
 import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
+import { getDocumentDetailHref } from "../lib/documentDetailRoute";
 
 const PAGE_SIZE = 24;
 
@@ -35,6 +36,10 @@ export function ControleExterno() {
     if (doc.analysisUrl) {
       navigate(doc.analysisUrl);
     }
+  };
+
+  const handleViewDetails = (doc: Document) => {
+    navigate(getDocumentDetailHref(doc));
   };
 
   const filteredDocuments = controleExternoDocuments.filter(doc => {
@@ -158,6 +163,7 @@ export function ControleExterno() {
             <DocumentCard
               key={doc.id}
               document={doc}
+              onViewDetails={() => handleViewDetails(doc)}
               onViewOriginal={doc.originalUrl ? () => handleViewOriginal(doc) : undefined}
               onViewAnalysis={doc.analysisUrl ? () => handleViewAnalysis(doc) : undefined}
             />

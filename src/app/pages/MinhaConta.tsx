@@ -191,7 +191,7 @@ export function MinhaConta() {
                   <div key={String(item.id)} className="border border-neutral-200 p-4">
                     <p className="font-mono text-sm">{String(item.title ?? "")}</p>
                     <p className="text-sm text-neutral-700 mt-1">{String(item.body ?? "")}</p>
-                    {!Boolean(item.is_read) && (
+                    {item.is_read !== true && (
                       <button
                         type="button"
                         onClick={() => void handleMarkAsRead(String(item.id))}

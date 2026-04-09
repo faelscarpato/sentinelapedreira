@@ -9,6 +9,7 @@ import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
 import { useAuth } from "../../features/auth/useAuth";
 import { listDiarioOficialDocuments } from "../services/diarioOficialService";
+import { getDocumentDetailHref } from "../lib/documentDetailRoute";
 
 const PAGE_SIZE = 24;
 
@@ -41,6 +42,10 @@ export function DiarioOficial() {
     if (doc.analysisUrl) {
       navigate(doc.analysisUrl);
     }
+  };
+
+  const handleViewDetails = (doc: Document) => {
+    navigate(getDocumentDetailHref(doc));
   };
 
   const filteredDocuments = diarioOficialDocuments.filter((doc) => {
@@ -221,6 +226,7 @@ export function DiarioOficial() {
               <DocumentCard
                 key={doc.id}
                 document={doc}
+                onViewDetails={() => handleViewDetails(doc)}
                 onViewOriginal={doc.originalUrl ? () => handleViewOriginal(doc) : undefined}
                 onViewAnalysis={doc.analysisUrl ? () => handleViewAnalysis(doc) : undefined}
               />

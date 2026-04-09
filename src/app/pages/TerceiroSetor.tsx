@@ -7,6 +7,7 @@ import { PaginationControls } from "../components/PaginationControls";
 import { terceiroSetorDocuments } from "../data/realData";
 import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
+import { getDocumentDetailHref } from "../lib/documentDetailRoute";
 
 const PAGE_SIZE = 24;
 
@@ -32,6 +33,10 @@ export function TerceiroSetor() {
   const handleViewAnalysis = (doc: Document) => {
     if (!doc.analysisUrl) return;
     navigate(doc.analysisUrl);
+  };
+
+  const handleViewDetails = (doc: Document) => {
+    navigate(getDocumentDetailHref(doc));
   };
 
   const filteredDocuments = terceiroSetorDocuments.filter((doc) => {
@@ -153,6 +158,7 @@ export function TerceiroSetor() {
             <DocumentCard
               key={doc.id}
               document={doc}
+              onViewDetails={() => handleViewDetails(doc)}
               onViewOriginal={doc.originalUrl ? () => handleViewOriginal(doc) : undefined}
               onViewAnalysis={doc.analysisUrl ? () => handleViewAnalysis(doc) : undefined}
             />

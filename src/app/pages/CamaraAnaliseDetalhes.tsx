@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
 import { ArrowLeft, LoaderCircle } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { getCamaraPublicFileBySlug, parseCamaraAnalysisSlug } from "../lib/camaraAnalysis";
+import { SafeMarkdown } from "../components/SafeMarkdown";
 
 function hasTechnicalMetadataBlock(markdown: string) {
   const normalized = markdown.toLowerCase();
@@ -128,7 +127,7 @@ export function CamaraAnaliseDetalhes() {
               prose-pre:bg-neutral-900 prose-pre:text-white prose-pre:px-4 prose-pre:py-3 prose-pre:rounded-md prose-pre:overflow-x-auto
               prose-blockquote:border-l-4 prose-blockquote:border-neutral-400 prose-blockquote:pl-4 prose-blockquote:italic"
             >
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdownContent}</ReactMarkdown>
+              <SafeMarkdown content={markdownContent} />
             </div>
           </article>
         )}

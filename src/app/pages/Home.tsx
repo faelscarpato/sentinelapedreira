@@ -8,6 +8,7 @@ import { camaraPublicDocuments } from "../data/camaraPublicData";
 import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
 import { openAssistantChat } from "../lib/assistantEvents";
+import { getDocumentDetailHref } from "../lib/documentDetailRoute";
 
 export function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -43,6 +44,10 @@ export function Home() {
     if (doc.analysisUrl) {
       navigate(doc.analysisUrl);
     }
+  };
+
+  const handleViewDetails = (doc: Document) => {
+    navigate(getDocumentDetailHref(doc));
   };
 
   const categories = [
@@ -255,6 +260,7 @@ export function Home() {
             <DocumentCard
               key={doc.id}
               document={doc}
+              onViewDetails={() => handleViewDetails(doc)}
               onViewOriginal={doc.originalUrl ? () => handleViewOriginal(doc) : undefined}
               onViewAnalysis={doc.analysisUrl ? () => handleViewAnalysis(doc) : undefined}
             />

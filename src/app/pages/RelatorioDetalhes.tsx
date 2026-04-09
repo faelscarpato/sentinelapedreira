@@ -1,8 +1,7 @@
 import { Link, useParams } from "react-router";
 import { ArrowLeft, FileText } from "lucide-react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { reports } from "../data/realData";
+import { SafeMarkdown } from "../components/SafeMarkdown";
 
 export function RelatorioDetalhes() {
   const { id } = useParams();
@@ -52,7 +51,7 @@ export function RelatorioDetalhes() {
             prose-pre:bg-neutral-900 prose-pre:text-white prose-pre:px-4 prose-pre:py-3 prose-pre:rounded-md prose-pre:overflow-x-auto
             prose-blockquote:border-l-4 prose-blockquote:border-neutral-400 prose-blockquote:pl-4 prose-blockquote:italic"
           >
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>{report.content}</ReactMarkdown>
+            <SafeMarkdown content={report.content} />
           </div>
         </article>
       </div>

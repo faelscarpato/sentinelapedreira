@@ -6,9 +6,9 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
 import type { ElementType, ReactNode } from "react";
 import {
-  GitBranch, AlertTriangle, CheckCircle, Clock, TrendingUp,
+  GitBranch, AlertTriangle, CheckCircle, TrendingUp,
   Search, ChevronDown, ChevronRight, Loader2, Shield,
-  DollarSign, FileX, BarChart3, ArrowRight, RefreshCw,
+  DollarSign, FileX, BarChart3, ArrowRight,
   AlertCircle, XCircle
 } from "lucide-react";
 import type { RastreabilidadeAnalysis, TraceStep } from "../../lib/rastreabilidadeTypes";

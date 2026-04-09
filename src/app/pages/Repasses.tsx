@@ -7,6 +7,7 @@ import { PaginationControls } from "../components/PaginationControls";
 import { repassesDocuments } from "../data/realData";
 import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
+import { getDocumentDetailHref } from "../lib/documentDetailRoute";
 
 const PAGE_SIZE = 24;
 
@@ -32,6 +33,10 @@ export function Repasses() {
   const handleViewAnalysis = (doc: Document) => {
     if (!doc.analysisUrl) return;
     navigate(doc.analysisUrl);
+  };
+
+  const handleViewDetails = (doc: Document) => {
+    navigate(getDocumentDetailHref(doc));
   };
 
   const filteredDocuments = repassesDocuments.filter((doc) => {
@@ -124,6 +129,7 @@ export function Repasses() {
             <DocumentCard
               key={doc.id}
               document={doc}
+              onViewDetails={() => handleViewDetails(doc)}
               onViewOriginal={doc.originalUrl ? () => handleViewOriginal(doc) : undefined}
               onViewAnalysis={doc.analysisUrl ? () => handleViewAnalysis(doc) : undefined}
             />
