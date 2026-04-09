@@ -1,0 +1,79 @@
+{
+  "id": "emendas-impositivas-2026",
+  "title": "Emendas Impositivas (Art. 166-A) - 2026",
+  "domain": "contas_publicas",
+  "sourceFile": "Portal Transp. Emendas Impositivas (art. 166-A da CF) - Exercício 2026.csv",
+  "generatedAt": "2026-04-09T18:24:49.747Z",
+  "sourceUpdatedAt": "2026-04-09T00:44:12.816Z",
+  "rowCount": 3,
+  "columns": [
+    {
+      "source": "Tipo Transferência",
+      "normalized": "tipo_transferencia"
+    },
+    {
+      "source": "Receitas de Transferência",
+      "normalized": "receitas_de_transferencia"
+    },
+    {
+      "source": "Receitas de Aplicação Financeira",
+      "normalized": "receitas_de_aplicacao_financeira"
+    },
+    {
+      "source": "Empenhado",
+      "normalized": "empenhado"
+    },
+    {
+      "source": "Liquidado",
+      "normalized": "liquidado"
+    },
+    {
+      "source": "Pago",
+      "normalized": "pago"
+    }
+  ],
+  "summary": {
+    "numericTotals": {
+      "receitas_de_transferencia": 0,
+      "receitas_de_aplicacao_financeira": 0,
+      "empenhado": 0,
+      "liquidado": 0,
+      "pago": 0
+    },
+    "numericCounts": {
+      "receitas_de_transferencia": 3,
+      "receitas_de_aplicacao_financeira": 3,
+      "empenhado": 3,
+      "liquidado": 3,
+      "pago": 3
+    },
+    "dateRanges": {},
+    "topValues": {}
+  },
+  "rows": [
+    {
+      "tipo_transferencia": "Transferência Estadual",
+      "receitas_de_transferencia": 0,
+      "receitas_de_aplicacao_financeira": 0,
+      "empenhado": 0,
+      "liquidado": 0,
+      "pago": 0
+    },
+    {
+      "tipo_transferencia": "Transferência Federal",
+      "receitas_de_transferencia": 0,
+      "receitas_de_aplicacao_financeira": 0,
+      "empenhado": 0,
+      "liquidado": 0,
+      "pago": 0
+    },
+    {
+      "tipo_transferencia": null,
+      "receitas_de_transferencia": 0,
+      "receitas_de_aplicacao_financeira": 0,
+      "empenhado": 0,
+      "liquidado": 0,
+      "pago": 0
+    }
+  ]
+}

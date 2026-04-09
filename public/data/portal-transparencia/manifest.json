@@ -1,0 +1,855 @@
+{
+  "generatedAt": "2026-04-09T18:24:49.747Z",
+  "sourceDir": "data",
+  "outputDir": "public/data/portal-transparencia",
+  "datasets": [
+    {
+      "id": "convenios-terceiro-setor",
+      "title": "Convênios ou Termos de Repasse ao Terceiro Setor",
+      "domain": "terceiro_setor",
+      "sourceFile": "Portal Transp. Convênios ou Termos de Repasse ao TS.csv",
+      "outputFile": "convenios-terceiro-setor.json",
+      "rowCount": 65,
+      "columnCount": 18,
+      "columns": [
+        "numero",
+        "processo",
+        "tipo",
+        "convenio",
+        "objeto",
+        "inicio",
+        "fim",
+        "valor",
+        "valor_contra_partida",
+        "valor_aditamento",
+        "valor_empenhado",
+        "valor_liquidado",
+        "valor_pago",
+        "valor_prestado",
+        "cnpj_concessor",
+        "concessor",
+        "cnpj_favorecido",
+        "favorecido"
+      ],
+      "summary": {
+        "numericTotals": {
+          "valor": 71249393.9,
+          "valor_contra_partida": 357180.83999999997,
+          "valor_empenhado": 0,
+          "valor_liquidado": 0,
+          "valor_pago": 0,
+          "valor_prestado": 0,
+          "valor_aditamento": 25812909.58
+        },
+        "numericCounts": {
+          "valor": 65,
+          "valor_contra_partida": 46,
+          "valor_empenhado": 65,
+          "valor_liquidado": 65,
+          "valor_pago": 65,
+          "valor_prestado": 65,
+          "valor_aditamento": 25
+        },
+        "dateRanges": {
+          "inicio": {
+            "min": "2022-06-01T03:00:00.000Z",
+            "max": "2026-03-13T03:00:00.000Z"
+          },
+          "fim": {
+            "min": "2023-12-29T03:00:00.000Z",
+            "max": "2029-06-30T03:00:00.000Z"
+          }
+        },
+        "topValues": {
+          "tipo": [
+            {
+              "value": "Termo de Colaboração",
+              "count": 32
+            },
+            {
+              "value": "Contribuição-Concessão",
+              "count": 21
+            },
+            {
+              "value": "Termo de Fomento",
+              "count": 11
+            },
+            {
+              "value": "Subvenção-Concessão",
+              "count": 1
+            }
+          ],
+          "favorecido": [
+            {
+              "value": "LAR DOS VELHOS FLAMINIO MAURICIO",
+              "count": 8
+            },
+            {
+              "value": "SAMUCA SERV ATEND MULHER CRIANCA ADOLEC",
+              "count": 8
+            },
+            {
+              "value": "LAR DOCE LAR - CENTRO ESPECIALIZADO DE ACOLHIMENTO",
+              "count": 6
+            },
+            {
+              "value": "GRUPO DE APOIO NISFRAM",
+              "count": 6
+            },
+            {
+              "value": "APAE - ASSOC PAIS AMIGOS EXCEPCIONAIS",
+              "count": 4
+            },
+            {
+              "value": "CASA DE ASSISTENCIA A INFANCIA PLANETA AZUL",
+              "count": 3
+            }
+          ]
+        }
+      },
+      "sourceUpdatedAt": "2026-04-09T00:41:13.571Z"
+    },
+    {
+      "id": "convenios-gerais",
+      "title": "Convênios Gerais",
+      "domain": "terceiro_setor",
+      "sourceFile": "Portal Transp. Convenios.csv",
+      "outputFile": "convenios-gerais.json",
+      "rowCount": 22,
+      "columnCount": 15,
+      "columns": [
+        "numero",
+        "processo",
+        "tipo",
+        "convenio",
+        "objeto",
+        "inicio",
+        "fim",
+        "valor",
+        "valor_contra_partida",
+        "valor_aditamento",
+        "valor_receita",
+        "cnpj_concessor",
+        "concessor",
+        "cnpj_favorecido",
+        "favorecido"
+      ],
+      "summary": {
+        "numericTotals": {
+          "valor": 11765205.979999999,
+          "valor_contra_partida": 4877982.22,
+          "valor_receita": 537415.15
+        },
+        "numericCounts": {
+          "valor": 22,
+          "valor_contra_partida": 20,
+          "valor_receita": 22
+        },
+        "dateRanges": {
+          "inicio": {
+            "min": "2022-05-31T03:00:00.000Z",
+            "max": "2026-03-02T03:00:00.000Z"
+          },
+          "fim": {
+            "min": "2024-01-30T03:00:00.000Z",
+            "max": "2026-12-31T03:00:00.000Z"
+          }
+        },
+        "topValues": {
+          "tipo": [
+            {
+              "value": "Outros-Recebido",
+              "count": 20
+            },
+            {
+              "value": "Contribuição-Recebido",
+              "count": 1
+            },
+            {
+              "value": "Subvenção-Recebido",
+              "count": 1
+            }
+          ],
+          "favorecido": [
+            {
+              "value": "PREFEITURA MUNICIPAL DE PEDREIRA",
+              "count": 17
+            },
+            {
+              "value": "GOVERNO DO ESTADO DE SÃO PAULO",
+              "count": 2
+            },
+            {
+              "value": "SAMUCA SERV ATEND MULHER CRIANCA ADOLEC",
+              "count": 1
+            },
+            {
+              "value": "CONSORCIO INTERMUNICIPAL DE SAUDE -CONSAUDE",
+              "count": 1
+            },
+            {
+              "value": "PREFEITURA DE PERITIBA",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "sourceUpdatedAt": "2026-04-09T00:44:55.804Z"
+    },
+    {
+      "id": "emendas-impositivas-2026",
+      "title": "Emendas Impositivas (Art. 166-A) - 2026",
+      "domain": "contas_publicas",
+      "sourceFile": "Portal Transp. Emendas Impositivas (art. 166-A da CF) - Exercício 2026.csv",
+      "outputFile": "emendas-impositivas-2026.json",
+      "rowCount": 3,
+      "columnCount": 6,
+      "columns": [
+        "tipo_transferencia",
+        "receitas_de_transferencia",
+        "receitas_de_aplicacao_financeira",
+        "empenhado",
+        "liquidado",
+        "pago"
+      ],
+      "summary": {
+        "numericTotals": {
+          "receitas_de_transferencia": 0,
+          "receitas_de_aplicacao_financeira": 0,
+          "empenhado": 0,
+          "liquidado": 0,
+          "pago": 0
+        },
+        "numericCounts": {
+          "receitas_de_transferencia": 3,
+          "receitas_de_aplicacao_financeira": 3,
+          "empenhado": 3,
+          "liquidado": 3,
+          "pago": 3
+        },
+        "dateRanges": {},
+        "topValues": {}
+      },
+      "sourceUpdatedAt": "2026-04-09T00:44:12.816Z"
+    },
+    {
+      "id": "licitacoes-2026",
+      "title": "Licitações",
+      "domain": "contas_publicas",
+      "sourceFile": "Portal Transp. Licitações.txt.txt",
+      "outputFile": "licitacoes-2026.json",
+      "rowCount": 11833,
+      "columnCount": 20,
+      "columns": [
+        "exercicio",
+        "proc_administrativo",
+        "proc_licitatorio",
+        "modalidade",
+        "data_do_edital",
+        "data_encerramento",
+        "reg_preco",
+        "prazo_de_entrega_inicio",
+        "n_mod",
+        "objeto",
+        "situacao",
+        "valor_previsto",
+        "carona",
+        "data_abert_propost",
+        "hora_abert_propost",
+        "valor_total_licitacao",
+        "artigo_inciso",
+        "data_inicio_proposta",
+        "data_fim_proposta",
+        "coluna"
+      ],
+      "summary": {
+        "numericTotals": {
+          "valor_previsto": 217757466.94000003,
+          "valor_total_licitacao": 95482062.50999999
+        },
+        "numericCounts": {
+          "valor_previsto": 520,
+          "valor_total_licitacao": 506
+        },
+        "dateRanges": {
+          "data_do_edital": {
+            "min": "2016-02-01T03:00:00.000Z",
+            "max": "2026-04-08T03:00:00.000Z"
+          },
+          "data_encerramento": {
+            "min": "2018-01-15T03:00:00.000Z",
+            "max": "2026-04-08T03:00:00.000Z"
+          },
+          "data_abert_propost": {
+            "min": "2018-01-15T03:00:00.000Z",
+            "max": "2026-04-08T03:00:00.000Z"
+          },
+          "data_inicio_proposta": {
+            "min": "2021-09-23T03:00:00.000Z",
+            "max": "2026-03-10T03:00:00.000Z"
+          },
+          "data_fim_proposta": {
+            "min": "2021-11-09T03:00:00.000Z",
+            "max": "2026-03-25T03:00:00.000Z"
+          },
+          "prazo_de_entrega_inicio": {
+            "min": "2024-06-26T03:00:00.000Z",
+            "max": "2027-02-19T03:00:00.000Z"
+          },
+          "hora_abert_propost": {
+            "min": "2023-03-02T03:00:00.000Z",
+            "max": "2023-03-02T03:00:00.000Z"
+          }
+        },
+        "topValues": {
+          "situacao": [
+            {
+              "value": "Homologada",
+              "count": 504
+            },
+            {
+              "value": "GAA1H52",
+              "count": 2
+            },
+            {
+              "value": "30",
+              "count": 2
+            },
+            {
+              "value": "GRADE COM DIAMETRO MINIMO DE 60CM, MINIMO DE 3 PAS",
+              "count": 1
+            },
+            {
+              "value": "05 (CINCO)",
+              "count": 1
+            },
+            {
+              "value": "Chocolate Em Pó C/ Mínimo de 32% de Cacau",
+              "count": 1
+            }
+          ],
+          "modalidade": [
+            {
+              "value": "DISPENSA POR LIMITE",
+              "count": 10694
+            },
+            {
+              "value": "PREGÃO ELETRÔNICO",
+              "count": 391
+            },
+            {
+              "value": "PREGÃO PRESENCIAL",
+              "count": 317
+            },
+            {
+              "value": "TOMADA DE PREÇOS",
+              "count": 93
+            },
+            {
+              "value": "INEXIGIBILIDADE",
+              "count": 65
+            },
+            {
+              "value": "DISPENSA POR JUSTIFICATIVA",
+              "count": 62
+            }
+          ]
+        }
+      },
+      "sourceUpdatedAt": "2026-04-09T00:52:35.140Z"
+    },
+    {
+      "id": "transferencias-entidades-2026",
+      "title": "Transferências entre Entidades - 2026",
+      "domain": "repasses",
+      "sourceFile": "Portal Transp. Transferências entre Entidades - Exercício 2026.csv",
+      "outputFile": "transferencias-entidades-2026.json",
+      "rowCount": 8,
+      "columnCount": 8,
+      "columns": [
+        "mes",
+        "entidade_pagadora",
+        "entidade_recebedora",
+        "cnpj_ent_pagadora",
+        "cnpj_ent_recebedora",
+        "concedida",
+        "recebida",
+        "previsto"
+      ],
+      "summary": {
+        "numericTotals": {
+          "mes": 16,
+          "concedida": 9876885.3,
+          "recebida": 0,
+          "previsto": 18630400
+        },
+        "numericCounts": {
+          "mes": 7,
+          "concedida": 8,
+          "recebida": 8,
+          "previsto": 8
+        },
+        "dateRanges": {},
+        "topValues": {
+          "entidade_pagadora": [
+            {
+              "value": "Prefeitura Municipal de Pedreira",
+              "count": 7
+            }
+          ],
+          "entidade_recebedora": [
+            {
+              "value": "FUNBEPE - FUNDACAO BENEFICENTE PEDREIRA",
+              "count": 4
+            },
+            {
+              "value": "CAMARA MUNICIPAL DE PEDREIRA",
+              "count": 3
+            }
+          ]
+        }
+      },
+      "sourceUpdatedAt": "2026-04-09T00:42:43.640Z"
+    },
+    {
+      "id": "patrimonio-imoveis",
+      "title": "Relação de Bens Imóveis do Patrimônio",
+      "domain": "patrimonio",
+      "sourceFile": "Portal Transparencia Relação de Bens Imóveis do Patrimônio.csv",
+      "outputFile": "patrimonio-imoveis.json",
+      "rowCount": 454,
+      "columnCount": 7,
+      "columns": [
+        "codigo",
+        "data_aquisicao",
+        "grupo_chapa",
+        "descricao",
+        "tipo",
+        "localizacao",
+        "origem"
+      ],
+      "summary": {
+        "numericTotals": {},
+        "numericCounts": {},
+        "dateRanges": {
+          "data_aquisicao": {
+            "min": "1988-02-22T03:00:00.000Z",
+            "max": "2000-12-01T03:00:00.000Z"
+          }
+        },
+        "topValues": {
+          "tipo": [
+            {
+              "value": "TERRENOS, GLEBAS (P)",
+              "count": 220
+            },
+            {
+              "value": "IMÓVEIS RESIDENCIAIS (P)",
+              "count": 34
+            },
+            {
+              "value": "IMÓVEIS DE USO EDUCACIONAL (P)",
+              "count": 29
+            },
+            {
+              "value": "IMÓVEIS DE USO RECREATIVO (P)",
+              "count": 28
+            },
+            {
+              "value": "TERRENOS (P)",
+              "count": 27
+            },
+            {
+              "value": "SISTEMAS DE ESGOTO E/OU DE ABASTECIMENTO DE ÁGUA (P)",
+              "count": 21
+            }
+          ],
+          "origem": [
+            {
+              "value": "Outras incorporações",
+              "count": 454
+            }
+          ],
+          "localizacao": [
+            {
+              "value": "GABINETE DO PREFEITO",
+              "count": 250
+            },
+            {
+              "value": "DEPARTAMENTO DE HABITAÇÃO",
+              "count": 30
+            },
+            {
+              "value": "DEPARTAMENTO DE ESPORTE E LAZER",
+              "count": 25
+            },
+            {
+              "value": "DIVISÃO DE ÁGUA E ESGOTO",
+              "count": 22
+            },
+            {
+              "value": "DIVISÃO DE PRAÇAS PARQUES E JARDINS",
+              "count": 17
+            },
+            {
+              "value": "DEPARTAMENTO DE OBRAS E VIAS PÚBLICAS",
+              "count": 13
+            }
+          ]
+        }
+      },
+      "sourceUpdatedAt": "2026-04-09T00:45:53.606Z"
+    },
+    {
+      "id": "patrimonio-intangiveis",
+      "title": "Relação de Bens Intangíveis do Patrimônio",
+      "domain": "patrimonio",
+      "sourceFile": "Portal Transparencia Relação de bens Intangíveis do Patrimônio.csv",
+      "outputFile": "patrimonio-intangiveis.json",
+      "rowCount": 2,
+      "columnCount": 6,
+      "columns": [
+        "data_aquisicao",
+        "grupo_chapa",
+        "descricao",
+        "tipo",
+        "localizacao",
+        "origem"
+      ],
+      "summary": {
+        "numericTotals": {},
+        "numericCounts": {},
+        "dateRanges": {
+          "data_aquisicao": {
+            "min": "2020-08-07T03:00:00.000Z",
+            "max": "2020-12-08T03:00:00.000Z"
+          }
+        },
+        "topValues": {
+          "tipo": [
+            {
+              "value": "SOFTWARES (P)",
+              "count": 2
+            }
+          ],
+          "origem": [
+            {
+              "value": "Compra",
+              "count": 2
+            }
+          ],
+          "localizacao": [
+            {
+              "value": "DEPARTAMENTO DE SEGURANÇA PÚBLICA",
+              "count": 1
+            },
+            {
+              "value": "DEPARTAMENTO DE MEIO AMBIENTE",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "sourceUpdatedAt": "2026-04-09T00:47:58.261Z"
+    },
+    {
+      "id": "patrimonio-veiculos",
+      "title": "Relação de Veículos do Patrimônio",
+      "domain": "patrimonio",
+      "sourceFile": "Portal Transparencia Relação de Veículos do Patrimônio.csv",
+      "outputFile": "patrimonio-veiculos.json",
+      "rowCount": 169,
+      "columnCount": 7,
+      "columns": [
+        "data_aquisicao",
+        "grupo_chapa",
+        "descricao",
+        "tipo",
+        "localizacao",
+        "origem",
+        "placa"
+      ],
+      "summary": {
+        "numericTotals": {},
+        "numericCounts": {},
+        "dateRanges": {
+          "data_aquisicao": {
+            "min": "1983-03-20T03:00:00.000Z",
+            "max": "2025-12-23T03:00:00.000Z"
+          }
+        },
+        "topValues": {
+          "tipo": [
+            {
+              "value": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+              "count": 162
+            },
+            {
+              "value": "VEÍCULOS EM GERAL (P)",
+              "count": 7
+            }
+          ],
+          "origem": [
+            {
+              "value": "Compra",
+              "count": 159
+            },
+            {
+              "value": "Doação/Transf.",
+              "count": 10
+            }
+          ],
+          "localizacao": [
+            {
+              "value": "DIVISAO DE OBRAS PÚBLICAS",
+              "count": 28
+            },
+            {
+              "value": "CENTRAL DE AMBULANCIA",
+              "count": 18
+            },
+            {
+              "value": "DEPARTAMENTO DE SERVIÇOS URBANOS",
+              "count": 8
+            },
+            {
+              "value": "DEPARTAMENTO DE PROMOÇÃO SOCIAL",
+              "count": 7
+            },
+            {
+              "value": "DEPARTAMENTO DE MEIO AMBIENTE",
+              "count": 7
+            },
+            {
+              "value": "GUARDA MUNICIPAL",
+              "count": 7
+            }
+          ]
+        }
+      },
+      "sourceUpdatedAt": "2026-04-09T00:46:25.746Z"
+    },
+    {
+      "id": "repasses-pedreira-completo",
+      "title": "Repasses Pedreira Completo",
+      "domain": "repasses_tce",
+      "sourceFile": "repasses pedreira completo.xlsx",
+      "outputFile": "repasses-pedreira-completo.json",
+      "rowCount": 1974,
+      "columnCount": 15,
+      "columns": [
+        "repasse",
+        "exercicio",
+        "funcao_de_governo",
+        "cnpj",
+        "razao_social",
+        "codigo_ibge",
+        "municipio",
+        "orgao",
+        "uo",
+        "ug",
+        "tipo_de_repasse",
+        "vl_pago",
+        "fonte_de_recursos",
+        "descricao",
+        "classificacao"
+      ],
+      "summary": {
+        "numericTotals": {
+          "exercicio": 3993413,
+          "codigo_ibge": 6982249218,
+          "vl_pago": 128155016.45999974
+        },
+        "numericCounts": {
+          "exercicio": 1974,
+          "codigo_ibge": 1974,
+          "vl_pago": 1974
+        },
+        "dateRanges": {},
+        "topValues": {}
+      },
+      "sourceUpdatedAt": "2026-04-09T17:44:47.328Z"
+    },
+    {
+      "id": "despesas-pedreira-2025",
+      "title": "Despesas Pedreira 2025",
+      "domain": "contas_publicas",
+      "sourceFile": "despesas-pedreira-2025.csv",
+      "outputFile": "despesas-pedreira-2025.json",
+      "rowCount": 65279,
+      "columnCount": 23,
+      "columns": [
+        "id_despesa_detalhe",
+        "ano_exercicio",
+        "ds_municipio",
+        "ds_orgao",
+        "mes_referencia",
+        "mes_ref_extenso",
+        "tp_despesa",
+        "nr_empenho",
+        "identificador_despesa",
+        "ds_despesa",
+        "dt_emissao_despesa",
+        "vl_despesa",
+        "ds_funcao_governo",
+        "ds_subfuncao_governo",
+        "cd_programa",
+        "ds_programa",
+        "cd_acao",
+        "ds_acao",
+        "ds_fonte_recurso",
+        "ds_cd_aplicacao_fixo",
+        "ds_modalidade_lic",
+        "ds_elemento",
+        "historico_despesa"
+      ],
+      "summary": {
+        "numericTotals": {
+          "id_despesa_detalhe": 42412219939065,
+          "dt_emissao_despesa": 1170677529975,
+          "vl_despesa": 939463792.6900104,
+          "historico_despesa": 4.564557442909868e+100,
+          "ds_despesa": 27579088738210,
+          "identificador_despesa": -3577823161
+        },
+        "numericCounts": {
+          "id_despesa_detalhe": 65279,
+          "dt_emissao_despesa": 65279,
+          "vl_despesa": 65279,
+          "historico_despesa": 13810,
+          "ds_despesa": 4562,
+          "identificador_despesa": 6731
+        },
+        "dateRanges": {},
+        "topValues": {}
+      },
+      "sourceUpdatedAt": "2026-03-07T12:26:44.000Z"
+    },
+    {
+      "id": "receitas-pedreira-2025",
+      "title": "Receitas Pedreira 2025",
+      "domain": "contas_publicas",
+      "sourceFile": "receitas-pedreira-2025.csv",
+      "outputFile": "receitas-pedreira-2025.json",
+      "rowCount": 2031,
+      "columnCount": 18,
+      "columns": [
+        "id_rec_arrec_detalhe",
+        "ano_exercicio",
+        "ds_municipio",
+        "ds_orgao",
+        "mes_referencia",
+        "mes_ref_extenso",
+        "ds_poder",
+        "ds_fonte_recurso",
+        "ds_cd_aplicacao_fixo",
+        "ds_cd_aplicacao_variavel",
+        "ds_categoria",
+        "ds_subcategoria",
+        "ds_fonte",
+        "ds_d1",
+        "ds_dd2",
+        "ds_d3",
+        "ds_tipo",
+        "vl_arrecadacao"
+      ],
+      "summary": {
+        "numericTotals": {
+          "vl_arrecadacao": 286865305.48000044
+        },
+        "numericCounts": {
+          "vl_arrecadacao": 2031
+        },
+        "dateRanges": {},
+        "topValues": {}
+      },
+      "sourceUpdatedAt": "2026-04-09T18:10:49.896Z"
+    },
+    {
+      "id": "licitacoes-pedreira-completo",
+      "title": "Licitações Pedreira Completo",
+      "domain": "contas_publicas",
+      "sourceFile": "licitacoes completo.csv",
+      "outputFile": "licitacoes-pedreira-completo.json",
+      "rowCount": 10033,
+      "columnCount": 39,
+      "columns": [
+        "municipio",
+        "orgao",
+        "uo",
+        "ue",
+        "mod_de_licitacao",
+        "nr_licitacao",
+        "funcao_de_governo",
+        "subfuncao_de_governo",
+        "programa",
+        "acao",
+        "fonte_de_recurso",
+        "cod_aplicacao_fixo",
+        "cod_aplicacao_variavel",
+        "categoria",
+        "grupo",
+        "modalidade",
+        "elemento",
+        "subelemento",
+        "id_credor",
+        "nome_do_credor",
+        "nr_empenho",
+        "ano_empenho",
+        "mes_balancete",
+        "ano_balancete",
+        "dt_referencia",
+        "vl_inscrito_rp_proc",
+        "vl_saldo_inicial_rp_proc",
+        "vl_cancelado_rp_proc",
+        "vl_pago_rp_proc",
+        "vl_estorno_pago_rp_proc",
+        "vl_inscrito_rp_nao_proc",
+        "vl_saldo_inicial_rp_nao_proc",
+        "vl_liquidado_rp_nao_proc",
+        "vl_estorno_liquidado_rp_nao_proc",
+        "vl_cancelado_rp_nao_proc",
+        "vl_pago_rp_nao_proc",
+        "vl_estorno_pago_rp_nao_proc",
+        "coluna",
+        "coluna_2"
+      ],
+      "summary": {
+        "numericTotals": {
+          "vl_inscrito_rp_nao_proc": 8139581.2700000005,
+          "vl_saldo_inicial_rp_nao_proc": 4116742.5300000045,
+          "vl_liquidado_rp_nao_proc": 2294353.370000002,
+          "vl_pago_rp_nao_proc": 1979034.9300000004,
+          "vl_pago_rp_proc": 14030365.720000021,
+          "vl_saldo_inicial_rp_proc": 28206037.890000004,
+          "vl_cancelado_rp_nao_proc": 396332.38999999996,
+          "vl_inscrito_rp_proc": 21124050.21000002,
+          "vl_estorno_liquidado_rp_nao_proc": -2727.49,
+          "vl_cancelado_rp_proc": 213.59
+        },
+        "numericCounts": {
+          "vl_inscrito_rp_nao_proc": 1034,
+          "vl_saldo_inicial_rp_nao_proc": 1096,
+          "vl_liquidado_rp_nao_proc": 550,
+          "vl_pago_rp_nao_proc": 525,
+          "vl_pago_rp_proc": 1881,
+          "vl_saldo_inicial_rp_proc": 2612,
+          "vl_cancelado_rp_nao_proc": 244,
+          "vl_inscrito_rp_proc": 2386,
+          "vl_estorno_liquidado_rp_nao_proc": 4,
+          "vl_cancelado_rp_proc": 1
+        },
+        "dateRanges": {},
+        "topValues": {
+          "modalidade": [
+            {
+              "value": "90",
+              "count": 10033
+            }
+          ]
+        }
+      },
+      "sourceUpdatedAt": "2026-04-09T18:07:26.635Z"
+    }
+  ]
+}

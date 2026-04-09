@@ -1,0 +1,158 @@
+{
+  "id": "transferencias-entidades-2026",
+  "title": "Transferências entre Entidades - 2026",
+  "domain": "repasses",
+  "sourceFile": "Portal Transp. Transferências entre Entidades - Exercício 2026.csv",
+  "generatedAt": "2026-04-09T18:24:49.747Z",
+  "sourceUpdatedAt": "2026-04-09T00:42:43.640Z",
+  "rowCount": 8,
+  "columns": [
+    {
+      "source": "Mês",
+      "normalized": "mes"
+    },
+    {
+      "source": "Entidade Pagadora",
+      "normalized": "entidade_pagadora"
+    },
+    {
+      "source": "Entidade Recebedora",
+      "normalized": "entidade_recebedora"
+    },
+    {
+      "source": "CNPJ Ent. Pagadora",
+      "normalized": "cnpj_ent_pagadora"
+    },
+    {
+      "source": "CNPJ Ent. Recebedora",
+      "normalized": "cnpj_ent_recebedora"
+    },
+    {
+      "source": "Concedida",
+      "normalized": "concedida"
+    },
+    {
+      "source": "Recebida",
+      "normalized": "recebida"
+    },
+    {
+      "source": "Previsto",
+      "normalized": "previsto"
+    }
+  ],
+  "summary": {
+    "numericTotals": {
+      "mes": 16,
+      "concedida": 9876885.3,
+      "recebida": 0,
+      "previsto": 18630400
+    },
+    "numericCounts": {
+      "mes": 7,
+      "concedida": 8,
+      "recebida": 8,
+      "previsto": 8
+    },
+    "dateRanges": {},
+    "topValues": {
+      "entidade_pagadora": [
+        {
+          "value": "Prefeitura Municipal de Pedreira",
+          "count": 7
+        }
+      ],
+      "entidade_recebedora": [
+        {
+          "value": "FUNBEPE - FUNDACAO BENEFICENTE PEDREIRA",
+          "count": 4
+        },
+        {
+          "value": "CAMARA MUNICIPAL DE PEDREIRA",
+          "count": 3
+        }
+      ]
+    }
+  },
+  "rows": [
+    {
+      "mes": 1,
+      "entidade_pagadora": "Prefeitura Municipal de Pedreira",
+      "entidade_recebedora": "CAMARA MUNICIPAL DE PEDREIRA",
+      "cnpj_ent_pagadora": "46.410.775/0001-36",
+      "cnpj_ent_recebedora": "52.364.718/0001-60",
+      "concedida": 291630,
+      "recebida": 0,
+      "previsto": 262500
+    },
+    {
+      "mes": 1,
+      "entidade_pagadora": "Prefeitura Municipal de Pedreira",
+      "entidade_recebedora": "FUNBEPE - FUNDACAO BENEFICENTE PEDREIRA",
+      "cnpj_ent_pagadora": "46.410.775/0001-36",
+      "cnpj_ent_recebedora": "59.006.460/0001-70",
+      "concedida": 428573.57,
+      "recebida": 0,
+      "previsto": 2131925
+    },
+    {
+      "mes": 2,
+      "entidade_pagadora": "Prefeitura Municipal de Pedreira",
+      "entidade_recebedora": "CAMARA MUNICIPAL DE PEDREIRA",
+      "cnpj_ent_pagadora": "46.410.775/0001-36",
+      "cnpj_ent_recebedora": "52.364.718/0001-60",
+      "concedida": 291670,
+      "recebida": 0,
+      "previsto": 262500
+    },
+    {
+      "mes": 2,
+      "entidade_pagadora": "Prefeitura Municipal de Pedreira",
+      "entidade_recebedora": "FUNBEPE - FUNDACAO BENEFICENTE PEDREIRA",
+      "cnpj_ent_pagadora": "46.410.775/0001-36",
+      "cnpj_ent_recebedora": "59.006.460/0001-70",
+      "concedida": 1564246.24,
+      "recebida": 0,
+      "previsto": 2131925
+    },
+    {
+      "mes": 3,
+      "entidade_pagadora": "Prefeitura Municipal de Pedreira",
+      "entidade_recebedora": "CAMARA MUNICIPAL DE PEDREIRA",
+      "cnpj_ent_pagadora": "46.410.775/0001-36",
+      "cnpj_ent_recebedora": "52.364.718/0001-60",
+      "concedida": 291670,
+      "recebida": 0,
+      "previsto": 262500
+    },
+    {
+      "mes": 3,
+      "entidade_pagadora": "Prefeitura Municipal de Pedreira",
+      "entidade_recebedora": "FUNBEPE - FUNDACAO BENEFICENTE PEDREIRA",
+      "cnpj_ent_pagadora": "46.410.775/0001-36",
+      "cnpj_ent_recebedora": "59.006.460/0001-70",
+      "concedida": 2040179.19,
+      "recebida": 0,
+      "previsto": 2131925
+    },
+    {
+      "mes": 4,
+      "entidade_pagadora": "Prefeitura Municipal de Pedreira",
+      "entidade_recebedora": "FUNBEPE - FUNDACAO BENEFICENTE PEDREIRA",
+      "cnpj_ent_pagadora": "46.410.775/0001-36",
+      "cnpj_ent_recebedora": "59.006.460/0001-70",
+      "concedida": 30473.65,
+      "recebida": 0,
+      "previsto": 2131925
+    },
+    {
+      "mes": null,
+      "entidade_pagadora": null,
+      "entidade_recebedora": null,
+      "cnpj_ent_pagadora": null,
+      "cnpj_ent_recebedora": null,
+      "concedida": 4938442.65,
+      "recebida": 0,
+      "previsto": 9315200
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "id": "patrimonio-intangiveis",
+  "title": "Relação de Bens Intangíveis do Patrimônio",
+  "domain": "patrimonio",
+  "sourceFile": "Portal Transparencia Relação de bens Intangíveis do Patrimônio.csv",
+  "generatedAt": "2026-04-09T18:24:49.747Z",
+  "sourceUpdatedAt": "2026-04-09T00:47:58.261Z",
+  "rowCount": 2,
+  "columns": [
+    {
+      "source": "Data Aquisição",
+      "normalized": "data_aquisicao"
+    },
+    {
+      "source": "Grupo/Chapa",
+      "normalized": "grupo_chapa"
+    },
+    {
+      "source": "Descrição",
+      "normalized": "descricao"
+    },
+    {
+      "source": "Tipo",
+      "normalized": "tipo"
+    },
+    {
+      "source": "Localização",
+      "normalized": "localizacao"
+    },
+    {
+      "source": "Origem",
+      "normalized": "origem"
+    }
+  ],
+  "summary": {
+    "numericTotals": {},
+    "numericCounts": {},
+    "dateRanges": {
+      "data_aquisicao": {
+        "min": "2020-08-07T03:00:00.000Z",
+        "max": "2020-12-08T03:00:00.000Z"
+      }
+    },
+    "topValues": {
+      "tipo": [
+        {
+          "value": "SOFTWARES (P)",
+          "count": 2
+        }
+      ],
+      "origem": [
+        {
+          "value": "Compra",
+          "count": 2
+        }
+      ],
+      "localizacao": [
+        {
+          "value": "DEPARTAMENTO DE SEGURANÇA PÚBLICA",
+          "count": 1
+        },
+        {
+          "value": "DEPARTAMENTO DE MEIO AMBIENTE",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "rows": [
+    {
+      "data_aquisicao": "2020-12-08T00:00:00-03:00",
+      "grupo_chapa": "3/024070",
+      "descricao": "SOFTWARE PARA GERENCIAMENTO DE IMAGENS E CAMERAS PTZ/DOME - CFTV",
+      "tipo": "SOFTWARES (P)",
+      "localizacao": "DEPARTAMENTO DE SEGURANÇA PÚBLICA",
+      "origem": "Compra"
+    },
+    {
+      "data_aquisicao": "2020-08-07T00:00:00-03:00",
+      "grupo_chapa": "3/023793",
+      "descricao": "SOFTWARE",
+      "tipo": "SOFTWARES (P)",
+      "localizacao": "DEPARTAMENTO DE MEIO AMBIENTE",
+      "origem": "Compra"
+    }
+  ]
+}
