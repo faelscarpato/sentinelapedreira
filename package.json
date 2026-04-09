@@ -13,7 +13,8 @@
     "ci:check-vite-secrets": "node scripts/check-vite-secrets.mjs",
     "ci:check-public-rls": "node scripts/check-public-rls.mjs",
     "ci:validate": "npm run ci:check-vite-secrets && npm run ci:check-public-rls && npm run lint && npm run typecheck && npm run test && npm run build",
-    "sync:diario-oficial": "node scripts/diario-oficial-sync-runner.mjs"
+    "sync:diario-oficial": "node scripts/diario-oficial-sync-runner.mjs",
+    "data:build:portal-transparencia": "node scripts/build-portal-transparency-datasets.mjs"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -77,6 +78,7 @@
     "tailwind-merge": "3.2.0",
     "tw-animate-css": "1.3.8",
     "vaul": "1.1.2",
+    "xlsx": "^0.18.5",
     "zod": "^4.3.6"
   },
   "devDependencies": {

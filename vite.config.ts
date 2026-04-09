@@ -50,7 +50,8 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,png,svg,webmanifest}"],
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        // The main bundle currently exceeds 5 MiB due the civic data surface area.
+        maximumFileSizeToCacheInBytes: 8 * 1024 * 1024,
       },
       devOptions: {
         enabled: true,
