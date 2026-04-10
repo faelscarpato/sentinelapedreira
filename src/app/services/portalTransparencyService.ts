@@ -268,7 +268,29 @@ async function fetchPortalDataset<TRow>(id: PortalDatasetId): Promise<PortalData
     if (!dataset) {
       throw new Error(`Dataset ${id} não encontrado no manifest.`);
     }
-    return fetchJson<PortalDatasetPayload<TRow>>(`/data/portal-transparencia/${dataset.outputFile}`);
+
+    const base = await fetchJson<PortalDatasetPayload<TRow> & { split?: boolean; parts?: string[] }>(
+      `/data/portal-transparencia/${dataset.outputFile}`,
+    );
+
+    // If the dataset was split into multiple part files, load all parts
+    // and merge their rows into a single payload.
+    if (base.split && Array.isArray(base.parts) && base.parts.length > 0) {
+      const partPayloads = await Promise.all(
+        base.parts.map((partFile) =>
+          fetchJson<PortalDatasetPayload<TRow>>(`/data/portal-transparencia/${partFile}`),
+        ),
+      );
+
+      const mergedRows = partPayloads.flatMap((part) => part.rows);
+      return {
+        ...base,
+        rowCount: mergedRows.length,
+        rows: mergedRows,
+      } as PortalDatasetPayload<TRow>;
+    }
+
+    return base;
   })();
 
   datasetCache.set(id, promise as Promise<PortalDatasetPayload<unknown>>);
