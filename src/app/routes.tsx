@@ -1,32 +1,37 @@
 // ===================================================================
-// routes.tsx — Rotas atualizadas com Rastreabilidade
+// routes.tsx — Rotas com lazy loading para code splitting
 // ===================================================================
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
-import { Home } from "./pages/Home";
-import { DiarioOficial } from "./pages/DiarioOficial";
-import { CamaraLegislativa } from "./pages/CamaraLegislativa";
-import { CamaraAnaliseDetalhes } from "./pages/CamaraAnaliseDetalhes";
-import { ContasPublicas } from "./pages/ContasPublicas";
-import { ControleExterno } from "./pages/ControleExterno";
-import { Repasses } from "./pages/Repasses";
-import { Receitas } from "./pages/Receitas";
-import { Despesas } from "./pages/Despesas";
-import { Licitacoes } from "./pages/Licitacoes";
-import { TerceiroSetor } from "./pages/TerceiroSetor";
-import { Relatorios } from "./pages/Relatorios";
-import { DocumentosFaltantes } from "./pages/DocumentosFaltantes";
-import { Denuncia } from "./pages/Denuncia";
-import { AssistenteJuridico } from "./pages/AssistenteJuridico";
-import { Rastreabilidade } from "./pages/Rastreabilidade";
-import { RelatorioDetalhes } from "./pages/RelatorioDetalhes";
-import { DocumentoDetalhe } from "./pages/DocumentoDetalhe";
-import { NotFound } from "./pages/NotFound";
-import { Entrar } from "./pages/Entrar";
-import { MinhaConta } from "./pages/MinhaConta";
-import { PainelEditorial } from "./pages/PainelEditorial";
 import { Root } from "./Root";
 import { RequireAuth } from "./guards/RequireAuth";
 import { RequireRoles } from "./guards/RequireRoles";
+
+// --- Lazy-loaded pages (each becomes its own chunk) ---
+const Home = lazy(() => import("./pages/Home").then((m) => ({ default: m.Home })));
+const Entrar = lazy(() => import("./pages/Entrar").then((m) => ({ default: m.Entrar })));
+const DiarioOficial = lazy(() => import("./pages/DiarioOficial").then((m) => ({ default: m.DiarioOficial })));
+const CamaraLegislativa = lazy(() => import("./pages/CamaraLegislativa").then((m) => ({ default: m.CamaraLegislativa })));
+const CamaraAnaliseDetalhes = lazy(() => import("./pages/CamaraAnaliseDetalhes").then((m) => ({ default: m.CamaraAnaliseDetalhes })));
+const ContasPublicas = lazy(() => import("./pages/ContasPublicas").then((m) => ({ default: m.ContasPublicas })));
+const ControleExterno = lazy(() => import("./pages/ControleExterno").then((m) => ({ default: m.ControleExterno })));
+const Repasses = lazy(() => import("./pages/Repasses").then((m) => ({ default: m.Repasses })));
+const Receitas = lazy(() => import("./pages/Receitas").then((m) => ({ default: m.Receitas })));
+const Despesas = lazy(() => import("./pages/Despesas").then((m) => ({ default: m.Despesas })));
+const Licitacoes = lazy(() => import("./pages/Licitacoes").then((m) => ({ default: m.Licitacoes })));
+const TerceiroSetor = lazy(() => import("./pages/TerceiroSetor").then((m) => ({ default: m.TerceiroSetor })));
+const Relatorios = lazy(() => import("./pages/Relatorios").then((m) => ({ default: m.Relatorios })));
+const RelatorioDetalhes = lazy(() => import("./pages/RelatorioDetalhes").then((m) => ({ default: m.RelatorioDetalhes })));
+const DocumentoDetalhe = lazy(() => import("./pages/DocumentoDetalhe").then((m) => ({ default: m.DocumentoDetalhe })));
+const DocumentosFaltantes = lazy(() => import("./pages/DocumentosFaltantes").then((m) => ({ default: m.DocumentosFaltantes })));
+const Denuncia = lazy(() => import("./pages/Denuncia").then((m) => ({ default: m.Denuncia })));
+const AssistenteJuridico = lazy(() => import("./pages/AssistenteJuridico").then((m) => ({ default: m.AssistenteJuridico })));
+const Rastreabilidade = lazy(() => import("./pages/Rastreabilidade").then((m) => ({ default: m.Rastreabilidade })));
+const PagamentosPendentes = lazy(() => import("./pages/PagamentosPendentes").then((m) => ({ default: m.PagamentosPendentes })));
+const MinhaConta = lazy(() => import("./pages/MinhaConta").then((m) => ({ default: m.MinhaConta })));
+
+const PainelEditorial = lazy(() => import("./pages/PainelEditorial").then((m) => ({ default: m.PainelEditorial })));
+const NotFound = lazy(() => import("./pages/NotFound").then((m) => ({ default: m.NotFound })));
 
 export const router = createBrowserRouter([
   {
@@ -44,7 +49,9 @@ export const router = createBrowserRouter([
       { path: "receitas", Component: Receitas },
       { path: "despesas", Component: Despesas },
       { path: "licitacoes", Component: Licitacoes },
+      { path: "pagamentos-pendentes", Component: PagamentosPendentes },
       { path: "terceiro-setor", Component: TerceiroSetor },
+
       { path: "relatorios", Component: Relatorios },
       { path: "relatorios/:id", Component: RelatorioDetalhes },
       { path: "documentos/:slug", Component: DocumentoDetalhe },
