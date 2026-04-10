@@ -74,7 +74,7 @@ export function Header() {
         { name: "Licitações", href: "/licitacoes", description: "Compras e contratos" },
         { name: "Planejamento (LOA/LDO/PPA)", href: "/contas-publicas?subtype=loa", description: "Leis e metas" },
         { name: "Repasses", href: "/repasses", description: "Transferências e destinação" },
-        { name: "Pagamentos Pendentes", href: "/controle-externo?subtype=restos-a-pagar", description: "Restos a pagar" },
+        { name: "Pagamentos Pendentes", href: "/pagamentos-pendentes", description: "Restos a pagar" },
         { name: "Terceiro Setor", href: "/terceiro-setor", description: "Convênios e entidades" },
       ],
     },
@@ -201,10 +201,14 @@ export function Header() {
       }
     };
 
-    void run();
+    // Debounce server-side search by 300ms to avoid flooding on each keystroke
+    const timerId = window.setTimeout(() => {
+      void run();
+    }, 300);
 
     return () => {
       canceled = true;
+      window.clearTimeout(timerId);
     };
   }, [auth.isSupabaseEnabled, normalizedSearch]);
 

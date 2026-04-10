@@ -1,6 +1,7 @@
-import { FileText, AlertTriangle, Clock, ExternalLink, ArrowRight } from "lucide-react";
+import { FileText, AlertTriangle, Clock, ExternalLink, ArrowRight, Star } from "lucide-react";
 import type { Document } from "../data/realData";
 import { resolveDocumentOriginLabel } from "../lib/documentOrigin";
+import { useFavorites } from "../hooks/useFavorites";
 
 interface DocumentCardProps {
   document: Document;
@@ -45,6 +46,9 @@ export function DocumentCard({
   onViewAnalysis,
   onViewDetails,
 }: DocumentCardProps) {
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const favorite = isFavorite(document.id);
+
   const canViewOriginal = typeof onViewOriginal === "function";
   const canViewAnalysis = document.hasAnalysis && typeof onViewAnalysis === "function";
   const canViewDetails = typeof onViewDetails === "function";
@@ -55,30 +59,46 @@ export function DocumentCard({
   });
 
   return (
-    <article className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md sm:p-6">
-      <div className="mb-4 flex flex-wrap gap-2">
-        <span className="rounded-full bg-slate-900 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
-          {document.category}
-        </span>
-        <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-blue-800">
-          {originLabel}
-        </span>
-        {document.subtype ? (
-          <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600">
-            {document.subtype}
+    <article className="group relative rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md sm:p-6">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-wrap gap-2">
+          <span className="rounded-full bg-slate-900 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
+            {document.category}
           </span>
-        ) : null}
-        {document.riskLevel ? (
-          <span className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${getRiskStyle(document.riskLevel)}`}>
-            {getRiskLabel(document.riskLevel)}
+          <span className="rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-blue-800">
+            {originLabel}
           </span>
-        ) : null}
-        {document.status === "missing" ? (
-          <span className="inline-flex items-center gap-1 rounded-full bg-red-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-red-800">
-            <AlertTriangle className="h-3 w-3" />
-            Faltante
-          </span>
-        ) : null}
+          {document.subtype ? (
+            <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-600">
+              {document.subtype}
+            </span>
+          ) : null}
+          {document.riskLevel ? (
+            <span className={`rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${getRiskStyle(document.riskLevel)}`}>
+              {getRiskLabel(document.riskLevel)}
+            </span>
+          ) : null}
+          {document.status === "missing" ? (
+            <span className="inline-flex items-center gap-1 rounded-full bg-red-100 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-red-800">
+              <AlertTriangle className="h-3 w-3" />
+              Faltante
+            </span>
+          ) : null}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => toggleFavorite(document.id)}
+          className={`flex h-8 w-8 items-center justify-center rounded-full border transition-all ${
+            favorite
+              ? "border-amber-200 bg-amber-50 text-amber-500 shadow-sm"
+              : "border-slate-200 bg-white text-slate-400 hover:border-amber-300 hover:text-amber-500"
+          }`}
+          aria-label={favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+          title={favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+        >
+          <Star className={`h-4 w-4 ${favorite ? "fill-amber-500" : ""}`} />
+        </button>
       </div>
 
       {canViewDetails ? (
