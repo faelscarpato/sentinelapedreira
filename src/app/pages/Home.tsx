@@ -33,6 +33,9 @@ import {
   StatKpi,
 } from "../components/layout/PagePrimitives";
 
+import { HomeDashboard } from "../components/HomeDashboard";
+import { SEO } from "../components/ui/SEO";
+
 export function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [pdfModalOpen, setPdfModalOpen] = useState(false);
@@ -106,6 +109,7 @@ export function Home() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-16">
+      <SEO title="Início" description="Sentinela de Pedreira - Monitoramento cívico e transparência radical." />
       <section className="relative overflow-hidden border-b border-slate-200 bg-slate-100">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-slate-100 to-slate-200" />
         <PageContainer className="relative py-14 md:py-20">
@@ -218,7 +222,15 @@ export function Home() {
         </PageContainer>
       </section>
 
-      <PageContainer className="mt-10 space-y-10">
+      <PageContainer className="mt-12 space-y-12">
+        <section>
+          <SectionHeading
+            title="Panorama de Gestão & Transparência"
+            description="Evolução histórica da saúde financeira municipal baseada em dados consolidados (2020-2026)."
+          />
+          <HomeDashboard />
+        </section>
+
         <SectionBlock>
           <div className="flex items-start gap-4">
             <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-slate-900 text-white">

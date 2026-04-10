@@ -25,6 +25,10 @@ import {
   SectionBlock,
   StatKpi,
 } from "../components/layout/PagePrimitives";
+import { exportToCsv, exportToExcel } from "../lib/exportUtils";
+import { usePortalDataset, formatBRL, parseFinancialValue } from "../hooks/usePortalDataset";
+import { SEO } from "../components/ui/SEO";
+
 
 const PANEL_PAGE_SIZE = 25;
 const CHART_COLORS = ["#0f172a", "#1e293b", "#334155", "#475569", "#64748b", "#94a3b8"];
@@ -45,33 +49,6 @@ const MONTH_ORDER = new Map(
   ].map((month, index) => [month.toLowerCase(), index]),
 );
 
-function formatCurrency(value: number) {
-  return value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-}
-
-function parseMoneyValue(value: unknown) {
-  if (typeof value === "number" && Number.isFinite(value)) {
-    return value;
-  }
-
-  if (typeof value !== "string") return 0;
-  const normalized = value.trim();
-  if (!normalized) return 0;
-
-  const cleaned = normalized
-    .replace(/^R\$\s*/i, "")
-    .replace(/\./g, "")
-    .replace(",", ".")
-    .replace(/[^\d.-]/g, "");
-
-  if (!cleaned || cleaned === "-" || cleaned === ".") return 0;
-  const parsed = Number(cleaned);
-  return Number.isFinite(parsed) ? parsed : 0;
-}
-
 function toText(value: unknown, fallback = "N/D") {
   if (typeof value === "string") {
     const normalized = value.trim();
@@ -89,40 +66,13 @@ function compactLabel(value: string, max = 28) {
 }
 
 export function Receitas() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [rows, setRows] = useState<ReceitaPedreiraRow[]>([]);
+  const { rows, loading, error } = usePortalDataset(fetchReceitasPedreira2025);
   const [selectedYear, setSelectedYear] = useState("todos");
   const [selectedMonth, setSelectedMonth] = useState("todos");
   const [selectedOrgao, setSelectedOrgao] = useState("todos");
   const [selectedCategoria, setSelectedCategoria] = useState("todos");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    let active = true;
-    setLoading(true);
-    setError(null);
-
-    const run = async () => {
-      try {
-        const dataset = await fetchReceitasPedreira2025();
-        if (!active) return;
-        setRows(dataset.rows);
-      } catch (requestError) {
-        if (!active) return;
-        setError(requestError instanceof Error ? requestError.message : "Falha ao carregar receitas.");
-      } finally {
-        if (active) setLoading(false);
-      }
-    };
-
-    void run();
-
-    return () => {
-      active = false;
-    };
-  }, []);
 
   const yearOptions = useMemo(
     () =>
@@ -206,7 +156,7 @@ export function Receitas() {
   }, [currentPage, totalPages]);
 
   const totalArrecadacao = useMemo(
-    () => filteredRows.reduce((sum, row) => sum + parseMoneyValue(row.vl_arrecadacao), 0),
+    () => filteredRows.reduce((sum, row) => sum + parseFinancialValue(row.vl_arrecadacao), 0),
     [filteredRows],
   );
 
@@ -234,7 +184,7 @@ export function Receitas() {
     const map = new Map<string, number>();
     filteredRows.forEach((row) => {
       const key = toText(row.mes_ref_extenso, "Não informado");
-      map.set(key, (map.get(key) ?? 0) + parseMoneyValue(row.vl_arrecadacao));
+      map.set(key, (map.get(key) ?? 0) + parseFinancialValue(row.vl_arrecadacao));
     });
     return Array.from(map.entries())
       .sort((a, b) => (MONTH_ORDER.get(a[0].toLowerCase()) ?? 99) - (MONTH_ORDER.get(b[0].toLowerCase()) ?? 99))
@@ -245,7 +195,7 @@ export function Receitas() {
     const map = new Map<string, number>();
     filteredRows.forEach((row) => {
       const key = toText(row.ds_categoria, "Não informado");
-      map.set(key, (map.get(key) ?? 0) + parseMoneyValue(row.vl_arrecadacao));
+      map.set(key, (map.get(key) ?? 0) + parseFinancialValue(row.vl_arrecadacao));
     });
     return Array.from(map.entries())
       .map(([name, value]) => ({ name, value }))
@@ -257,7 +207,7 @@ export function Receitas() {
     const map = new Map<string, number>();
     filteredRows.forEach((row) => {
       const key = toText(row.ds_orgao, "Não informado");
-      map.set(key, (map.get(key) ?? 0) + parseMoneyValue(row.vl_arrecadacao));
+      map.set(key, (map.get(key) ?? 0) + parseFinancialValue(row.vl_arrecadacao));
     });
     return Array.from(map.entries())
       .map(([name, value]) => ({ name: compactLabel(name), value }))
@@ -267,6 +217,7 @@ export function Receitas() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-16">
+      <SEO title="Receitas" description="Arrecadação detalhada da Prefeitura de Pedreira (2025)." />
       <PageHero
         title="Receitas"
         description="Painel analítico com chart e tabela baseado no dataset completo de receitas de Pedreira (2025)."
@@ -278,11 +229,29 @@ export function Receitas() {
         <SectionBlock title="Painel de Receitas" description="Fonte: data/receitas-pedreira-2025.csv">
           {error ? <InlineStatus kind="error" className="mb-4">{error}</InlineStatus> : null}
 
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            <StatKpi label="Registros" value={filteredRows.length} />
-            <StatKpi label="Arrecadação total" value={formatCurrency(totalArrecadacao)} />
-            <StatKpi label="Órgãos" value={totalOrgaos} />
-            <StatKpi label="Categorias" value={totalCategorias} />
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="grid flex-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              <StatKpi label="Registros" value={filteredRows.length} />
+              <StatKpi label="Arrecadação total" value={formatBRL(totalArrecadacao)} />
+              <StatKpi label="Órgãos" value={totalOrgaos} />
+              <StatKpi label="Categorias" value={totalCategorias} />
+            </div>
+            <div className="flex shrink-0 gap-2">
+              <button
+                type="button"
+                onClick={() => exportToCsv(filteredRows, "receitas-pedreira-2025")}
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900"
+              >
+                CSV
+              </button>
+              <button
+                type="button"
+                onClick={() => exportToExcel(filteredRows, "receitas-pedreira-2025")}
+                className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800"
+              >
+                Excel
+              </button>
+            </div>
           </div>
 
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-5">
@@ -384,7 +353,7 @@ export function Receitas() {
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                         <XAxis dataKey="name" tick={{ fill: "#475569", fontSize: 12 }} />
                         <YAxis tick={{ fill: "#475569", fontSize: 12 }} />
-                        <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+                        <Tooltip formatter={(value) => formatBRL(Number(value))} />
                         <Bar dataKey="value" fill="#0f172a" radius={[6, 6, 0, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
@@ -403,7 +372,7 @@ export function Receitas() {
                             <Cell key={`${item.name}-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                           ))}
                         </Pie>
-                        <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+                        <Tooltip formatter={(value) => formatBRL(Number(value))} />
                       </PieChart>
                     </ResponsiveContainer>
                   </div>
@@ -420,7 +389,7 @@ export function Receitas() {
                       <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                       <XAxis type="number" tick={{ fill: "#475569", fontSize: 12 }} />
                       <YAxis type="category" dataKey="name" width={220} tick={{ fill: "#475569", fontSize: 12 }} />
-                      <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+                      <Tooltip formatter={(value) => formatBRL(Number(value))} />
                       <Bar dataKey="value" fill="#334155" radius={[0, 6, 6, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
@@ -447,7 +416,7 @@ export function Receitas() {
                         <td className="px-3 py-2">{toText(row.ds_orgao)}</td>
                         <td className="px-3 py-2">{toText(row.ds_categoria)}</td>
                         <td className="px-3 py-2">{toText(row.ds_tipo)}</td>
-                        <td className="px-3 py-2 text-right font-semibold">{formatCurrency(parseMoneyValue(row.vl_arrecadacao))}</td>
+                        <td className="px-3 py-2 text-right font-semibold">{formatBRL(parseFinancialValue(row.vl_arrecadacao))}</td>
                       </tr>
                     ))}
                   </tbody>

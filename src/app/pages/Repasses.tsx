@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Landmark } from "lucide-react";
 import {
   Bar,
@@ -13,10 +13,7 @@ import {
   YAxis,
 } from "recharts";
 import { PaginationControls } from "../components/PaginationControls";
-import {
-  fetchRepassesPedreiraCompleto,
-  type RepassePedreiraRow,
-} from "../services/portalTransparencyService";
+import { fetchRepassesPedreiraCompleto } from "../services/portalTransparencyService";
 import {
   InlineStatus,
   PageContainer,
@@ -25,15 +22,21 @@ import {
   SectionBlock,
   StatKpi,
 } from "../components/layout/PagePrimitives";
+import { usePortalDataset, formatBRL } from "../hooks/usePortalDataset";
+import { SEO } from "../components/ui/SEO";
 
 const PANEL_PAGE_SIZE = 25;
 const CHART_COLORS = ["#0f172a", "#1e293b", "#334155", "#475569", "#64748b", "#94a3b8"];
 
-function formatCurrency(value: number) {
-  return value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
+function toText(value: unknown, fallback = "N/D") {
+  if (typeof value === "string") {
+    const normalized = value.trim();
+    return normalized.length > 0 ? normalized : fallback;
+  }
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return String(value);
+  }
+  return fallback;
 }
 
 function compactLabel(value: string, max = 28) {
@@ -42,41 +45,12 @@ function compactLabel(value: string, max = 28) {
 }
 
 export function Repasses() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [rows, setRows] = useState<RepassePedreiraRow[]>([]);
+  const { rows, loading, error } = usePortalDataset(fetchRepassesPedreiraCompleto);
   const [selectedYear, setSelectedYear] = useState("todos");
   const [selectedRepasse, setSelectedRepasse] = useState("todos");
   const [selectedFuncao, setSelectedFuncao] = useState("todos");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    let active = true;
-    setLoading(true);
-    setError(null);
-
-    const run = async () => {
-      try {
-        const dataset = await fetchRepassesPedreiraCompleto();
-        if (!active) return;
-        setRows(dataset.rows);
-      } catch (requestError) {
-        if (!active) return;
-        setError(requestError instanceof Error ? requestError.message : "Falha ao carregar repasses.");
-      } finally {
-        if (active) {
-          setLoading(false);
-        }
-      }
-    };
-
-    void run();
-
-    return () => {
-      active = false;
-    };
-  }, []);
 
   const yearOptions = useMemo(
     () =>
@@ -187,9 +161,10 @@ export function Repasses() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-16">
+      <SEO title="Repasses" description="Transferências e repasses públicos da Prefeitura de Pedreira." />
       <PageHero
         title="Repasses"
-        description="Painel analítico com gráficos e tabela baseado no dataset completo de repasses de Pedreira."
+        description="Painel analítico baseado no dataset completo de repasses de Pedreira."
         eyebrow="Fluxo de Recursos"
         icon={Landmark}
       />
@@ -203,7 +178,7 @@ export function Repasses() {
 
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <StatKpi label="Registros" value={filteredRows.length} />
-            <StatKpi label="Valor pago" value={formatCurrency(totalValorPago)} />
+            <StatKpi label="Valor pago" value={formatBRL(totalValorPago)} />
             <StatKpi label="Instituições" value={totalInstituicoes} />
             <StatKpi label="Órgãos" value={totalOrgaos} />
           </div>
@@ -293,7 +268,7 @@ export function Repasses() {
                             <Cell key={`${item.name}-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
                           ))}
                         </Pie>
-                        <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+                        <Tooltip formatter={(value) => formatBRL(Number(value))} />
                       </PieChart>
                     </ResponsiveContainer>
                   </div>
@@ -309,7 +284,7 @@ export function Repasses() {
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                         <XAxis type="number" tick={{ fill: "#475569", fontSize: 12 }} />
                         <YAxis type="category" dataKey="name" width={220} tick={{ fill: "#475569", fontSize: 12 }} />
-                        <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+                        <Tooltip formatter={(value) => formatBRL(Number(value))} />
                         <Bar dataKey="value" fill="#334155" radius={[0, 6, 6, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
@@ -337,7 +312,7 @@ export function Repasses() {
                         <td className="px-3 py-2">{row.razao_social ?? "N/D"}</td>
                         <td className="px-3 py-2">{row.funcao_de_governo ?? "N/D"}</td>
                         <td className="px-3 py-2">{row.orgao ?? "N/D"}</td>
-                        <td className="px-3 py-2 text-right font-semibold">{formatCurrency(row.vl_pago ?? 0)}</td>
+                        <td className="px-3 py-2 text-right font-semibold">{formatBRL(row.vl_pago ?? 0)}</td>
                       </tr>
                     ))}
                   </tbody>

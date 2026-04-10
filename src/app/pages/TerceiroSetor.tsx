@@ -14,15 +14,10 @@ import {
   type ConvenioRow,
 } from "../services/portalTransparencyService";
 import { InlineStatus, PageContainer, PageHero, PageState, SectionBlock, StatKpi } from "../components/layout/PagePrimitives";
+import { SEO } from "../components/ui/SEO";
+import { formatBRL } from "../hooks/usePortalDataset";
 
 const PAGE_SIZE = 24;
-
-function formatCurrency(value: number) {
-  return value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-}
 
 export function TerceiroSetor() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -136,6 +131,7 @@ export function TerceiroSetor() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-16">
+      <SEO title="Terceiro Setor" description="Convênios e parcerias com o Terceiro Setor em Pedreira." />
       <PageHero
         title="Terceiro Setor"
         description="Convênios e parcerias com organizações da sociedade civil monitoradas em base pública."
@@ -201,8 +197,8 @@ export function TerceiroSetor() {
 
           <div className="grid gap-3 sm:grid-cols-3">
             <StatKpi label="Registros" value={totalConvenios} />
-            <StatKpi label="Valor pactuado" value={formatCurrency(totalValorConvenios)} />
-            <StatKpi label="Valor pago (TS)" value={formatCurrency(totalPagoConvenios)} />
+            <StatKpi label="Valor pactuado" value={formatBRL(totalValorConvenios)} />
+            <StatKpi label="Valor pago (TS)" value={formatBRL(totalPagoConvenios)} />
           </div>
 
           {conveniosLoading ? (
@@ -229,7 +225,7 @@ export function TerceiroSetor() {
                       <td className="px-3 py-2">{row.tipo ?? "N/D"}</td>
                       <td className="px-3 py-2">{row.convenio ?? "N/D"}</td>
                       <td className="px-3 py-2">{row.favorecido ?? "N/D"}</td>
-                      <td className="px-3 py-2 text-right font-semibold">{formatCurrency(row.valor ?? 0)}</td>
+                      <td className="px-3 py-2 text-right font-semibold">{formatBRL(row.valor ?? 0)}</td>
                     </tr>
                   ))}
                 </tbody>

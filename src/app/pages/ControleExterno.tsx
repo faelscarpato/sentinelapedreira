@@ -9,6 +9,8 @@ import type { Document } from "../data/realData";
 import { isPdfDocument, openExternalSource } from "../lib/sourceUtils";
 import { getDocumentDetailHref } from "../lib/documentDetailRoute";
 import { InlineStatus, PageContainer, PageHero, PageState, SectionBlock } from "../components/layout/PagePrimitives";
+import { SEO } from "../components/ui/SEO";
+
 
 const PAGE_SIZE = 24;
 
@@ -74,6 +76,7 @@ export function ControleExterno() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-16">
+      <SEO title="Controle Externo" description="Monitoramento do TCE, TCU e órgãos de fiscalização sobre Pedreira." />
       <PageHero
         title="Controle Externo"
         description="Documentos de fiscalização do TCE, TCU e demais órgãos de controle."

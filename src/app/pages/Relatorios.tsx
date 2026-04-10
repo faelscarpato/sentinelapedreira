@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import { Clock, FileText, Scale } from "lucide-react";
 import { camaraPublishedMarkdownAnalyses } from "../data/camaraPublicData";
 import { PageContainer, PageHero, PageState, SectionBlock } from "../components/layout/PagePrimitives";
+import { SEO } from "../components/ui/SEO";
+
 
 export function Relatorios() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,6 +25,7 @@ export function Relatorios() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-16">
+      <SEO title="Relatórios" description="Relatórios de análise e fiscalização cívica gerados pelo Sentinela." />
       <PageHero
         title="Relatórios de Análise"
         description="Acervo de análises em Markdown derivadas da trilha documental da Câmara Municipal."

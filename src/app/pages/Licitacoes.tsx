@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Building2 } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import {
   Bar,
   BarChart,
@@ -25,36 +25,12 @@ import {
   SectionBlock,
   StatKpi,
 } from "../components/layout/PagePrimitives";
+import { exportToCsv, exportToExcel } from "../lib/exportUtils";
+import { usePortalDataset, formatBRL, parseFinancialValue } from "../hooks/usePortalDataset";
+import { SEO } from "../components/ui/SEO";
 
 const PANEL_PAGE_SIZE = 25;
 const CHART_COLORS = ["#0f172a", "#1e293b", "#334155", "#475569", "#64748b", "#94a3b8"];
-
-function formatCurrency(value: number) {
-  return value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-}
-
-function parseMoneyValue(value: unknown) {
-  if (typeof value === "number" && Number.isFinite(value)) {
-    return value;
-  }
-
-  if (typeof value !== "string") return 0;
-  const normalized = value.trim();
-  if (!normalized) return 0;
-
-  const cleaned = normalized
-    .replace(/^R\$\s*/i, "")
-    .replace(/\./g, "")
-    .replace(",", ".")
-    .replace(/[^\d.-]/g, "");
-
-  if (!cleaned || cleaned === "-" || cleaned === ".") return 0;
-  const parsed = Number(cleaned);
-  return Number.isFinite(parsed) ? parsed : 0;
-}
 
 function toText(value: unknown, fallback = "N/D") {
   if (typeof value === "string") {
@@ -73,43 +49,16 @@ function compactLabel(value: string, max = 30) {
 }
 
 function calcValorPagoRp(row: LicitacaoCompletaRow) {
-  return parseMoneyValue(row.vl_pago_rp_proc) + parseMoneyValue(row.vl_pago_rp_nao_proc);
+  return parseFinancialValue(row.vl_pago_rp_proc) + parseFinancialValue(row.vl_pago_rp_nao_proc);
 }
 
 export function Licitacoes() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [rows, setRows] = useState<LicitacaoCompletaRow[]>([]);
+  const { rows, loading, error } = usePortalDataset(fetchLicitacoesPedreiraCompleto);
   const [selectedYear, setSelectedYear] = useState("todos");
   const [selectedOrgao, setSelectedOrgao] = useState("todos");
   const [selectedModalidade, setSelectedModalidade] = useState("todos");
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    let active = true;
-    setLoading(true);
-    setError(null);
-
-    const run = async () => {
-      try {
-        const dataset = await fetchLicitacoesPedreiraCompleto();
-        if (!active) return;
-        setRows(dataset.rows);
-      } catch (requestError) {
-        if (!active) return;
-        setError(requestError instanceof Error ? requestError.message : "Falha ao carregar licitações.");
-      } finally {
-        if (active) setLoading(false);
-      }
-    };
-
-    void run();
-
-    return () => {
-      active = false;
-    };
-  }, []);
 
   const yearOptions = useMemo(
     () =>
@@ -205,6 +154,11 @@ export function Licitacoes() {
     [filteredRows],
   );
 
+  const totalPago = useMemo(
+    () => filteredRows.reduce((sum, row) => sum + calcValorPagoRp(row), 0),
+    [filteredRows],
+  );
+
   const chartByModalidade = useMemo(() => {
     const map = new Map<string, number>();
     filteredRows.forEach((row) => {
@@ -231,22 +185,41 @@ export function Licitacoes() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-16">
+      <SEO title="Licitações" description="Processos de compras e contratos da Prefeitura de Pedreira." />
       <PageHero
         title="Licitações"
-        description="Painel analítico com chart e tabela baseado no arquivo completo de licitações de Pedreira."
-        eyebrow="Compras Públicas"
-        icon={Building2}
+        description="Painel analítico baseado no dataset completo de licitações de Pedreira."
+        eyebrow="Compras e Contratos"
+        icon={ShoppingBag}
       />
 
       <PageContainer className="pt-8">
         <SectionBlock title="Painel de Licitações" description="Fonte: data/licitacoes completo.csv">
           {error ? <InlineStatus kind="error" className="mb-4">{error}</InlineStatus> : null}
 
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            <StatKpi label="Registros" value={filteredRows.length} />
-            <StatKpi label="Valor pago RP" value={formatCurrency(totalPagoRp)} />
-            <StatKpi label="Órgãos" value={totalOrgaos} />
-            <StatKpi label="Credores" value={totalCredores} />
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="grid flex-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              <StatKpi label="Registros" value={filteredRows.length} />
+              <StatKpi label="Pago total (RP)" value={formatBRL(totalPago)} />
+              <StatKpi label="Órgãos" value={totalOrgaos} />
+              <StatKpi label="Credores" value={totalCredores} />
+            </div>
+            <div className="flex shrink-0 gap-2">
+              <button
+                type="button"
+                onClick={() => exportToCsv(filteredRows, "licitacoes-pedreira")}
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:border-slate-900 hover:text-slate-900"
+              >
+                CSV
+              </button>
+              <button
+                type="button"
+                onClick={() => exportToExcel(filteredRows, "licitacoes-pedreira")}
+                className="rounded-lg bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800"
+              >
+                Excel
+              </button>
+            </div>
           </div>
 
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
@@ -350,7 +323,7 @@ export function Licitacoes() {
                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                         <XAxis type="number" tick={{ fill: "#475569", fontSize: 12 }} />
                         <YAxis type="category" dataKey="name" width={220} tick={{ fill: "#475569", fontSize: 12 }} />
-                        <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+                        <Tooltip formatter={(value) => formatBRL(Number(value))} />
                         <Bar dataKey="value" fill="#334155" radius={[0, 6, 6, 0]} />
                       </BarChart>
                     </ResponsiveContainer>
@@ -380,7 +353,7 @@ export function Licitacoes() {
                         <td className="px-3 py-2">{toText(row.mod_de_licitacao)}</td>
                         <td className="px-3 py-2">{toText(row.nome_do_credor)}</td>
                         <td className="px-3 py-2">{toText(row.nr_empenho)}</td>
-                        <td className="px-3 py-2 text-right font-semibold">{formatCurrency(calcValorPagoRp(row))}</td>
+                        <td className="px-3 py-2 text-right font-semibold">{formatBRL(calcValorPagoRp(row))}</td>
                       </tr>
                     ))}
                   </tbody>
