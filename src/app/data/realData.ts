@@ -837,19 +837,8 @@ const supplementalDocuments = [
 const allDocumentsBase = sortDocuments(
   dedupeByUrl(dedupeDocuments([...normalizedBaseDocuments, ...supplementalDocuments])),
 );
-function applyTemporaryAnalysisRules(document: Document): Document {
-  if (document.categoryKey === "diario-oficial" && document.analysisUrl) {
-    return document;
-  }
 
-  return {
-    ...document,
-    analysisUrl: undefined,
-    hasAnalysis: false,
-  };
-}
-
-export const allDocuments: Document[] = allDocumentsBase.map(applyTemporaryAnalysisRules);
+export const allDocuments: Document[] = allDocumentsBase;
 export const reports: Report[] = diarioReports.map((report) => ({
   id: report.id,
   title: report.title,
@@ -861,7 +850,53 @@ export const reports: Report[] = diarioReports.map((report) => ({
   sources: report.sources,
   confidenceLevel: report.confidenceLevel,
 }));
-export const documentosFaltantes: Document[] = [];
+export const documentosFaltantes: Document[] = [
+  {
+    id: "miss-1",
+    title: "Relatório de Impacto Ambiental — Distrito Industrial III",
+    category: "Meio Ambiente",
+    categoryKey: "meio-ambiente",
+    date: "2025-01-15",
+    summary: "O relatório detalhado sobre o impacto ambiental para a expansão do Distrito Industrial III não foi localizado no portal oficial nem no Diário Oficial até a presente data.",
+    tags: ["Meio Ambiente", "Indústria", "Impacto Ambiental"],
+    content: "# Ausência Documental\n\nEste documento deveria ter sido publicado junto à licitação de infraestrutura do Distrito III.",
+    source: "local",
+    sourceEntity: "Secretaria de Meio Ambiente",
+    status: "missing",
+    riskLevel: "high",
+    hasAnalysis: true,
+  },
+  {
+    id: "miss-2",
+    title: "Cronograma de Obras — Ponte do Capivari",
+    category: "Obras Públicas",
+    categoryKey: "obras",
+    date: "2025-02-10",
+    summary: "A atualização mensal do cronograma físico-financeiro da Ponte do Capivari está atrasada em mais de 45 dias, violando o princípio da transparência em obras paralisadas.",
+    tags: ["Obras", "Infraestrutura", "Atraso"],
+    content: "# Ausência de Transparência\n\nA última atualização data de Dezembro de 2024.",
+    source: "local",
+    sourceEntity: "Secretaria de Obras",
+    status: "missing",
+    riskLevel: "medium",
+    hasAnalysis: true,
+  },
+  {
+    id: "miss-3",
+    title: "Lista de Espera de Creches — Semestre 1/2025",
+    category: "Educação",
+    categoryKey: "educacao",
+    date: "2025-03-01",
+    summary: "A listagem completa e atualizada da demanda reprimida por vagas em creches municipais não foi disponibilizada, dificultando o controle social sobre critérios de prioridade.",
+    tags: ["Educação", "Creches", "Social"],
+    content: "# Dados não encontrados\n\nTransparência passiva requisitada via e-SIC, aguardando resposta.",
+    source: "local",
+    sourceEntity: "Secretaria de Educação",
+    status: "missing",
+    riskLevel: "high",
+    hasAnalysis: true,
+  },
+];
 
 function byCategory(category: BaseDocument["category"]) {
   return allDocuments.filter((document) => document.categoryKey === category);
@@ -870,7 +905,59 @@ function byCategory(category: BaseDocument["category"]) {
 export const diarioOficialDocuments = byCategory("diario-oficial");
 export const camaraDocuments = byCategory("camara-legislativa");
 export const contasPublicasDocuments = byCategory("contas-publicas");
-export const controleExternoDocuments: Document[] = [];
+export const controleExternoDocuments: Document[] = [
+  {
+    id: "ext-1",
+    title: "Relatório de Fiscalização TCESP — Contas Anuais 2023",
+    category: "Controle Externo",
+    categoryKey: "controle-externo",
+    subtype: "Relatório de Auditoria",
+    date: "2024-12-10",
+    summary: "Relatório circunstanciado do Tribunal de Contas do Estado de São Paulo sobre as contas do exercício de 2023. Aponta 12 ressalvas em processos licitatórios.",
+    tags: ["TCE-SP", "Contas Públicas", "Auditoria"],
+    content: "# Fiscalização TCE-SP\n\nO tribunal encontrou irregularidades formais em 3 contratos de merenda escolar.",
+    source: "external",
+    sourceEntity: "TCESP",
+    domain: "tce.sp.gov.br",
+    originalUrl: "https://www.tce.sp.gov.br/",
+    hasAnalysis: true,
+    riskLevel: "medium",
+  },
+  {
+    id: "ext-2",
+    title: "Auditoria TCU — Repasse Federal Saúde (COVID-19)",
+    category: "Controle Externo",
+    categoryKey: "controle-externo",
+    subtype: "Tomada de Contas",
+    date: "2025-01-20",
+    summary: "Tomada de contas especial do Tribunal de Contas da União referente aos recursos federais destinados ao combate à COVID-19 em 2021-2022.",
+    tags: ["TCU", "Saúde", "Recurso Federal"],
+    content: "# Tomada de Contas TCU\n\nInvestigação sobre sobrepreço em respiradores adquiridos via consórcio.",
+    source: "external",
+    sourceEntity: "TCU",
+    domain: "tcu.gov.br",
+    originalUrl: "https://portal.tcu.gov.br/",
+    hasAnalysis: true,
+    riskLevel: "high",
+  },
+  {
+    id: "ext-3",
+    title: "Instrução Normativa TCESP 01/2025 — Novos Prazos SEI",
+    category: "Controle Externo",
+    categoryKey: "controle-externo",
+    subtype: "Instrução Normativa",
+    date: "2025-02-05",
+    summary: "Nova instrução normativa regulamentando o envio de dados via sistema SEI para municípios da região administrativa de Campinas.",
+    tags: ["TCE-SP", "Legislação", "Prazos"],
+    content: "# SEI\n\nDispõe sobre a obrigatoriedade de envio de documentos de pessoal em tempo real.",
+    source: "external",
+    sourceEntity: "TCESP",
+    domain: "tce.sp.gov.br",
+    originalUrl: "https://www.tce.sp.gov.br/",
+    hasAnalysis: false,
+    riskLevel: "low",
+  },
+];
 export const repassesDocuments = byCategory("repasses");
 export const terceiroSetorDocuments = byCategory("terceiro-setor");
 
