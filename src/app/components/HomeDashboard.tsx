@@ -43,7 +43,7 @@ export function HomeDashboard() {
         <div className="mb-6 flex items-center justify-between">
           <div>
             <h3 className="font-headline text-lg font-bold text-slate-900">Saúde Financeira Municipal</h3>
-            <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Receitas vs Despesas (2020 - 2026)</p>
+            <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Receitas vs Despesas (2020 - 2025* Parcial / 2026* Projetada)</p>
           </div>
           <div className="flex gap-4">
             <div className="flex items-center gap-1.5">
