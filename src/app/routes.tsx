@@ -30,6 +30,16 @@ const Rastreabilidade = lazy(() => import("./pages/Rastreabilidade").then((m) =>
 const PagamentosPendentes = lazy(() => import("./pages/PagamentosPendentes").then((m) => ({ default: m.PagamentosPendentes })));
 const MinhaConta = lazy(() => import("./pages/MinhaConta").then((m) => ({ default: m.MinhaConta })));
 
+// PHASE 4 - New pages
+const Documents = lazy(() => import("./pages/Documents").then((m) => ({ default: m.Documents })));
+const Analyses = lazy(() => import("./pages/Analyses").then((m) => ({ default: m.Analyses })));
+const Complaints = lazy(() => import("./pages/Complaints").then((m) => ({ default: m.Complaints })));
+const LegalAssistant = lazy(() => import("./pages/LegalAssistant").then((m) => ({ default: m.LegalAssistant })));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard").then((m) => ({ default: m.AdminDashboard })));
+const Settings = lazy(() => import("./pages/Settings").then((m) => ({ default: m.Settings })));
+const Help = lazy(() => import("./pages/Help").then((m) => ({ default: m.Help })));
+const TransparencyReport = lazy(() => import("./pages/TransparencyReport").then((m) => ({ default: m.TransparencyReport })));
+
 const PainelEditorial = lazy(() => import("./pages/PainelEditorial").then((m) => ({ default: m.PainelEditorial })));
 const NotFound = lazy(() => import("./pages/NotFound").then((m) => ({ default: m.NotFound })));
 
@@ -58,12 +68,37 @@ export const router = createBrowserRouter([
       { path: "documentos-faltantes", Component: DocumentosFaltantes },
       { path: "denuncia", Component: Denuncia },
       { path: "assistente", Component: AssistenteJuridico },
+      
+      // PHASE 4 - New routes
+      { path: "documents", Component: Documents },
+      { path: "analyses", Component: Analyses },
+      { path: "complaints", Component: Complaints },
+      { path: "legal-assistant", Component: LegalAssistant },
+      { path: "help", Component: Help },
+      { path: "relatorio-transparencia", Component: TransparencyReport },
+      
       {
         path: "minha-conta",
         element: (
           <RequireAuth>
             <MinhaConta />
           </RequireAuth>
+        ),
+      },
+      {
+        path: "settings",
+        element: (
+          <RequireAuth>
+            <Settings />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "admin-dashboard",
+        element: (
+          <RequireRoles roles={["editor", "reviewer", "admin"]}>
+            <AdminDashboard />
+          </RequireRoles>
         ),
       },
       {
