@@ -6,7 +6,7 @@ function formatDate(date: string) {
   return new Date(`${date}T12:00:00`).toLocaleDateString("pt-BR");
 }
 
-export function Footer() {
+export function FooterLinks() {
   return (
     <footer className="mt-20 border-t border-slate-200 bg-white">
       <div className="mx-auto w-full max-w-[1280px] px-4 py-12 sm:px-6 lg:px-10">
@@ -96,3 +96,5 @@ export function Footer() {
     </footer>
   );
 }
+
+export const Footer = FooterLinks;
