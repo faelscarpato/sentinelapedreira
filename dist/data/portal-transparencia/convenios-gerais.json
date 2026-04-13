@@ -1,0 +1,507 @@
+{
+  "id": "convenios-gerais",
+  "title": "Convênios Gerais",
+  "domain": "terceiro_setor",
+  "sourceFile": "Portal Transp. Convenios.csv",
+  "generatedAt": "2026-04-09T18:24:49.747Z",
+  "sourceUpdatedAt": "2026-04-09T00:44:55.804Z",
+  "rowCount": 22,
+  "columns": [
+    {
+      "source": "Número",
+      "normalized": "numero"
+    },
+    {
+      "source": "Processo",
+      "normalized": "processo"
+    },
+    {
+      "source": "Tipo",
+      "normalized": "tipo"
+    },
+    {
+      "source": "Convênio",
+      "normalized": "convenio"
+    },
+    {
+      "source": "Objeto",
+      "normalized": "objeto"
+    },
+    {
+      "source": "Início",
+      "normalized": "inicio"
+    },
+    {
+      "source": "Fim",
+      "normalized": "fim"
+    },
+    {
+      "source": "Valor",
+      "normalized": "valor"
+    },
+    {
+      "source": "Valor Contra Partida",
+      "normalized": "valor_contra_partida"
+    },
+    {
+      "source": "Valor Aditamento",
+      "normalized": "valor_aditamento"
+    },
+    {
+      "source": "Valor Receita",
+      "normalized": "valor_receita"
+    },
+    {
+      "source": "CNPJ Concessor",
+      "normalized": "cnpj_concessor"
+    },
+    {
+      "source": "Concessor",
+      "normalized": "concessor"
+    },
+    {
+      "source": "CNPJ Favorecido",
+      "normalized": "cnpj_favorecido"
+    },
+    {
+      "source": "Favorecido",
+      "normalized": "favorecido"
+    }
+  ],
+  "summary": {
+    "numericTotals": {
+      "valor": 11765205.979999999,
+      "valor_contra_partida": 4877982.22,
+      "valor_receita": 537415.15
+    },
+    "numericCounts": {
+      "valor": 22,
+      "valor_contra_partida": 20,
+      "valor_receita": 22
+    },
+    "dateRanges": {
+      "inicio": {
+        "min": "2022-05-31T03:00:00.000Z",
+        "max": "2026-03-02T03:00:00.000Z"
+      },
+      "fim": {
+        "min": "2024-01-30T03:00:00.000Z",
+        "max": "2026-12-31T03:00:00.000Z"
+      }
+    },
+    "topValues": {
+      "tipo": [
+        {
+          "value": "Outros-Recebido",
+          "count": 20
+        },
+        {
+          "value": "Contribuição-Recebido",
+          "count": 1
+        },
+        {
+          "value": "Subvenção-Recebido",
+          "count": 1
+        }
+      ],
+      "favorecido": [
+        {
+          "value": "PREFEITURA MUNICIPAL DE PEDREIRA",
+          "count": 17
+        },
+        {
+          "value": "GOVERNO DO ESTADO DE SÃO PAULO",
+          "count": 2
+        },
+        {
+          "value": "SAMUCA SERV ATEND MULHER CRIANCA ADOLEC",
+          "count": 1
+        },
+        {
+          "value": "CONSORCIO INTERMUNICIPAL DE SAUDE -CONSAUDE",
+          "count": 1
+        },
+        {
+          "value": "PREFEITURA DE PERITIBA",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "rows": [
+    {
+      "numero": "016056-20",
+      "processo": "16278/2025",
+      "tipo": "Outros-Recebido",
+      "convenio": "POLÍTICA NACIONAL ALDIR BLANC PNAB",
+      "objeto": "referente ao pagamento de benefício, nos termos da Lei nº14.399, de 08 de julho de 2022 e demais legislações pertinentes, que dispõe sobre apoio financeiro da União aos Estados, ao Distrito Federal e aos Municípios para garantir ações emergenciais direci",
+      "inicio": "2025-11-18T00:00:00-03:00",
+      "fim": "2025-12-31T00:00:00-03:00",
+      "valor": 28492.72,
+      "valor_contra_partida": 0,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "37.930.861/0001-89",
+      "concessor": "FUNDO NACIONAL DA CULTURA",
+      "cnpj_favorecido": "01.330.515/0001-12",
+      "favorecido": "SAMUCA SERV ATEND MULHER CRIANCA ADOLEC"
+    },
+    {
+      "numero": "9135",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "REVIRADA CULTURAL 2026",
+      "objeto": null,
+      "inicio": "2026-03-02T00:00:00-03:00",
+      "fim": "2026-12-31T00:00:00-03:00",
+      "valor": 183915.15,
+      "valor_contra_partida": 0,
+      "valor_aditamento": null,
+      "valor_receita": 183915.15,
+      "cnpj_concessor": "10.663.610/0001-29",
+      "concessor": "DESENVOLVE SP - AGENCIA DE FOMENTO DO ESTADO DE SÃ",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "01",
+      "processo": "01",
+      "tipo": "Contribuição-Recebido",
+      "convenio": "CONTRIBUIÇÃO RECEBIDO 01/2026",
+      "objeto": "REPASSE MUNICIPAL - CONSÓRCIO EM LIQUIDAÇÃO",
+      "inicio": "2026-01-05T00:00:00-03:00",
+      "fim": "2026-12-31T00:00:00-03:00",
+      "valor": 780000,
+      "valor_contra_partida": 0,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.410.775/0001-36",
+      "concessor": "PREFEITURA MUNICIPAL DE PEDREIRA",
+      "cnpj_favorecido": "07.640.681/0001-00",
+      "favorecido": "CONSORCIO INTERMUNICIPAL DE SAUDE -CONSAUDE"
+    },
+    {
+      "numero": "094649",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "ALFABETIZA JUNTOS SP",
+      "objeto": "ALFABETIZA JUNTOS SP",
+      "inicio": "2025-11-01T00:00:00-03:00",
+      "fim": "2026-08-31T00:00:00-03:00",
+      "valor": 200800,
+      "valor_contra_partida": 0,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "00000773",
+      "processo": null,
+      "tipo": "Subvenção-Recebido",
+      "convenio": "Reforma do prédio da Casa da Agricultura",
+      "objeto": null,
+      "inicio": "2025-10-01T00:00:00-03:00",
+      "fim": "2025-12-31T00:00:00-03:00",
+      "valor": 80000,
+      "valor_contra_partida": 70000,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "2024",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "REVIRADA CULTURAL 2024",
+      "objeto": "REVIRADA CULTURAL 2024",
+      "inicio": "2025-03-01T00:00:00-03:00",
+      "fim": "2025-03-31T00:00:00-03:00",
+      "valor": 136207,
+      "valor_contra_partida": 0,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "07.019.105/0001-31",
+      "concessor": "AGEMCAMP-AGENCIA METROPOLITANA DE CAMPINAS",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "024 2023",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "REVITALIZAÇÃO MORRO DO CRISTO FASE 2",
+      "objeto": null,
+      "inicio": "2024-12-01T00:00:00-03:00",
+      "fim": "2026-12-05T00:00:00-03:00",
+      "valor": 403446.9,
+      "valor_contra_partida": 0,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "08.574.719/0001-48",
+      "concessor": "SECRETARIA DE TURISMO E VIAGENS",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "016056",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "ALDIR BLANC 2024",
+      "objeto": null,
+      "inicio": "2024-11-01T00:00:00-03:00",
+      "fim": "2025-06-30T00:00:00-03:00",
+      "valor": 335010.83,
+      "valor_contra_partida": 0,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "37.930.861/0001-89",
+      "concessor": "FUNDO NACIONAL DA CULTURA",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "103880",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "PRAÇA DO YPÊ",
+      "objeto": "PRAÇA DO YPÊ",
+      "inicio": "2024-09-01T00:00:00-03:00",
+      "fim": "2024-12-31T00:00:00-03:00",
+      "valor": 260000,
+      "valor_contra_partida": null,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "103879",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "PRAÇA TRIUNFO",
+      "objeto": "PRAÇA TRIUNFO",
+      "inicio": "2024-09-01T00:00:00-03:00",
+      "fim": "2024-12-31T00:00:00-03:00",
+      "valor": 300000,
+      "valor_contra_partida": 240000,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "102591",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "REVITALIZAÇÃO PRAÇA GUMERCINDO LOPES",
+      "objeto": null,
+      "inicio": "2024-08-01T00:00:00-03:00",
+      "fim": "2025-12-04T00:00:00-03:00",
+      "valor": 500000,
+      "valor_contra_partida": 4597.16,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.410.775/0001-36",
+      "concessor": "PREFEITURA MUNICIPAL DE PEDREIRA",
+      "cnpj_favorecido": "46.379.400/0001-50",
+      "favorecido": "GOVERNO DO ESTADO DE SÃO PAULO"
+    },
+    {
+      "numero": "102592",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "RECAPEAMENTO DIVERSAS RUAS",
+      "objeto": null,
+      "inicio": "2024-06-01T00:00:00-03:00",
+      "fim": "2025-11-30T00:00:00-03:00",
+      "valor": 500000,
+      "valor_contra_partida": 90000,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.410.775/0001-36",
+      "concessor": "PREFEITURA MUNICIPAL DE PEDREIRA",
+      "cnpj_favorecido": "46.379.400/0001-50",
+      "favorecido": "GOVERNO DO ESTADO DE SÃO PAULO"
+    },
+    {
+      "numero": "065934",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "CONVENIO MERENDA ESTADUAL",
+      "objeto": "CONVENIO MERENDA ESTADUAL",
+      "inicio": "2024-02-01T00:00:00-03:00",
+      "fim": "2025-01-31T00:00:00-03:00",
+      "valor": 1581340,
+      "valor_contra_partida": 0,
+      "valor_aditamento": null,
+      "valor_receita": 353500,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "2479/2023",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "RECAPEAMENTO VILA CAU",
+      "objeto": "RECAPEAMENTO VILA CAU",
+      "inicio": "2023-10-01T00:00:00-03:00",
+      "fim": "2024-01-30T00:00:00-03:00",
+      "valor": 238856,
+      "valor_contra_partida": 73027.27,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "05.465.986/0001-99",
+      "concessor": "MINISTERIO DAS CIDADES",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "722023",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "RECAPEAMENTO  CONJUNTO HABITACIONAL SHIGEO KOBAYAS",
+      "objeto": "RECAPEAMENTO  CONJUNTO HABITACIONAL SHIGEO KOBAYASHI",
+      "inicio": "2023-09-01T00:00:00-03:00",
+      "fim": "2024-05-23T00:00:00-03:00",
+      "valor": 200000,
+      "valor_contra_partida": 217104.73,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "01",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "REVIRADA CULTURAL",
+      "objeto": "REVIRADA CULTURAL",
+      "inicio": "2023-01-01T00:00:00-03:00",
+      "fim": "2024-03-30T00:00:00-03:00",
+      "valor": 100000,
+      "valor_contra_partida": null,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "11.391.279/0001-06",
+      "favorecido": "PREFEITURA DE PERITIBA"
+    },
+    {
+      "numero": "100895",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "PRAÇA JARDIM ANDRADE",
+      "objeto": "PRAÇA JARDIM ANDRADE",
+      "inicio": "2023-08-01T00:00:00-03:00",
+      "fim": "2024-03-20T00:00:00-03:00",
+      "valor": 700000,
+      "valor_contra_partida": 323284.74,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "19 2022",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "REVITALIZAÇÃO PRAÇA ANGELO FERRARI",
+      "objeto": "REVITALIZAÇÃO PRAÇA ANGELO FERRARI",
+      "inicio": "2023-06-01T00:00:00-03:00",
+      "fim": "2024-02-22T00:00:00-03:00",
+      "valor": 615073.96,
+      "valor_contra_partida": 1097570.48,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "2021-01892",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "CIMEI Eva Dirce M Policarpo - Ampliação",
+      "objeto": "CIMEI Eva Dirce M Policarpo - Ampliação",
+      "inicio": "2023-02-02T00:00:00-03:00",
+      "fim": "2024-06-30T00:00:00-03:00",
+      "valor": 283500,
+      "valor_contra_partida": 206271.6,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "101907 2022",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "CONVENIO 101907-22 RECAP BARBIM/PORTAL DO LIMOEIRO",
+      "objeto": null,
+      "inicio": "2022-11-22T00:00:00-03:00",
+      "fim": "2024-05-20T00:00:00-03:00",
+      "valor": 500000,
+      "valor_contra_partida": 97940.38,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "102414",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "RECAPEAMENTO CONVENIO 102014/22",
+      "objeto": "RECAPEAMENTO CONVENIO 102014/22",
+      "inicio": "2022-06-06T00:00:00-03:00",
+      "fim": "2024-05-26T00:00:00-03:00",
+      "valor": 2000000,
+      "valor_contra_partida": 619622.44,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": null,
+      "concessor": "GOVERNO DO ESTADO DE SAO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    },
+    {
+      "numero": "1019062022",
+      "processo": null,
+      "tipo": "Outros-Recebido",
+      "convenio": "PROGRAMA NOSSA RUA",
+      "objeto": "PROGRAMA NOSSA RUA",
+      "inicio": "2022-05-31T00:00:00-03:00",
+      "fim": "2024-04-20T00:00:00-03:00",
+      "valor": 1838563.42,
+      "valor_contra_partida": 1838563.42,
+      "valor_aditamento": null,
+      "valor_receita": 0,
+      "cnpj_concessor": "46.379.400/0001-50",
+      "concessor": "GOVERNO DO ESTADO DE SÃO PAULO",
+      "cnpj_favorecido": "46.410.775/0001-36",
+      "favorecido": "PREFEITURA MUNICIPAL DE PEDREIRA"
+    }
+  ]
+}

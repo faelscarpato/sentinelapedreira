@@ -1,0 +1,1620 @@
+{
+  "id": "patrimonio-veiculos",
+  "title": "Relação de Veículos do Patrimônio",
+  "domain": "patrimonio",
+  "sourceFile": "Portal Transparencia Relação de Veículos do Patrimônio.csv",
+  "generatedAt": "2026-04-09T18:24:49.747Z",
+  "sourceUpdatedAt": "2026-04-09T00:46:25.746Z",
+  "rowCount": 169,
+  "columns": [
+    {
+      "source": "Data Aquisição",
+      "normalized": "data_aquisicao"
+    },
+    {
+      "source": "Grupo/Chapa",
+      "normalized": "grupo_chapa"
+    },
+    {
+      "source": "Descrição",
+      "normalized": "descricao"
+    },
+    {
+      "source": "Tipo",
+      "normalized": "tipo"
+    },
+    {
+      "source": "Localização",
+      "normalized": "localizacao"
+    },
+    {
+      "source": "Origem",
+      "normalized": "origem"
+    },
+    {
+      "source": "Placa",
+      "normalized": "placa"
+    }
+  ],
+  "summary": {
+    "numericTotals": {},
+    "numericCounts": {},
+    "dateRanges": {
+      "data_aquisicao": {
+        "min": "1983-03-20T03:00:00.000Z",
+        "max": "2025-12-23T03:00:00.000Z"
+      }
+    },
+    "topValues": {
+      "tipo": [
+        {
+          "value": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+          "count": 162
+        },
+        {
+          "value": "VEÍCULOS EM GERAL (P)",
+          "count": 7
+        }
+      ],
+      "origem": [
+        {
+          "value": "Compra",
+          "count": 159
+        },
+        {
+          "value": "Doação/Transf.",
+          "count": 10
+        }
+      ],
+      "localizacao": [
+        {
+          "value": "DIVISAO DE OBRAS PÚBLICAS",
+          "count": 28
+        },
+        {
+          "value": "CENTRAL DE AMBULANCIA",
+          "count": 18
+        },
+        {
+          "value": "DEPARTAMENTO DE SERVIÇOS URBANOS",
+          "count": 8
+        },
+        {
+          "value": "DEPARTAMENTO DE PROMOÇÃO SOCIAL",
+          "count": 7
+        },
+        {
+          "value": "DEPARTAMENTO DE MEIO AMBIENTE",
+          "count": 7
+        },
+        {
+          "value": "GUARDA MUNICIPAL",
+          "count": 7
+        }
+      ]
+    }
+  },
+  "rows": [
+    {
+      "data_aquisicao": "2025-12-23T00:00:00-03:00",
+      "grupo_chapa": "1/028497",
+      "descricao": "REBOQUE CARGA ABERTA E CONHECIDO PELA SUA ESTRUTURA REFORÇADA E ALTA CAPACIDADE DE CARGA 500KG MARCA DACLA MODELO TRUCADO 2 EIXOS NA COR PRATA ANO E MODELO DE FABRICAÇÃO 2025 CHASSI 9E8VDC2ESG003284",
+      "tipo": "VEÍCULOS EM GERAL (P)",
+      "localizacao": "DIVISÃO DE LIMPEZA PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2025-12-23T00:00:00-03:00",
+      "grupo_chapa": "1/028498",
+      "descricao": "REBOQUE CARGA ABERTA E CONHECIDO PELA SUA ESTRUTURA REFORÇADA E ALTA CAPACIDADE DE CARGA 500KG MARCA DACLA MODELO TRUCADO 2 EIXOS NA COR PRATA ANO E MODELO DE FABRICAÇÃO 2025 CHASSI 9E8VDC2ESG003280",
+      "tipo": "VEÍCULOS EM GERAL (P)",
+      "localizacao": "DIVISÃO DE LIMPEZA PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2025-09-02T00:00:00-03:00",
+      "grupo_chapa": "1/028317",
+      "descricao": "VEICULO AUTOMOVEL TIPO HATCHACK COMBUSTIVEL FLEX NA COR BRANCO POTENCIA DO MOTOR 1.3 CAMBIO AUTOMATICO MARCA FIAT MODELO ARGO DRIVE PLACA QSV5F48 CHASSI 9BD358AFBTYP65727 ANO DE FABRICAÇÃO 2025 MODELO 2026",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "LAR DOCE LAR",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2025-09-02T00:00:00-03:00",
+      "grupo_chapa": "1/028318",
+      "descricao": "VEICULO AUTOMOVEL TIPO HATCHACK COMBUSTIVEL FLEX NA COR BRANCO POTENCIA DO MOTOR 1.3 CAMBIO AUTOMATICO MARCA FIAT MODELO ARGO DRIVE PLACA UFP1H47 CHASSI 9BD358AFBTYP67170 ANO DE FABRICAÇÃO 2025 MODELO 2026",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE PROMOÇÃO SOCIAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2025-08-20T00:00:00-03:00",
+      "grupo_chapa": "1/028292",
+      "descricao": "VEICULO CAMINHONETE (PICK-UP), CABINE DUPLA; 04 PORTAS COMBUSTIVEL FLEX NA COR BRANCA; POTENCIA 107 CV  CHASSI 9BD28IBLUT9959104 PLACA UFO4F68 ANO DE FABRICAÇÃO 2025 MODELO 2026 MARCA FIAT MODELO STRADA VOLCANO 13AT",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE SEGURANÇA PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2025-08-20T00:00:00-03:00",
+      "grupo_chapa": "1/028293",
+      "descricao": "VEICULO CAMINHONETE (PICK-UP), CABINE DUPLA; 04 PORTAS COMBUSTIVEL FLEX NA COR BRANCA; POTENCIA 107 CV CHASSI 9BD281BLUT9959156 PLACA UGO8B20 ANO DE FABRICAÇÃO 2025 ANO MODELO 2026 MARCA FIAT MODELO STRADA VOLCANO 13AT",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE MOBILIDADE URBANA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2025-08-14T00:00:00-03:00",
+      "grupo_chapa": "1/028258",
+      "descricao": "VEICULO AUTOMOVEL; TIPO SEDAN MARCA FIAT MODELO CRONOS DRIVE NA COR BRANCO; COM 4 PORTAS;  POTENCIA DO MOTOR 1.0 COMBUSTIVEL FLEX ANO 2025 MODELO DE FABRICAÇÃO 2026 PLACA TLJ9B12 CHASSI 8AP359ATHTU458911",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE ESPORTE E LAZER",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2024-08-19T00:00:00-03:00",
+      "grupo_chapa": "1/027360",
+      "descricao": "VEICULO CAMINHONETE  PICK-UP CABINI SIMPLES MARCA FIAT MODELO STRADA ENDURECE CS13 COM 2 LUGARES MOTOR 1.3 COMBUSTIVEL FLEX NA COR BRANCA PLACA SUQ1E75 CHASSI: 9BD281AJHSYF61188",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISÃO DE ILUMINAÇÃO PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2023-12-22T00:00:00-03:00",
+      "grupo_chapa": "1/027262",
+      "descricao": "CARRETA TANQUE, NOVA DE FÁBRICA, EM CHAPA DE AÇO, TANQUE COM CAPACIDADE DE 4.000 A 4.200 LITROS, COM BOMBA DE ASPERSÃO E SUCÇÃO COM CAPACIDADE MÍNIMA DE 30.000 L/H, 02 (DOIS) EIXOS, 04 (QUATRO) RODAS, ARO 16 CAMARAS E PROTETOR MARCA ACTON MODELO CT 4200L",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE MEIO AMBIENTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2023-08-23T00:00:00-03:00",
+      "grupo_chapa": "1/027237",
+      "descricao": "VEICULO AUTOMOVEL TIPO SUV  MARCA FIAT MODELO PULSE ABARTH COMBUSTIVEL FLEX  ANO E MODELO DE FABRICAÇÃO 2023  NA COR BRANCA BANCHISA COM MÍNIMO 04 PORTAS; MOTORIZAÇÃO MÍNIMA 1.2 TURBO PLACA FMY7165 CHASSI: 9BD363AHXPYSS05856",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "GUARDA MUNICIPAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2023-08-21T00:00:00-03:00",
+      "grupo_chapa": "1/027239",
+      "descricao": "VEICULO AUTOMOVEL TIPO CAMINHONETE CABINE DUPLA  ANO E MODELO DE FABRICAÇÃO 2023 COMBUSTIVEL FLEX  NA COR BRANCA; COM 04 PORTAS; CAPACIDADE MÍNIMA DE 05 PASSAGEIROS; MOTORIZAÇÃO MÍNIMA 1.3 PLACA DVJ5E72 CHASSI: 9BD281BPJPYE26407",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "BRIGADA DE EMERGENCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2023-06-02T00:00:00-03:00",
+      "grupo_chapa": "1/027106",
+      "descricao": "VEICULO AUTOMOVEL ANO DE  FABRICAÇÃO 2023 ANO MODELO 2024 COMBUSTIVEL FLEX NA COR BRANCA CAPACIDADE 5 LUGARES MARCA HONDA MODELO: CITY SEDAN EXI PLACA GHU5E35 CHASSI 93HGN267RK100303",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "SALA DA SECRETARIA DA EDUCAÇÃO 1º Andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2023-05-12T00:00:00-03:00",
+      "grupo_chapa": "1/027104",
+      "descricao": "VEICULO AUTOMOVEL TIPO HATCHBACK; COMBUSTIVEL FLEX; NA COR BRANCA; 04 PORTAS; CAPACIDADE PARA 05 LUGARES; ANO DE FAB/MODELO: 2023 ; MARCA FIAT ; MODELO ARGO DRIVE ; MOTOR 1.0 ; PLACA FUA3D92 CHASSI: 9BD358ATVPYM67579",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "SALA DA SECRETARIA DA EDUCAÇÃO 1º Andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2023-05-12T00:00:00-03:00",
+      "grupo_chapa": "1/027105",
+      "descricao": "VEICULO AUTOMOVEL TIPO HATCHBACK; COMBUSTIVEL FLEX; NA COR BRANCA; 04 PORTAS; CAPACIDADE PARA 05 LUGARES; ANO DE FAB/MODELO: 2023 ; MARCA FIAT ; MODELO ARGO DRIVE ; MOTOR 1.0 ; PLACA FPU8I03 CHASSI: 9BD358ATVPYM7708",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "SALA DA SECRETARIA DA EDUCAÇÃO 1º Andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2023-04-25T00:00:00-03:00",
+      "grupo_chapa": "1/027103",
+      "descricao": "VEICULO AUTOMOTOVEL TIPO CAMINHONETE PICK UND UP CABINE SIMPLES COMBUSTIVEL FLEX NA COR BRANCA 2 PORTAS CAPACIDADE PARA 2 LUGARES MOTOR 1.6 MARCA VOLKSWAGEN MODELO SAVEIRO ROBUST CHASSI 99098930855 PLACA EZO9E15 ANO E MODELO DE FABRICAÇÃO 2023",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE PROMOÇÃO SOCIAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2023-03-22T00:00:00-03:00",
+      "grupo_chapa": "1/027045",
+      "descricao": "VEICULO TRATOR AGRICOLA NA COR VERMELHA PINTURA SOLIDA TIPO TRATOR DE RODAS COM MOTOR TURBO CICLO DIESEL POTENCIA 78CV COM 3 CILINDROS TRAÇÃO 4X4 CABINE FECHADA MARCA MASSEY FERGUSON MODELO MF4408",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CASA DA AGRICULTURA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2022-12-14T00:00:00-03:00",
+      "grupo_chapa": "1/027261",
+      "descricao": "VEICULO AUTOMOVEL KWID MARCA RENAULT MODELO ZEN 2 NA COR BRANCA COM 4 PORTAS MOTOR 1.0 COMBUSTIVEL FLEX PLACA FYW0J45 CHASSI 93YRBB001PJ513727 ANO DE FABRICAÇÃO 2022 MODELO 2023",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "PROCON",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2022-11-24T00:00:00-03:00",
+      "grupo_chapa": "1/026897",
+      "descricao": "VEICULO AUTOMOVOEL TIPO CAMINHONETE CABINE DUPLA  COMBUSTIVEL FLEX NA COR BRANCA; COM 04 PORTAS;  MOTORIZAÇÃO MÍNIMA 1.3; MARCA FIAT MODELO STRADA FREEDOM 13CD  PLACA BYJ6J93 CHASSI 9BBD281B9JYY15131  ANO DE FABRICAÇÃO 2022 MODELO 2023",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE MOBILIDADE URBANA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2022-09-19T00:00:00-03:00",
+      "grupo_chapa": "1/026783",
+      "descricao": "VEICULO CAMINHONETE (PICK UP) MARCA FIAT MODELO NOVA STRADA FREEDOM, CABINE SIMPLES COMBUSTIVEL FLEX  NA COR BRANCA MOTOR 1.3  PLACA GEU4B23 CHASSI: 9BD281A3CNYX18151 ANO E MODELO DE FABRICAÇÃO 2022",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE MEIO AMBIENTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2022-06-15T00:00:00-03:00",
+      "grupo_chapa": "1/028193",
+      "descricao": "VEICULO TIPO CAMINHONETE ESPECIAL CABINE DUPLLA TRAÇÃO 4X4 EQUIPADO COM O MOTOR 2.4L TURBO DIESEL POTENCIA 190CV NA COR BRANCA ALPINO COMBUSTIVEL DIESEL MARCA MITSUBISHI MODELO L200 TRITON GL PLACA GJI5804 CHASSI 93XLJKL1TPCN53852",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "GUARDA MUNICIPAL",
+      "origem": "Doação/Transf.",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2022-05-27T00:00:00-03:00",
+      "grupo_chapa": "1/025027",
+      "descricao": "VEICULO AUTOMOVEL; TIPO HATCHBACK; COMBUSTIVEL FLEX  MARCA VOLKSWAGEN MODELO GOL 1.0 ANO DE FABRICAÇÃO 2022 E ANO MODELO 2023  NA COR BRANCO CRISTAL PLACA FXQ6H31 CHASSI: 9BWAG45U6PT003941",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "VIGILANCIA SANITARIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2022-04-11T00:00:00-03:00",
+      "grupo_chapa": "1/025026",
+      "descricao": "VEICULO AUTOMOVEL MARCA PEUGEOT MODELO HACTBACK 208 LIKE MOTOR 1.6 MT ANO DE FABRICAÇÃO 2021 ANO MODELO 2022 NA COR BRANCA PLACA FCY6F01 CHASSI 8ADUWNFGENG535389",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE SAUDE (TRANSPORTE)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2022-03-09T00:00:00-03:00",
+      "grupo_chapa": "1/024929",
+      "descricao": "VEICULO AUTOMOVEL MARCA VOLKSWAGEN MODELO GOL HATCHBACK COMBUSTIVEL FLEX NA COR BRANCA CAPACIDADE 5 LUGARES  POTENCIA DO MOTOR 1.0 MC4 PLACA FQH7C97 CHASSI 9BWG45U6NT102692 ANO DE FABRICAÇÃO 2021 ANO MODELO 2022",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE SAUDE (TRANSPORTE)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2022-03-08T00:00:00-03:00",
+      "grupo_chapa": "1/024927",
+      "descricao": "VEICULO MICROONIBUS  DE PRESTAÇÃO DE SERVIÇOS ESPECIAIS PARA TRANSPORTE SANITARIO TIPO VAN MOTOR DIESEL  MARCA CITROEN MODELO JUMPER MINIBUS CHASSI VF7YD2BFCN2T62259 PLACA EUV9A82 ANO DE FABRICAÇÃO 2021 MODELO ANO 2022",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2022-03-08T00:00:00-03:00",
+      "grupo_chapa": "1/024928",
+      "descricao": "VEICULO MICROONIBUS DE PRESTAÇÃO DE SERVIÇOS ESPECIAIS PARA TRANSPORTE SANITARIO TIPO VAN MOTOR DIESEL  MARCA CITROEN JUMPER MODELO MINIBUS 15+ CHASSI VF7YD2BFCN2T98055 PLACA EOZ0D05 ANO DE FABRICAÇÃO 2021 ANO MODELO 2022",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "NAECAP NUCLEO DE ATENÇÃO ESP CRIANÇA ADOLESCENTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2022-02-09T00:00:00-03:00",
+      "grupo_chapa": "1/028192",
+      "descricao": "VEICULO TIPO CAMINHONETE ESPECIAL CABINE DUPLA TRAÇÃO 4X4 UTILIZANDO MOTOR 2.8 TURBO DIESEL COMBUSTIVEL DIESEL NA COR BRANCA MARCA CHEVROLET MODELO S10 LS PLACA FZR6D97 CHASSI 9BG148DK0NC440730",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "GUARDA MUNICIPAL",
+      "origem": "Doação/Transf.",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-12-30T00:00:00-03:00",
+      "grupo_chapa": "1/024878",
+      "descricao": "VEICULO AUTOMOVEL MODELO ONIX TIPO HATCHBACK MARCA CHEVROLET COMBUSTIVEL FLEX PLACA FLR4E43 CHASSI 9BGEA48A0NG145309 NA COR BRANCA; COM 05 PORTAS; CAPACIDADE MINIMA PARA 05 PESSOAS; ANO DE FABRICAÇÃO 2021 MODELO 2022",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE PROMOÇÃO SOCIAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-09-24T00:00:00-03:00",
+      "grupo_chapa": "1/024858",
+      "descricao": "VEICULO MARCA RENAULT MODELO MASTER L2H2 TIPO FURGÃO  DIESEL ANO 2021 MODELO 2022 COM 02 PORTAS NA CABINE (MOTORISTA E PASSAGEIRO) E 01 PORTA LATERAL CORREDICA; NA COR BRANCA PLACA FCF8H03 CHASSI 93YMAFEXCNJ973689",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "TRANSPORTE ESCOLAR 2° andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-09-24T00:00:00-03:00",
+      "grupo_chapa": "1/024859",
+      "descricao": "VEICULO MARCA RENAULT MODELO MASTER L2H2 TIPO FURGÃO  DIESEL ANO 2021 MODELO 2022 COM 02 PORTAS NA CABINE (MOTORISTA E PASSAGEIRO) E 01 PORTA LATERAL CORREDICA; NA COR BRANCA PLACA FVUOF27 CHASSI 93YMAFEXCNJ973469",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "TRANSPORTE ESCOLAR 2° andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-09-24T00:00:00-03:00",
+      "grupo_chapa": "1/024860",
+      "descricao": "VEICULO MARCA RENAULT MODELO MASTER L2H2 TIPO FURGÃO  DIESEL ANO 2021 MODELO 2022 COM 02 PORTAS NA CABINE (MOTORISTA E PASSAGEIRO) E 01 PORTA LATERAL CORREDICA; NA COR BRANCA PLACA FYD3I36 CHASSI 93YMAFEXCNJ973687",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "TRANSPORTE ESCOLAR 2° andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-09-24T00:00:00-03:00",
+      "grupo_chapa": "1/024861",
+      "descricao": "VEICULO AMBULANCIA SIMPLES MARCA RENAULT MODELO MASTER TIPO FURGÃO L1H1 REMOÇÃO A DIESEL NA COR BRANCA CONJUNTO DE SINALIZAÇÃO ACUSTICO VISUAL  ANO DE FABRICAÇÃO 2020 MODELO 2021 PLACA GFG8H65 CHASSI 93YMAFEXAMJ781078",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-09-17T00:00:00-03:00",
+      "grupo_chapa": "1/024876",
+      "descricao": "VEICULO AUTOMOVEL TIPO HATCHBACK ANO FABRICAÇÃO 2021 MODELO 2022 COMBUSTIVEL FLEX NA COR BRANCA MARCA RENAULT MODELO KWID ZEN CHASSI 93YRBB009NJ920174 PLACA FOR5D66",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE IMPRENSA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-08-04T00:00:00-03:00",
+      "grupo_chapa": "1/024834",
+      "descricao": "VEICULO TRATOR AGRICULA TIPO TRATOR DE RODAS COM MOTOR TURBO DIESEL CABINADO 4X4 CABINE FECHADA COM AR CONDICIONADO NA COR AZUL PINTURA SOLIDA MARCA LS TRACTOR  MODELO P80 CHASSI: 9BLP06002MG00171",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CASA DA AGRICULTURA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-06-09T00:00:00-03:00",
+      "grupo_chapa": "1/024895",
+      "descricao": "VEICULO MOTOCICLETA COM SISTEMA DE PARTIDA ELETRICA, SISTEMA DE ALIMENTAÇÃO POR INJEÇÃO ELETRÔNICA, TRANSMISSÃO MÍNIMA DE 05 VELOCIDADES PLACA GED4F72 CHASSI 9C2K2500MRO53529",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE FISCALIZACAO",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-04-27T00:00:00-03:00",
+      "grupo_chapa": "1/024680",
+      "descricao": "VEICULO AUTOMOVEL TIPO HATCHBACK MODELO ARGO DRIVE 1.3 MOTOR FLEX 4 PORTAS NA COR BRANCO BANCHISA MARCA FIAT PLACA FIM1B53  CHASSI 9BD3558A4HMYL17133",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-04-26T00:00:00-03:00",
+      "grupo_chapa": "1/024683",
+      "descricao": "VEICULO AUTOMOVEL TIPO HATCHBACK MODELO ARGO DRIVE 1.3 MOTOR FLEX 4 PORTAS NA COR BRANCO BANCHISA MARCA FIAT CHASSI 98D358A4HMYK96775 PLACA FUX7E16 ANO E MODELO DE FABRICAÇÃO 2021",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "SALA DA SECRETARIA DA EDUCAÇÃO 1º Andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-04-22T00:00:00-03:00",
+      "grupo_chapa": "1/024681",
+      "descricao": "VEICULO AUTOMOVEL MARCA FIAT MODELO ARGO DRIVE HACTBACK  MOTOR 1.3 COMBUSTIVEL FLEX COM 4 PORTAS NA COR BRANCO BANCHISA PLACA EGI8C74 CHASSI 9BD358A4HMYL14962 ANO E MODELO DE FABRICAÇÃO 2021",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-04-22T00:00:00-03:00",
+      "grupo_chapa": "1/024682",
+      "descricao": "VEICULO AUTOMOVEL MARCA FIAT MODELO ARGO DRIVE HACTBACK  MOTOR 1.3 COMBUSTIVEL FLEX COM 4 PORTAS NA COR BRANCO BANCHISA PLACA ETU3D57 CHASSI 9BD358A4HMYL14970 ANO E MODELO DE FABRICAÇÃO 2021",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-03-08T00:00:00-03:00",
+      "grupo_chapa": "1/024708",
+      "descricao": "VEICULO AUTOMOVEL MARCA VOLKSWAGEN MODELO SAVEIRO ROBUST NA COR BRANCA MOTOR 1.6 COMBUSTIVEL FLEX CHASSI 93YRBB009NJ20174  PLACA FEK9G53",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "MANUTENÇÃO (EDUCAÇÃO)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-02-26T00:00:00-03:00",
+      "grupo_chapa": "1/024684",
+      "descricao": "VEICULO AUTOMOVEL TIPO SEDAN MARCA RENAULT MODELO LOGAN MOTOR 1.6 NA COR BRANCA COMBUSTIVEL FLEX  CHASI :  93Y4SRZHXMJ535945 PLACA FEI8E02 ANO DE FABRICAÇÃO 2020 MODELO 2021",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "GABINETE DO PREFEITO",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2021-02-18T00:00:00-03:00",
+      "grupo_chapa": "1/024679",
+      "descricao": "VEICULO AUTOMOVEL TIPO HATCHBACK MODELO ARGO DRIVE MOTOR 1.3 FLEX 4 PORTAS NA COR BRANCA BANCHISA MARCA FIAT CHASSI 9BD3558A4HMYL16964  PLACA FOY5E38  ANO E MODELO DE FABRICAÇÃO 2021",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "SALA DA SECRETARIA DA EDUCAÇÃO 1º Andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-12-09T00:00:00-03:00",
+      "grupo_chapa": "1/024010",
+      "descricao": "VEICULO ESPECIAL CAMIONETA  MARCA RENAULT MODELO KANGOO ALL AMBULANCIA ANO E MODELO DE FABRICAÇÃO 2007/2008 NA COR BRANCA PLACA ATU-3949 CHASSI 8A1FC1U58L971744 CODIGO RENAVAM Nº 00254027334",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "BRIGADA DE EMERGENCIA",
+      "origem": "Doação/Transf.",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-09-17T00:00:00-03:00",
+      "grupo_chapa": "1/023806",
+      "descricao": "VEICULO AUTOMOVEL TIPO SEDAN  COMBUSTIVEL FLEX  NA COR BRANCA MARCA RENAULT MODELO LOGAN MOTOR 1.0 LIFE 4 PORTAS PLACA DPG3H59 CHASSI 93Y4BRZ65MJ481282 ANO DE FABRICAÇÃO 2020 MODELO 2021",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "LAR DOCE LAR",
+      "origem": "Doação/Transf.",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-08-31T00:00:00-03:00",
+      "grupo_chapa": "1/023651",
+      "descricao": "VEICULO TIPO CAMINHONETE CABINE DUPLA COMBUSTIVEL FLEX NA COR BRANCA COM 4 PORTAS MOTOR 1.6 MARCA RENAULT MODELO DUSTER OROCH EXPRESSION PLACA BKU7I99 CHASSI: 93Y9SR3H5MJ44707088 ANO DE FABRICAÇÃO 2020 MODELO 2021",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CASA DA AGRICULTURA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-08-24T00:00:00-03:00",
+      "grupo_chapa": "1/023714",
+      "descricao": "VEICULO AUTOMOVEL MARCA TOYOTA MODELO ETIOS HATCHBACK COMBUSTIVEL FLEX NA COR BRANCA CAPACIDADE 5 LUGARES MOTOR 1.3 16 VALVULAS PLACA FWN2H58 CHASSI 9BRK19BT7L2137990 ANO E MODELO DE FABRICAÇÃO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE SAUDE (TRANSPORTE)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-08-24T00:00:00-03:00",
+      "grupo_chapa": "1/023715",
+      "descricao": "VEICULO AUTOMOVEL MARCA TOYOTA MODELO ETIOS HATCHBACK COMBUSTIVEL FLEX NA COR BRANCA CAPACIDADE 5 LUGARES MOTOR 1.3 16 VALVULAS PLACA EFB4H59 CHASSI 9BRK19BT3L2138134 ANO E MODELO DE FABRICAÇÃO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE SAUDE (TRANSPORTE)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-08-24T00:00:00-03:00",
+      "grupo_chapa": "1/023716",
+      "descricao": "VEICULO TIPO HATCHBACK MARCA TOYOTA MODELO ETIOS HATCH X VSC MOTOR 1.3 16 VALVULAS NA COR BRANCA COMBUSTÍVEL FLEX PLACA ELA0I36 CHASSI 9BRK19BT7L2138024",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE FISCALIZACAO",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-07-23T00:00:00-03:00",
+      "grupo_chapa": "1/023781",
+      "descricao": "TRATOR ROÇADOR DE GRAMA AUTOMÁTICO COM SAÍDA LATERAL DA GRAMA DE 19 HP MARCA HUSQVARNA MODELO YTH1942 COR VERMELHA",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE ESPORTE E LAZER",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-07-17T00:00:00-03:00",
+      "grupo_chapa": "1/023713",
+      "descricao": "VEICULO CAMINHONETE MARCA NISSAN MODELO FRONTIER S COM CABINE DUPLA NA COR BRANCA 4 PORTAS MOTOR TRAÇÃO 4/4 COMBUSTIVEL DIESEL PLACA EXR8B39 CHASSI 8ANBD33B2LL364755",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "VIGILANCIA SANITARIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-06-15T00:00:00-03:00",
+      "grupo_chapa": "1/023649",
+      "descricao": "VEICULO AMBULANCIA TIPO FURGÃO SIMPLES REMOÇÃO NA COR BRANCA MARCA RENAULT MODELO MASTER L1H1 MOTOR 2.3 DIESEL CONJUNTO DE SINALIZAÇÃO ACUSTICO VISUAL CHASSI 93YMAFEXALJ289862 ANO DE FABRICAÇÃO 2019 ANO MODELO 2020 PLACA GJV9E25",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-06-15T00:00:00-03:00",
+      "grupo_chapa": "1/023650",
+      "descricao": "VEICULO AMBULANCIA TIPO FURGÃO PARA SIMPLES REMOÇÃO NA COR BRANCA MARCA RENAULT MODELO MASTER L1H1 MOTOR 2.3 DIESEL CONJUNTO DE SINALIZAÇÃO ACUSTICO VISUAL PLACA GJE2D14 CHASSI 93YMAFEXALJ309786 ANO DE FABRICAÇÃO 2019 ANO MODELO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-04-27T00:00:00-03:00",
+      "grupo_chapa": "1/023091",
+      "descricao": "VEICULO CAMINHONETE CABINE DUPLA NA COR BRANCA MOTOR 2.3 DIESEL TRAÇÃO 4X4 ANO DE FABRICAÇÃO 2020 MODELO 2020 PLACA FYF4152 MARCA NISSAN MODELO FRONTIER SMTX4 CHASSI: 8ANBD33B9LL361125",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CIT - CENTRO DE INFORMAÇÕES TURISTICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-03-13T00:00:00-03:00",
+      "grupo_chapa": "1/023642",
+      "descricao": "MOTOCICLETA NA COR AZUL  POTENCIA MINIMA DE 250CC COMBUSTIVEL GASOLINA MARCA JTZ MODELO DK150S VERSÃO FI CHASSI 99KPCKDSKLM10091 PLACA BWO4147 ANO DE FABRICAÇÃO 2019 MODELO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE PROMOÇÃO SOCIAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-01-23T00:00:00-03:00",
+      "grupo_chapa": "1/023648",
+      "descricao": "VEICULO AMBULANCIA DO TIPO FURGONETA ADAPTADA PARA SIMPLES REMOÇÃO PARA ATENDIMENTO DE URGENCIA E EMERGENCIA E TRANSPORTE DE PACIENTES PLACA FUM3393 CHASSI 8AEGCNFN8LG505885 ANO DE FABRICAÇÃO 2019 ANO MODELO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-01-07T00:00:00-03:00",
+      "grupo_chapa": "1/023639",
+      "descricao": "VEICULO AUTOMOVEL MARCA CHEVROLET MODELO SPIN PREMIER AUTOMATICO MOTOR 1.8 COMBUSTIVEL FLEX NA COR BRANCA PLACA CBS9540 CHASSI 9BGJP7520LB136415 ANO DE FABRICAÇÃO 2019 MODELO ANO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "APAE - ASSOC DE PAIS E AMIGOS DOS EXCEPCIONAIS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2020-01-02T00:00:00-03:00",
+      "grupo_chapa": "1/023638",
+      "descricao": "VEICULO AUTOMOVEL MARCA RENAULT MODELO LOGAN SEDAN NA COR BRANCA MOTOR 1.0 COMBUSTIVEL FLEX NA COR BRANCA PLACA DKU7529 CHASSI 93Y4SRZ85LJ289664 ANO DE FABRICAÇÃO 2019 MODELO ANO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "APAE - ASSOC DE PAIS E AMIGOS DOS EXCEPCIONAIS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-08-23T00:00:00-03:00",
+      "grupo_chapa": "1/023537",
+      "descricao": "VEICULO CAMINHONETE CABINE SIMPLES COMBUSTIVEL FLEX MARCA CHEVROLET  MODELO MONTANA LS2 CAPACIDADE 2 PESSOAS MOTOR 1.4 PLACA DYB7319 CHASSI: 9BGCA8030LB121160 ANO DE FABRICAÇÃO 2019 MODELO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE TRANSITO E TRANSPORTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-08-16T00:00:00-03:00",
+      "grupo_chapa": "1/023540",
+      "descricao": "VEICULO MASTER EXTRA FURGÃO L3HE MARCA RENAULT PLACA EZZ5171 SERVIÇOS ESPECIAIS PARA TRANSPORTE SANITARIO TIPO VAN A DIESEL COM ACESSO A CADEIRANTE POR PLATAFORMA ELEVADORA CHASSI 93YMAF4XELJ912195 ANO DE FABRICAÇÃO 2019 ANO MODELO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-08-16T00:00:00-03:00",
+      "grupo_chapa": "1/023541",
+      "descricao": "VEICULO MASTER EXTRA FURGÃO L3HE MARCA RENAULT PLACA BSZ8969 SERVIÇOS ESPECIAIS PARA TRANSPORTE SANITARIO TIPO VAN A DIESEL COM ACESSO A CADEIRANTE POR PLATAFORMA ELEVADORA CHASSI: 93YMAF4XELJ912288 ANO DE FABRICAÇÃO 2019 ANO MODELO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-08-16T00:00:00-03:00",
+      "grupo_chapa": "1/023542",
+      "descricao": "VEICULO MASTER EXTRA FURGÃO L3HE MARCA RENAULT PLACA EMF1953 SERVIÇOS ESPECIAIS PARA TRANSPORTE SANITARIO TIPO VAN A DIESEL COM ACESSO A CADEIRANTE POR PLATAFORMA ELEVADORA CHASSI 93YMAF4XELJ912193 ANO DE FABRICAÇÃO 2019 MODELO ANO 2020",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-07-22T00:00:00-03:00",
+      "grupo_chapa": "1/023521",
+      "descricao": "CESTO AEREO EQUIPAMENTO HIDRAULICO COM ALTURA DE TRABALHO 13 METRO, COM SUPORTE DE CINTO DE SEGURANÇA E COMANDO DE OPERAÇÃO DA PARTE AEREA MARCA JOTA MODELO JTC-131 ACOPLADO PLACA ELV9E51 PATRIMONIO 25302",
+      "tipo": "VEÍCULOS EM GERAL (P)",
+      "localizacao": "DIVISÃO DE ILUMINAÇÃO PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-07-04T00:00:00-03:00",
+      "grupo_chapa": "1/023520",
+      "descricao": "CAÇAMBA EQUIPAMENTO COMPACTADOR NOVO CAPACIDADE 19M³ UTILIZAÇÃO DA COLETA DE LIXO MARCA COMPACTA MODELO CITY LIX SUPORTE PARA PÁS E VASSOURAS SINALIZADOR TIPO GIROFLEX TRAÇÃO 6X2 ACOPLADO CAMINHÃO PLACA EPV6655 PATRIMONIO N° 23503",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISÃO DE LIMPEZA PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-05-20T00:00:00-03:00",
+      "grupo_chapa": "1/023503",
+      "descricao": "VEICULO CAMINHÃO DE LIXO TRAÇÃO 6X2  COR BRANCA COMBUSTIVEL DIESEL MARCA FORD CARGO 1723B PLACA EPU6655 CHASSI: 9BFYEAHD7KBS78795",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISÃO DE LIMPEZA PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-05-08T00:00:00-03:00",
+      "grupo_chapa": "1/023502",
+      "descricao": "VEICULO CAMINHÃO TRAÇÃO 4X2 COMBUSTIVEL DIESEL NA COR BRANCO BANCHISA MARCA DAILY MODELO 70C17 PLACA ELV9E51 CHASSI: 93ZC70C01K8485082 ANO DE FABRICAÇÃO 22018 E MODELO ANO 2019",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISÃO DE ILUMINAÇÃO PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-04-23T00:00:00-03:00",
+      "grupo_chapa": "1/022797",
+      "descricao": "VEICULO TIPO CAMINHONETE CABINE DUPLA COM 4 PORTAS MOTOR 2.2 CAPACIDADE DE CARGA 850KG NA COR AZUL COMBUSTIVEL DIESEL MARCA FORD MODELO RANGER XL ANO DE FABRICAÇÃO 2018 MODELO 2019 PLACA DIT4501 CHASSI 8AFAR23N7KJ117853",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "GUARDA MUNICIPAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-04-23T00:00:00-03:00",
+      "grupo_chapa": "1/022802",
+      "descricao": "VEICULO CAMINHONETE MARCA FORD MODELO RANGER XL MOTOR 2.2 COMBUSTIVEL DIESEL CABINE DUPLA 4 PORTAS NA COR AZUL CAPACIDADE DE CARGA 850KG MARCA FORD MODELO RANGER XL PLACA DMC3699 CHASSI 8AFAR23N9KJ122200",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "GUARDA MUNICIPAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-03-06T00:00:00-03:00",
+      "grupo_chapa": "1/022741",
+      "descricao": "VEICULO CAMINHONETE CABINE DUPLA COMBUSTIVEL FLEX  NA COR BRANCO 4 PORTAS MOTOR 1.6 MARCA RENAULT MODELO OROCH EXPRE TRAÇÃO 4X2 ANO DE FABRICAÇÃO 2019 MODELO 2020 PLACA DOM1142 CHASSI 93Y9SRH5LJ855956",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE MOBILIDADE URBANA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-03-01T00:00:00-03:00",
+      "grupo_chapa": "1/023448",
+      "descricao": "VEICULO AUTOMOMOVEL MARCA TOYOTA MODELO ETIOS HATCH NA COR BRANCA COMBUSTIVEL FLEX CAPACIDADE 5 LUGARES ANO E MODELO DE FABRICAÇÃO 2019 PLACA EVU0709 CHASSI 9BRK19BTK2124782",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE SAUDE (TRANSPORTE)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-03-01T00:00:00-03:00",
+      "grupo_chapa": "1/023449",
+      "descricao": "VEICULO AUTOMOMOVEL MARCA TOYOTA MODELO ETIOS HATCH NA COR BRANCA COMBUSTIVEL FLEX CAPACIDADE 5 LUGARES ANO E MODELO DE FABRICAÇÃO 2019 PLACA FBV7223 CHASSI 9BRK199BT3K2124779",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE SAUDE (TRANSPORTE)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-02-11T00:00:00-03:00",
+      "grupo_chapa": "1/022817",
+      "descricao": "VEICULO AUTOMOVEL MARCA CHEVROLET MODELO ONIX LT MOTOR 1.4 COMBUSTIVEL FLEX NA COR BRANCA PLACA EXC4807 CHASSI 9BGKS48V0KG2B0617 ANO E MODELO DE FABRICAÇÃO 2019",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CREAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2019-02-11T00:00:00-03:00",
+      "grupo_chapa": "1/022818",
+      "descricao": "VEICULO AUTOMOVEL MARCA CHEVROLET MODELO ONIX LT MOTOR 1.4 COMBUSTIVEL FLEX NA COR BRANCA ANO  DE FABRICAÇÃO E MODELO 2019 PLACA EJH0139 CHASSI 9BGKS48V0KG280705",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRO REF ASSISTENCIA SOCIAL (CRAS)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-10-11T00:00:00-03:00",
+      "grupo_chapa": "1/022433",
+      "descricao": "VEICULO AUTOMOVEL MARCA HYUNDAI MODELO HB20 STYLE SEDAN MOTOR 1.6 COMBUSTIVEL FLEX AUTOMATICO NA COR BRANCO POLAR COM 4 PORTAS PLACA CPT7800 CHASSI 9BHBG41DBKP954167 ANO DE FABRICAÇÃO 2018 MODELO ANO 2019",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CONTROLE INTERNO",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-10-11T00:00:00-03:00",
+      "grupo_chapa": "1/022434",
+      "descricao": "VEICULO AUTOMOVEL MARCA HYUNDAI MODELO HB20S STYLE SEDAN MOTOR 1.6 FLEX AUTOMATICO NA COR BRANCA POLAR PLACA EXI3150 COM 4 PORTAS ANO DE FABRICAÇÃO 2018 MODELO 2019 CHASSI: 9BHBG41DBKP9666355",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "GABINETE DO PREFEITO",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-09-25T00:00:00-03:00",
+      "grupo_chapa": "1/022426",
+      "descricao": "VEICULO MINI CARREGADEIRA BASE MODEL COMBUTIVEL DIESEL TRAÇÃO 4 X 4 COM CABINE FECHADA MARCA BOBCAT MODELO S570B",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE MEIO AMBIENTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-09-25T00:00:00-03:00",
+      "grupo_chapa": "1/022427",
+      "descricao": "CAÇAMBA 74\" MARCA BOBCAT ACOPLADA NA MINICARREGADEIRA PAT 22426",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE MEIO AMBIENTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-07-30T00:00:00-03:00",
+      "grupo_chapa": "1/022244",
+      "descricao": "VEICULO CAMINHONETE MARCA CHEVROLET MODELO MONTANA LS2 MOTOR 1.4 FLEX COM 2 LUGARES NA COR BRANCA PLACA GAK3217 CHASSI 9BGCA8030KB106695 ANO DE FABRICAÇÃO 2018 E ANO MODELO 2019",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE MEIO AMBIENTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-07-06T00:00:00-03:00",
+      "grupo_chapa": "1/021949",
+      "descricao": "VEICULO MOTOCICLETA MARCA YAMAHA MODELO XTZ TENERE ANO DE FABRICAÇÃO 2018 MODELO 2019 NA COR AZUL PLACA FDS3247 CHASSI 9C6DG3410K0002529",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "GUARDA MUNICIPAL",
+      "origem": "Doação/Transf.",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-05-18T00:00:00-03:00",
+      "grupo_chapa": "1/022270",
+      "descricao": "VEICULO AUTOMOVEL MODELO NEW QQ  MARCA CAOA CHERY MOTOR 1.0 COMBUSTIVEL FLEX PLACA FUC0145 NA COR BRANCA SOLIDA ANO E MODELO DE FABRICAÇÃO 2018 CHASSI 98RDB12BXJA004871",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE FISCALIZACAO",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-05-18T00:00:00-03:00",
+      "grupo_chapa": "1/022271",
+      "descricao": "VEICULO AUTOMOVEL MARCA CAOA CHERY MODELO NEW QQ  MOTOR 1.0 COMBUSTIVEL FLEX NA COR BRANCA SOLIDA ANO MODELO E FABRICAÇÃO 2018 PLACA GBN6566 CHASSI 98RDB1284JA004879",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE SAUDE (TRANSPORTE)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-04-13T00:00:00-03:00",
+      "grupo_chapa": "1/022165",
+      "descricao": "VEICULO TIPO FURGÃO MARCA RENAULT  MODELO MASTER L1111 MOTOR 2.3 DIESEL IMPLEMENTAÇÃO  EM AMBULÂNCIA PARA TRANSPORTE DE PACIENTES EM DECUBITO HORIZONTAL NA COR BRANCA SOLIDA ANO DE FABRICAÇÃO 2018 MODELO 2019 PLACA FUH9915 CHASSI: 93YMAFEXAKJ311179",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-03-27T00:00:00-03:00",
+      "grupo_chapa": "1/022340",
+      "descricao": "VEICULO CAMINHÃO MARCA FORD MODELO CARGO 1723 MOTOR DIESEL COM 6 CILINDROS NA COR BRANCA ARTICO ANO DE FABRICAÇÃO E MODELO 2018 PLACA GJA9711 CHASSI: 9BFYEAHD5JBS68569",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE SERVIÇOS URBANOS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-01-19T00:00:00-03:00",
+      "grupo_chapa": "1/021894",
+      "descricao": "VEICULO CAMIONETE PICK-UP CABINE DUPLA ZERO KM PLACA COR BRANCA PLACA GFW0571 MARCA MITSUBICH MODELO  L200 TRITON GL 3.2/180HP MOTOR 2.4 DIESEL 4/4 REDUZIDA  ADAPTADO PARA AÇÕES DE COMBATE À INCÊNDIOS COM 4 PORTAS",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE DEFESA CIVIL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-01-16T00:00:00-03:00",
+      "grupo_chapa": "1/021983",
+      "descricao": "VEICULO AUTOMOVEL MARCA CHEVROLET MODELO SPIN LTZ NA COR BRANCA MOTOR 1.8 FLEX PLACA FKY6104 CAPACIDADE DE 7 LUGARES COM 4 PORTAS CORREDIÇAS PARA LATERAL ANO DE FABRICAÇÃO E MODELO 2018 CHASSI 9BGJC7520JB220106",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE PROMOÇÃO SOCIAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2018-01-16T00:00:00-03:00",
+      "grupo_chapa": "1/022091",
+      "descricao": "VEICULO AUTOMOVEL MODELO SANDERO HACTH EXPRESSION 16SCE MARCA RENAULT ANO DE FABRICAÇÃO 2017 MODELO 2018, MOTOR 1.6 FLEX, COMBUSTIVEL FLEX CHASSI 93Y5SRFH4JJ199492 PLACA FZO2835",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE PROMOÇÃO SOCIAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2017-11-23T00:00:00-03:00",
+      "grupo_chapa": "1/020845",
+      "descricao": "VEICULO AUTOMOVEL MARCA CITROEN MODELO AIRCROSS MOTOR 1.6 COMBUSTIVEL FLEX NA COR BRANCA PLACA GBC/8373 CHASSI: 935SUNFN1HB519812",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CONSELHO TUTELAR",
+      "origem": "Doação/Transf.",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2017-08-23T00:00:00-03:00",
+      "grupo_chapa": "1/021771",
+      "descricao": "VEICULO MICRO-ONIBUS CAPACIDADE 16 OCUPANTES NA COR BRANCA MOTOR 2.3 COMBUSTIVEL DIESEL MARCA RENAULT MODELO MASTER MINIBUS PLACA FKB4866 CHASSI 93YMAFEXCJ789956 ANO DE FABRICAÇÃO 2017 MODELO 2018",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "MERENDA ESCOLAR",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2015-07-31T00:00:00-03:00",
+      "grupo_chapa": "1/020463",
+      "descricao": "VEICULO AMBULANCIA MARCA CITROEN MODELO JUMPER FURGÃO 35LH COM CAPACIDADE 15 PASSAGEIROS COMBUSTIVEL DIESEL NA COR BRANCO BANCHISA ANO E MODELO DE FABRICAÇÃO 2015 PLACA FOZ9124 CHASSI: 935ZCWMNCF2147296",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2015-07-31T00:00:00-03:00",
+      "grupo_chapa": "1/020464",
+      "descricao": "VEICULO AMBULANCIA MARCA CITROEN MODELO JUMPER FURGÃO 35LH COM CAPACIIDADE 15 PASSAGEIROS COMBUSTIVEL DIESEL NA COR BRANCO BANCHISA ANO E MODELO DE FABRICAÇÃO 2015 PLACA FWQ2845 CHASSI: 935ZCWMNCF2147342",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2014-11-17T00:00:00-03:00",
+      "grupo_chapa": "1/020278",
+      "descricao": "VEICULO CAMINHONETE MARCA CHEVROLET MODEELO MONTANA LS NA COR BRANCA COMBUSTIVEL FLEX PLACA FTD5783 CHASSI: 9BGCA80X0FB148719 ANO DE FABRICAÇÃO 2014 MODELO 2015",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE TRANSITO E TRANSPORTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2014-10-28T00:00:00-03:00",
+      "grupo_chapa": "1/020249",
+      "descricao": "VEICULO MICROONIBUS MARCA PEUGEOT MODELO BOXER MINIBUS 330M COM CAPACIDADE 15 PASSAGEIROS NA COR BRANCA MOTOR 2.3 COMBUSTIVEL DIESEL ANO E MODELO DE FABRICAÇÃO 2014 PLACA FNH8244 CHASSI: 936ZBWMMBE2136261",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2014-09-26T00:00:00-03:00",
+      "grupo_chapa": "1/020250",
+      "descricao": "VEICULO CAMINHONETE MARCA FIAT MODELO DUCATO CARGO 75 COM CAPACIDADE 3 PASSAGEIROS NA COR BRANCO BANCHISA COMBUSTIVEL DIESEL ANO E MODELO DE FABRICAÇÃO 2014 PLACA FSW1156 CHASSI: 93W244F14E2140260",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2014-09-26T00:00:00-03:00",
+      "grupo_chapa": "1/020251",
+      "descricao": "VEICULO CAMINHONETE MARCA FIAT MODELO DUCATO CARGO 75 COM CAPACIDADE 3 PASSAGEIROS NA COR BRANCO BANCHISA COMBUSTIVEL DIESEL ANO E MODELO DE FABRICAÇÃO 2014 PLACA FQR6472 CHASSI: 93WE244F14E2140251",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2014-07-10T00:00:00-03:00",
+      "grupo_chapa": "1/019972",
+      "descricao": "VEICULO CAMINHÃO COM CAÇAMBA BASCULANTE MARCA INTERNATIONAL DURASTAR MODELO 4400P7 TRAÇÃO 6X2 COMBUSTIVEL DIESEL NA COR BRANCA ANO E MODELO DE FABRICAÇÃO 2013 PLACA FRV1J22 CHASSI: 93MNKTBT8DR096875",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2014-06-24T00:00:00-03:00",
+      "grupo_chapa": "1/020069",
+      "descricao": "VEICULO CAMINHONETE CABINE DUPLA NA COR BRANCO SUMMIT COM 4 PORTAS COMBUSTIVEL FLEX MARCA CHEVROLET MODELO NOVA S10 LT ANO E MODELO DE FABRICAÇÃO 2014",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE SAUDE (COMBATE A DENGUE)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2014-05-07T00:00:00-03:00",
+      "grupo_chapa": "1/020967",
+      "descricao": "VEICULO MOTONIVELADORA CABINE FECHADA POTENCIA LIQUIDA NO VOLANTE DE 140HP EM TODAS AS MARCHAS ACIONADA POR MOTOR DIESEL TRANSMISSÃO SINCRONIZADA COM 6 MARCHAS AVANTE E 3 A RE NA COR AMARELA CHASSI: HBZN0140LEAF3637 MARCA NEW HOLLAND MODELO RG14C.B",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2014-04-24T00:00:00-03:00",
+      "grupo_chapa": "1/020966",
+      "descricao": "VEICULO CAMINHÃO COM CAÇAMBA BASCULANTE A MARCA INTERNATIONAL MODELO 4400P7 TRAÇÃO 6X4 COMBUSTIVEL DIESEL NA COR BRANCA PLACA FTQ8602 CHASSI: 978MSTBT9ER037146 ANO E MODELO DE FABRICAÇÃO 2014",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2014-04-22T00:00:00-03:00",
+      "grupo_chapa": "1/027116",
+      "descricao": "CAÇAMBA BASCULANTE ACOPLADO NO VEICULO CAMINHÃO PLACA FTQ8602 PATRIMÔNIO 20966 MEDINDO 5.000 MM DE COMPRIMENTO X 2.400 MM DE LARGURA X 1.080 MM DE ALTURA CHASSI: 978MSTBT9ER037146 NIEV: SP7FN10212,DP2713 MARCA DA CARROCERIA FACCHINI ANO E MODELO 2014",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2013-12-06T00:00:00-03:00",
+      "grupo_chapa": "1/019314",
+      "descricao": "VEICULO GOL MOTOR 1.6 MODELO CITY MARCA WOLKSWAGEN COM 4 PORTAS NA COR BRANCA COMBUSTIVEL FLEX CHASSI 9BWAB45U7EP130797 PLACA CPV7825 ANO DE FABRICAÇÃO 2013 MODELO 2014",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE PROMOÇÃO SOCIAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2013-09-04T00:00:00-03:00",
+      "grupo_chapa": "1/019167",
+      "descricao": "VEICULO AUTOMOVEL MARCA VOLKSWAGEN MODELO GOL MOTOR 1.0 COM 4 PORTAS NA COR BRANCA COMBUSTIVEL FLEX PLACA CPV7847 CHASSI: 9BWAA05WXEP014846 ANO DE FABRICAÇÃO 2013 MODELO 2014",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE ESPORTE E LAZER",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2013-08-13T00:00:00-03:00",
+      "grupo_chapa": "1/020968",
+      "descricao": "VEICULO RETROESCAVADEIRA CABINE ABERTA ACIONADA POR MOTOR A DIESEL POTENCIA BRUTA DE 84HP TRANSMISSÃO SINCRONIZADA COM 4 MARCHAS AVANTE E 2 A RE TRAÇÃO 4 X 4 PA CARREGADEIRA FRONTAL MARCA JCB MODELO 3C CHASSI: 9B9214T84DBDT4620",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2013-07-25T00:00:00-03:00",
+      "grupo_chapa": "1/019168",
+      "descricao": "VEICULO AUTOMOVEL MARCA VOLKSWAGEN MODELO GOL MOTOR 1.0 COM 4 PORTAS NA COR BRANCA COMBUSTIVEL FLEX PLACA CPV7846 CHASSI: 9BWAA05W3EP014848 ANO DE FABRICAÇÃO 2013 MODELO 2014",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRO REF ASSISTENCIA SOCIAL (CRAS)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2012-12-23T00:00:00-03:00",
+      "grupo_chapa": "1/018162",
+      "descricao": "VEICULO MOTOCICLETA MARCA YAMAHA MODELO XTZ 250 TENERE NA COR AZUL COMBUSTIVEL GASOLINA ANO E MODELO DE FABRICAÇÃO 2012 PLACA EHH6811 CHASSI 9C6KG0450C0017266",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "GUARDA MUNICIPAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2012-09-26T00:00:00-03:00",
+      "grupo_chapa": "1/018186",
+      "descricao": "VEICULO AUTOMOVEL MARCA NISSAN MODELO GRAND LIVINA MOTOR 1.8 AUTOMATICO NA COR BRANCA COMBUSTIVEL FLEX ANO DE FABRICAÇÃO 2012 E MODELO 2013 PLACA CPV7915 CHASSI: 94DJBAL10DJ244826",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2012-09-06T00:00:00-03:00",
+      "grupo_chapa": "1/018145",
+      "descricao": "VEICULO CAMINHONETE MARCA FIAT MODELO STRADA FIRE MOTOR 1.4 COMBUSTIVEL FLEX NA COR BRANCO BANCHISA PLACA CPV7I45 CHASSI: 9BD27803MC7545941 ANO DE FABRICAÇÃO E MODELO 2012",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE TRANSITO E TRANSPORTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2012-03-19T00:00:00-03:00",
+      "grupo_chapa": "1/019013",
+      "descricao": "SAVEIRO MIS/CAMIONETA MARCA VOLKSMAGEN MODELO GL MOTOR 1.8 NA COR CINZA ANO E MODELO DE FABRICAÇÃO 1996 COMBUSTIVEL GASOLINA PLACA CIY0470 CHASSI 9BWZZZ308TP046704",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "PROJETO INFOVIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2012-03-15T00:00:00-03:00",
+      "grupo_chapa": "1/018155",
+      "descricao": "VEICULO MICROONIBUS MARCA FORD MODELO TRANSIT GCASA ESC NA COR PRATA NOBRE COMBUSTIVEL DIESEL ADAPTADO PARA CADEIRANTE ANO DE FABRICAÇÃO 2011 MODELO 2011 PLACA CPV 7828 CHASSI WFOXXXTBFBTJ39074",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "TRANSPORTE ESCOLAR 2° andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2011-12-29T00:00:00-03:00",
+      "grupo_chapa": "1/017091",
+      "descricao": "VEICULO AUTOMOVEL MARCA FORD MODELO FIESTA HATCH COMBUSTIVEL FLEX MOTOR 1.0 NA COR PRATA ENSEADA ANO DE FABRICAÇÃO 2011 ANO MODELO 2012 PLACA CPV7805 CHASSI: 9BFZF55A8C8291248",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2011-12-29T00:00:00-03:00",
+      "grupo_chapa": "1/017336",
+      "descricao": "VEICULO AUTOMOVEL MARCA FORD MODELO FIESTA HATCH MOTOR 1.0 NA COR PRATA COMBUSTIVEL FLEX PLACA CPV7826 CHASSI: 99BFZF55A0C8291261 ANO DE FABRICAÇÃO 2011 MODELO 2012",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE SERVIÇOS URBANOS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2011-12-20T00:00:00-03:00",
+      "grupo_chapa": "1/017277",
+      "descricao": "VEICULO AUTOMOVEL MARCA FORD MODELO FIESTA HATCH MOTOR 1.6 COMBUSTIVEL FLEX NA COR PRATA ENSEADA ANO DE FABRICAÇÃO 2011 ANO MODELO 2012 PLACA CPV7806 CHASSI: 9BFZ55P3C8294093",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2011-08-05T00:00:00-03:00",
+      "grupo_chapa": "1/016284",
+      "descricao": "VEICULO AUTOMOVEL ASTRA MARCA GENERAL MOTORS (GM) MODELO HB ADVANTAGE COM 4 PORTAS  NA COR SOLIDA PRETA COMBUSTIVEL FLEX PLACA CPV7809 CHASSI 9BGTR48J0BB333129",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DESENVOLVIMENTO URBANO PLAN ECONOMICO",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2011-03-15T00:00:00-03:00",
+      "grupo_chapa": "1/019025",
+      "descricao": "VEICULO ONIBUS MARCA AGRALE MODELO MAXIBUS MCO85 NA COR BRANCA COMBUSTIVEL DIESEL PLACA CPV7815 CHASSI 9BYC22Y1SBC005142 ANO DE FABRICAÇÃO 2011 MODELO 2011",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "TRANSPORTE ESCOLAR 2° andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2011-03-10T00:00:00-03:00",
+      "grupo_chapa": "1/019286",
+      "descricao": "VEICULO CAMINHONETE MARCA FORD MODELO  COURIER FURGÃO 1.3I COM CARROCERIA ABERTA NA COR VERDE COMBUSTIVEL GASOLINA PLACA CPZ2808 CHASSI: 9BFGSZPPAWB882759 ANO DE FABRICAÇÃO 1998 MODELO 1999",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE TRANSITO E TRANSPORTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2011-02-15T00:00:00-03:00",
+      "grupo_chapa": "1/015917",
+      "descricao": "VEICULO AUTOMOVEL MARCA HYUNDAI MODELO AZERA GLS MOTOR 3.3 V6 CAMBIO AUTOMATICO COMBUSTIVEL GASOLINA NA COR PRETA ANO DE FABRICAÇÃO 2010 MODELO 2011 PLACA CPV7813 CHASSI: KMHFC41DBBA542275",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "GABINETE DO PREFEITO",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2011-01-25T00:00:00-03:00",
+      "grupo_chapa": "1/015846",
+      "descricao": "VEICULO MICROONIBUS MASTER MINIBUS EXECUTIVA MARCA RENAULT MODELO EUROLAF NA COR PRATA COMBUSTIVEL DIESEL ANO DE FABRICAÇÃO 2010 MODELO 2011 PLACA CPV7796 CHASSI 93YADCUL6B1686736",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE ESPORTE E LAZER",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2010-12-23T00:00:00-03:00",
+      "grupo_chapa": "1/015832",
+      "descricao": "VEICULO MISTO CAMIONETA MARCA GENERAL MOTORS MODELO BLAZER ADVANTAGE ANO E MODELO DE FABRICAÇÃO 2009 NA COR BRANCA COMBUSTIVEL FLEX PLACA EIZ6701 CHASSI 9BG116GF09C41768",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "BRIGADA DE EMERGENCIA",
+      "origem": "Doação/Transf.",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2010-10-29T00:00:00-03:00",
+      "grupo_chapa": "1/026321",
+      "descricao": "VEICULO AUTOMOVEL MODELO C4 PALLAS EXC/BVA MARCA CITROEN NA COR PRETA PERLA MOTOR 2.0 ANO MODELO 2011 ANO FABRICAÇÃO 2010 COMBUSTIVEL FLEX CHASSI: 8BCLDRFJWBG506678",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE CULTURA",
+      "origem": "Doação/Transf.",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2010-07-22T00:00:00-03:00",
+      "grupo_chapa": "1/015778",
+      "descricao": "PA CARREGADEIRA CABINE FECHADA COM MOTOR DIESEL POTENCIA LIQUIDA MINIMA 2200RPM DE NO MINIMO 123HP TRANSMISSÃO FULL POWER SHIFT MARCA COMBAT MODELO 936",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2010-01-12T00:00:00-03:00",
+      "grupo_chapa": "1/014674",
+      "descricao": "ROLO COMPACTADOR VIBRATORIO MARCA WACKER NEUSON MODELO RD12A-90 COMBUSTIVEL GASOLINA. O CILINDRO VIBROCAMPACTADDOR CONTA COM LARGURA DE TAMBOR DE 35,4\" INCLUI ACIONAMENTO DE TAMBOR DUPLO E DIREÇÃO ARTICULADA PARA EXCELENTEE MANOBRABILIDADE",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2009-06-19T00:00:00-03:00",
+      "grupo_chapa": "1/014579",
+      "descricao": "VEICULO MARCA FIAT MODELO DOBLO CARGO COMBUSTIVEL FLEX NA COR BRANCO BANCHISA ANO E MODELO DE FABRICAÇÃO 2009 PLACA CPV7816 CHASSI: 9BD22315592016037",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CLINICA VETERINARIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2009-03-31T00:00:00-03:00",
+      "grupo_chapa": "1/014416",
+      "descricao": "VEICULO MINIBUS MARCA FIAT MODELO DUCATO ANO DE FABRICAÇÃO 2009 MODELO 2009 NA COR BRANCA COMBUSTIVEL DIESEL PLACA CPV7902 CHASSI 93W244M2392039902",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "MERENDA ESCOLAR",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2009-02-17T00:00:00-03:00",
+      "grupo_chapa": "1/015761",
+      "descricao": "VEICULO MOTOCICLETA MARCA HONDA MODELO XR250 TORNADO ANO E MODELO DE FABRICAÇÃO 2003 COMBUSTIVEL GASOLINA NA COR AZUL PLACA DFC1828 CHASSI 9C2MD34003R104035",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE ESPORTE E LAZER",
+      "origem": "Doação/Transf.",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2008-08-27T00:00:00-03:00",
+      "grupo_chapa": "1/013319",
+      "descricao": "VEICULO ONIBUS MARCA AGRALE MODELO MAXIBUS DOLHPIN  NA COR AZUL COMBUSTIVEL DIESEL COM ELEVADOR PARA CADEIRA DE RODAS PLACA CPV7880 CHASSI 9BYC36X118C000200 ANO FABRICAÇÃO E MODELO ANO 2008",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "APAE - ASSOC DE PAIS E AMIGOS DOS EXCEPCIONAIS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2008-05-30T00:00:00-03:00",
+      "grupo_chapa": "1/012208",
+      "descricao": "VEICULO AUTOMOVEL MARCA FORD MODELO FIESTA HACTH MOTOR 1.6 COMBUSTIVEL FLEX NA COR BBRANCA ANO E MODELO DE FABRICAÇÃO 2008 PLACA CPV7877 CHASSI: 9BFZF16P9888284229",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2008-04-10T00:00:00-03:00",
+      "grupo_chapa": "1/012209",
+      "descricao": "VEICULO FIESTA MARCA FORD MOTOR 1.6 COMBUSTIVEL FLEX ANO E MODELO DE FABRIAÇÃO 2008 NA COR BRANCA PLACA CPV7879 CHASSI 9BFZF16P888284206",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "PROJETO INFOVIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2008-02-27T00:00:00-03:00",
+      "grupo_chapa": "1/012230",
+      "descricao": "BICICLETA  COM RODINHAS ARO 16 (PROERD) NA COR AZUL",
+      "tipo": "VEÍCULOS EM GERAL (P)",
+      "localizacao": "DEPOSITO (EDUCAÇÃO)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2008-02-27T00:00:00-03:00",
+      "grupo_chapa": "1/012231",
+      "descricao": "BICICLETA  COM RODINHAS ARO 16 (PROERD) NA COR VINHO/AMARELO",
+      "tipo": "VEÍCULOS EM GERAL (P)",
+      "localizacao": "DEPOSITO (EDUCAÇÃO)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2008-02-27T00:00:00-03:00",
+      "grupo_chapa": "1/012232",
+      "descricao": "BICICLETA  COM RODINHAS ARO 16 (PROERD) NA COR ROSA",
+      "tipo": "VEÍCULOS EM GERAL (P)",
+      "localizacao": "DEPOSITO (EDUCAÇÃO)",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2007-08-21T00:00:00-03:00",
+      "grupo_chapa": "1/011792",
+      "descricao": "VEICULO CAMINHONETE MARCA WOLKSWAGEN MODELO SAVEIRO MOTOR 1.6 COM 2 PORTAS COMBUSTIVEL FLEX NA COR BRANCO CRISTAL ANO DE FABRICAÇÃO 2007 ANO MODELO 2008 PLACA CPV7808 CHASSI: 9BWEB05WX8P037143",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2007-07-31T00:00:00-03:00",
+      "grupo_chapa": "1/011858",
+      "descricao": "CAÇAMBA METALICA BASCULANTE ACOPLADO NO CAMINHÃO PLACA CPV7907 PATRIMÔNIO 11857 MEDINDO 12 METRO CUBICO CILINDRO HIDRAULICO BOMBA HIDRAULICA ANO E MODELO 2007 N° SERIE: 102B1289",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2007-07-10T00:00:00-03:00",
+      "grupo_chapa": "1/011827",
+      "descricao": "VEICULO RETROESCAVADEIRA MARCA MASSEY FERGUSON MODELO MF96 POTENCIA 86CV CHASSI SERIE: 964P-233871",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2007-05-30T00:00:00-03:00",
+      "grupo_chapa": "1/011857",
+      "descricao": "VEICULO CAMINHÃO MARCA MERCEDES BENZ MODELO 2423k/36 COM CABINE TRAÇÃO 6X4 6 CILINDROS MOVIDO A OLEO DIESEL NA COR BRANCO ANO E MODELO DE FABRICAÇÃO 2007 PLACA CPV7907 CHASSI: 9BM6933867B533604",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2007-01-10T00:00:00-03:00",
+      "grupo_chapa": "1/012206",
+      "descricao": "VEICULO MICROONIBUS MARCA PEUGEOT MODELO BOXER 330M-16 MOTOR 2.8HD1 COMBUSTIVEL DIESEL NA COR BRANCA PLACA CPV7797 CHASSI 936ZBPMMB72009256 ANO DE FABRICAÇÃO 2006 MODELO 2007",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "MERENDA ESCOLAR",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2007-01-10T00:00:00-03:00",
+      "grupo_chapa": "1/012207",
+      "descricao": "VEICULO ONIBUS CAPACIDADE 33 LUGARES MARCA COMIL MODELO AGRALE PIA NA COR BRANCA COMBUSTIVEL DIESEL PLACA CPV7794 CHASSI 9BYC22Y1S7C003969 ANO DE FABRICAÇÃO 2007 MODELO 2007",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "TRANSPORTE ESCOLAR 2° andar",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2005-11-29T00:00:00-03:00",
+      "grupo_chapa": "1/009828",
+      "descricao": "VEICULO MOTOCICLETA MARCA JTA/SUZUKI MODELO EN125 MOTOR 125CC COMBUSTIVEL GASOLINA NA COR PRETA PLACA CRX8193 CHASSI: 9CDNF41LJ6M018706 ANO DE FABRICAÇÃO 2005 MODELO 2006",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE CULTURA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2005-11-16T00:00:00-03:00",
+      "grupo_chapa": "1/009726",
+      "descricao": "VEICULO CAMINHÃO COMBUSTIVEL DIESEL NA COR BRANCO BANCHISA TRAÇÃO 4X2 POTENCIA DO MOTOR 125CV MARCA IVECO MODELO DAILY 7013 PLACA CPV7790 ANO E MODELO DE FABRICAÇÃO 2005 ANO MODELO 2006",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2004-05-10T00:00:00-03:00",
+      "grupo_chapa": "1/009053",
+      "descricao": "VEICULO UNO MODELO MILE FIRE MARCA FIAT COM 2 PORTAS ANO E MODELO DE FABRICAÇÃO 2004 NA COR BRANCA BANCHISA COMBUSTIVEL GASOLINA PLACA CPV7782 CHASSI 9BD15802544575060",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "PROJETO INFOVIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2004-05-06T00:00:00-03:00",
+      "grupo_chapa": "1/009081",
+      "descricao": "VEICULO ONIBUS MARCA MARCOPOLO MODELO VOLARE W8 NA COR BRANCO COM CAPACIDADE 32 PASSAGEIROS COMBUSTIVEL DIESEL ANO E MODELO DE FABRICAÇÃO 2004 PLACA CPV7783 CHASSI: 93PB12B3P4C012858",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2004-04-24T00:00:00-03:00",
+      "grupo_chapa": "1/009050",
+      "descricao": "VEICULO AUTOMOVEL MARCA FIAT TIPO UNO MILLE MOTOR FIRE COM 2 PORTAS NA COR BRANCO BANCHISA COMBUSTIVEL GASOLINA ANO E MODELO DE FABRICAÇÃO 2004 PLACA CPV7781 CHASSI: 9BD15802544575060",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISÃO DE ILUMINAÇÃO PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2004-04-10T00:00:00-03:00",
+      "grupo_chapa": "1/012199",
+      "descricao": "VEICULO ESPECIAL CAMINHONETE  MARCA GENERAL MOTORS MODELO S10 AMBULANCIA NA COR BRANCA MOTOR 2.4 ROTAN COMBUSTIVEL GASOLINA PLACA CMW3505 CHASSI 9BG124AX04C422206 ANO E MODELO DE FABRICAÇÃO 2004",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "BRIGADA DE EMERGENCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2004-04-01T00:00:00-03:00",
+      "grupo_chapa": "1/009009",
+      "descricao": "VEICULO UTILITARIO TIPO VAN MARCA HYUNDAI MODELO H100 COM 16 LUGARES  COMBUSTIVEL DIESEL NA COR PRATA CHASSI PLACA CPV7799 CHASSI KMJRD37BP3K552189",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "OFICINA MUNICIPAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2004-04-01T00:00:00-03:00",
+      "grupo_chapa": "1/009010",
+      "descricao": "VEICULO UTILITARIO TIPO VAN MARCA HYUNDAI MODELO H100 COM 16 LUGARES  COMBUSTIVEL DIESEL NA COR PRATA PLACA CPV7780 CHASSI KMJRD37BP3K552193",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE CULTURA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2003-10-21T00:00:00-03:00",
+      "grupo_chapa": "1/008894",
+      "descricao": "CARROCERIA DE MADEIRA CHAPEADA TOTAL 4,20 METRO DE COMPRIMENTO LIVRE X 2,12 METRO  X 0,40 CENTIMETRO DE ALTURA DA GUARDA ALOCADO NO CAMINHÃO MARCA MERCEDES BENZ MODELO L608D PLACA CDZ4865 CHAPA DE PATRIMÔNIO 2284",
+      "tipo": "VEÍCULOS EM GERAL (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2002-12-20T00:00:00-03:00",
+      "grupo_chapa": "1/008259",
+      "descricao": "VEICULO VAN COMBUSTIVEL DIESEL NA COR BRANCA POTENCIA DO MOTOR 103CV MARCA IVECO MODELO DAILY 3510 PLACA CPV7770 ANO E MODELO DE FABRICAÇÃO 2002",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2002-10-09T00:00:00-03:00",
+      "grupo_chapa": "1/008193",
+      "descricao": "VEICULO RETROESCAVADEIRA MARCA MASSEY FERGUSON MODELO MF96/4 ANO DE MODELO DE FABRICAÇÃO 2002 CHASSI 9640121209",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2002-03-10T00:00:00-03:00",
+      "grupo_chapa": "1/008192",
+      "descricao": "VEICULO CAMINHÃO MARCA VOLKSWAGEN MODELO 13.180 NA COR BRANCA GEADA COMBUSTIVEL DIESEL PLACA CPV7767 CHASSI: 9BWBE72S62R215548 ANO E MODELO DE FABRICAÇÃO 2002",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISÃO DE LIMPEZA PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2002-03-10T00:00:00-03:00",
+      "grupo_chapa": "1/008194",
+      "descricao": "VEICULO COLETOR COMPACTADOR DE LIXO COM CAPACIDADE 10M3 MARCA VEMAQ MODELO CCL-10 ACOPLADO NO VEICULO MARCA VOLKSWAGEN MODELO 13.180  PLACA CPV7767 N°  PATRIMONIO 8192",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISÃO DE LIMPEZA PÚBLICA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2002-03-10T00:00:00-03:00",
+      "grupo_chapa": "1/012067",
+      "descricao": "VEICULO MOTOCICLETA MARCA HONDA MODELO NX-4 FALCON NA COR CINZA COMBUSTIVEL GASOLINA PLACA CRX2F33 CHASSI: 9C2ND07002R005752 ANO E MODELO DE FABRICAÇÃO 2002",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE SERVIÇOS URBANOS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2002-03-10T00:00:00-03:00",
+      "grupo_chapa": "1/012069",
+      "descricao": "VEICULO MOTOCICLETA MARCA HONDA MODELO FALCON NX-4 ANO MODELO DE FABRICAÇÃO 2002 PLACA BFX3406 CHASSI 9C2NDO7002R005736 NA COR CINZA",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "OFICINA MUNICIPAL",
+      "origem": "Doação/Transf.",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2002-03-07T00:00:00-03:00",
+      "grupo_chapa": "1/008136",
+      "descricao": "VEICULO MICRO ONIBUS MARCA MARCOPOLO MODELO VOLARE COM CAPACIDADE 24 PASSAGEIROS NA COR BRANCA COMBUSTIVEL DIESEL ANO E MODELO DE FABERICAÇÃO 2002 PLACA CPV7800 CHASSI: 93PB02A2M2C006948",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CAPS - CENTRO DE ATENÇÃO PSICOSSOCIAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2002-03-05T00:00:00-03:00",
+      "grupo_chapa": "1/007604",
+      "descricao": "VEICULO MOTOCICLETA MARCA HONDA MODELO CG125 TITAN KS NA COR VERMELHA COMBUSTIVEL GASOLINA PLACA BFX3428 CHASSI: 9C2JC30102R161150 ANO E MODELO DE FABRICAÇÃO 2002",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE SERVIÇOS URBANOS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2001-11-06T00:00:00-03:00",
+      "grupo_chapa": "1/007329",
+      "descricao": "VEICULO AUTOMOVEL MARCA VOLKSWAGEN MODELO GOL SPECIAL MOTOR 62CV COMBUSTIVEL GASOLINA NA COR BRANCO CRISTAL ANO DE FABRICAÇÃO 2001 ANO MODELO 2002 PLACA CPV7766 CHASSI: 9BWCA05Y02T021480",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2001-04-20T00:00:00-03:00",
+      "grupo_chapa": "1/007096",
+      "descricao": "VEICULO MICRO ONIBUS MARCA MARCOPOLO MODELO VOLARE NA COR BRANCA COM CAPACIDADE 20 PASSAGEIROS COMBUSTIVEL DIESEL ANO E MODELO DE FABRICAÇÃO 2001 PLACA CPV2264 CHASSI: 93PB03A2M1C004537",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2001-03-10T00:00:00-03:00",
+      "grupo_chapa": "1/006848",
+      "descricao": "VEICULO MOTOCICLETA MARCA HONDA MODELO CG125 TITAN KS NA COR VERDE COMBUSTIVEL GASOLINA PLACA BFX3426 CHASSI: 9C2JC30101R146558",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE SERVIÇOS URBANOS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2001-02-07T00:00:00-03:00",
+      "grupo_chapa": "1/006723",
+      "descricao": "VEICULO ONIBUS MARCA MARCOPOLO MODELO VOLARE LOTAÇÃO CAPACIDADE 24 LUGARES NA COR BRANCA COMBUSTIVEL DIESEL PLACA CPV7799 CHASSI 93PBOA2MIC003680",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "CENTRAL DE AMBULANCIA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2000-09-01T00:00:00-03:00",
+      "grupo_chapa": "1/006311",
+      "descricao": "VEICULO MISTO CAMIONETA  MODELO KOMBI STANDART MARCA VOLKSWAGEN COMBUSTIVEL GASOLINA NA COR BRANCA PLACA CPV7778 CHASSI 9BWGBO7X11POO1782 ANO DE FABRICAÇÃO 2000 MODELO 2001",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "ZOO/BOSQUE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2000-03-10T00:00:00-03:00",
+      "grupo_chapa": "1/012198",
+      "descricao": "VEICULO CAMINHONETE  AMBULANCIA MARCA GENERAL MOTORS MODELO S10 2.2 RONTAN NA COR BRANCA COMBUSTIVEL GASOLINA PLACA BSV9158 CHASSI 9BG124AS0YC422974 ANO E MODELO DE FABRICAÇÃO 2000",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "OFICINA MUNICIPAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "2000-01-10T00:00:00-03:00",
+      "grupo_chapa": "1/008145",
+      "descricao": "VEICULO MOTOCICLETA MARCA HONDA MODELO CBX 200 STRADA NA COR PRETA COMBUSTIVEL GASOLINA ANO DE FABRICAÇÃO 2000 ANO MODELO 2001 PLACA BFX3408 CHASSI: 9CEMC27001R003224",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1998-06-25T00:00:00-03:00",
+      "grupo_chapa": "1/003198",
+      "descricao": "VEICULO MISTO CAMIONETA MARCA VOLKSWAGEN MODELO KOMBI STANDARD COM 3 PORTAS E 8 LUGARES NA COR BRANCA GEADA COMBUSTIVEL GASOLINA ANO DE FABRICAÇÃO 1998 MODELO 1999 PLACA CDZ4867 CHASSI: 9BWZZZ237WP013326",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE SERVIÇOS URBANOS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1998-06-25T00:00:00-03:00",
+      "grupo_chapa": "1/003199",
+      "descricao": "VEICULO MISTO CAMIONETA MARCA VOLKSWAGEN MODELO KOMBI STANDARD 3 PORTASS COM 8 LUGARES NA COR BRANCA COMBUSTIVEL GASOLINA PLACA CDZ4864 CHASSI: 9BWZZZ237WP013420 ANO DE FABRICAÇÃO 1998 MODELO 1999",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE CULTURA",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1998-05-22T00:00:00-03:00",
+      "grupo_chapa": "1/003173",
+      "descricao": "VEICULO RETROESCAVADEIRA MARCA TEMA TERRA MODELO 700PS",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1996-01-02T00:00:00-03:00",
+      "grupo_chapa": "1/002149",
+      "descricao": "VEICULO PARATI MARCA VOLKSWAGEN MODELO CL COR BRANCA PLACA BFW-5097 ANO DE FABRICAÇÃO/MODELO 1995 CHASSI 9BWZZZ80ZGP059386",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE MEIO AMBIENTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1996-01-02T00:00:00-03:00",
+      "grupo_chapa": "1/002150",
+      "descricao": "VEICULO PARATI MARCA VOLKSWAGEN MODELO CL COR BRANCA PLACA BFW-5096 ANO DE FABRICAÇÃO/MODELO 1995 CHASSI 98WZZZ30ZSP057754 RENAVAM 657971430",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE MEIO AMBIENTE",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1995-03-20T00:00:00-03:00",
+      "grupo_chapa": "1/002943",
+      "descricao": "VEICULO AUTOMOVEL MARCA VOLKSWAGEN MODELO GOL 1000 COMBUSTIVEL GASOLINA NA COR BRANCA MOTOR 50CV ANO E MODELO DE FABRICAÇÃO 1995 PLACA BFW5093 CHASSI: 9BWZZ30ZSP057115",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1995-03-20T00:00:00-03:00",
+      "grupo_chapa": "1/009203",
+      "descricao": "VEICULO CAMIONETA MARCA FORD MODELO F1000SS NA COR PRATA COMBUSTIVEL DIESEL PLACA CAE3390 CHASSI: 8AFETNL20SJ001033",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1995-03-10T00:00:00-03:00",
+      "grupo_chapa": "1/002948",
+      "descricao": "VEICULO AUTOMOVEL MARCA WOLKSVAGEN MODELO GOL 1000 NA COR BRANCA COMBUSTIVEL GASOLINA ANO E MODELO DE FABRICAÇÃO 1995 PLACA BFW5095 CHASSI 9BWZZZ30ZSSP057094",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "OFICINA MUNICIPAL",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1990-03-20T00:00:00-03:00",
+      "grupo_chapa": "1/003077",
+      "descricao": "VEICULO CAMINHÃO MARCA VOLKSWAGEN MODELO 14.140 2P NA COR BRANCA COMBUSTIVEL DIESEL PLACA CPV2259 CHASSI: 9BWZZZG2ZLC019852",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE SERVIÇOS URBANOS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1987-03-10T00:00:00-03:00",
+      "grupo_chapa": "1/002936",
+      "descricao": "VEICULO PA CARREGADEIRA MARCA FIAT MODELO FR10B ANO E MODELO DE FABRICAÇÃO 1987",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1985-03-10T00:00:00-03:00",
+      "grupo_chapa": "1/002284",
+      "descricao": "VEICULO CAMINHÃO CARRETA ABERTA MARCA MERCEDES BENZ MODELO L608D NA COR BRANCA COMBUSTIVEL DIESEL ANO E MODELO DE FABRICAÇÃO 1985 PLACA CDZ4865 CHASSI 30830212670696",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DIVISAO DE OBRAS PÚBLICAS",
+      "origem": "Compra",
+      "placa": null
+    },
+    {
+      "data_aquisicao": "1983-03-20T00:00:00-03:00",
+      "grupo_chapa": "1/008370",
+      "descricao": "VEICULO CAMINHÃO MARCA MERCEDES-BENZ MODELO L608D NA COR VERMELHA COMBUSTIVEL DIESEL PLACA CXG7101 CHASSI: 30830212634727",
+      "tipo": "VEÍCULOS DE TRAÇÃO MECÂNICA (P)",
+      "localizacao": "DEPARTAMENTO DE SERVIÇOS URBANOS",
+      "origem": "Compra",
+      "placa": null
+    }
+  ]
+}
