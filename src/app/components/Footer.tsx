@@ -32,27 +32,27 @@ export function FooterLinks() {
               Documentos
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
-              >
+              <li>
                 <Link to="/diario-oficial" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Diário Oficial
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/camara" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Câmara Legislativa
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/controle-externo" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Controle Externo
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/documentos-faltantes" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Documentos Faltantes
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/relatorios" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Relatórios
                 </Link>
@@ -66,37 +66,37 @@ export function FooterLinks() {
               Finanças Públicas
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
-              >
+              <li>
                 <Link to="/contas-publicas" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Panorama Contábil
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/receitas" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Receitas
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/despesas" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Despesas
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/licitacoes" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Licitações
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/repasses" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Repasses
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/pagamentos-pendentes" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Pagamentos Pendentes
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/terceiro-setor" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Terceiro Setor
                 </Link>
@@ -112,27 +112,27 @@ export function FooterLinks() {
               Plataforma
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
-              >
+              <li>
                 <Link to="/" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Início
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/assistente" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Assistente Jurídico
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/denuncia" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Canal de Denúncia
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/help" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Ajuda / FAQ
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/relatorio-transparencia" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Relatório de Transparência
                 </Link>
@@ -145,22 +145,22 @@ export function FooterLinks() {
               Institucional
             </h3>
             <ul className="mt-4 space-y-2 text-sm">
-              >
+              <li>
                 <Link to="/#sobre" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Sobre a Plataforma
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/#base-legal" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Base Legal
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/#privacidade" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Política de Privacidade
                 </Link>
               </li>
-              >
+              <li>
                 <Link to="/#contato" className="text-slate-600 hover:text-slate-950 transition-colors">
                   Contato
                 </Link>

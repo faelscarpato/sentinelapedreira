@@ -62,6 +62,7 @@ export function Header() {
         { name: "Câmara Legislativa", href: "/camara", description: "Projetos e proposições" },
         { name: "Controle Externo", href: "/controle-externo", description: "TCE, TCU e fiscalização" },
         { name: "Documentos Faltantes", href: "/documentos-faltantes", description: "Radar de ausência" },
+{ name: "Planejamento (LOA/LDO/PPA)", href: "/contas-publicas?subtype=loa", description: "Leis e metas" },
       ],
     },
     {
@@ -72,7 +73,6 @@ export function Header() {
         { name: "Receitas", href: "/receitas", description: "Arrecadação mensal" },
         { name: "Despesas", href: "/despesas", description: "Gastos detalhados" },
         { name: "Licitações", href: "/licitacoes", description: "Compras e contratos" },
-        { name: "Planejamento (LOA/LDO/PPA)", href: "/contas-publicas?subtype=loa", description: "Leis e metas" },
         { name: "Repasses", href: "/repasses", description: "Transferências e destinação" },
         { name: "Pagamentos Pendentes", href: "/pagamentos-pendentes", description: "Restos a pagar" },
         { name: "Terceiro Setor", href: "/terceiro-setor", description: "Convênios e entidades" },
@@ -84,6 +84,8 @@ export function Header() {
       items: [
         { name: "Assistente Jurídico", href: "/assistente", description: "IA via Edge Function" },
         { name: "Painel Editorial", href: "/painel-editorial", description: "Fluxo de revisão e publicação" },
+{ name: "Indices de Transparência", href: "/relatorio-transparencia", description: "Relatório de Transparência" },
+{ name: "Ajuda / FAQ", href: "/help", description: "Ajuda / FAQ" },
       ],
     },
   ];
